@@ -1,12 +1,9 @@
-//- 
-//- state.go(showone)
-.col-md-6.col-sm-11
+.col-md-4.col-md-offset-1.col-sm-11(ng-repeat='assignment in assignments track by $index')
   h4 Assignments
-  .box.inputButton(ng-repeat='assignment in assignments track by $index')
+  .box.inputButton
     h5.cursor: a(ng-click='viewOneAssignment(project._id)') {{assignment.projectName}}
     ul
-      li: h6 Date Assigned: {{assignment.assignDate}}
+      li: h6 Date Assigned: {{assignment.createdAt}}
       li: h6 Due Date: {{assignment.dueDate}}
     h4 Intros
-      .box.inputButton(ng-repeat='intro in intros track by $index')
-        h5.cursor: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
+      h5.cursor: a(ng-click='viewOneIntro(); $event.stopPropagation();') {{assignment.intro}}

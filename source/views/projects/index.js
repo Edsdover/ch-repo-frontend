@@ -21,6 +21,7 @@ angular.module('chRepo')
   $scope.submit = function(obj){
     obj.projectId = $scope.selectedProject._id;
     obj.projectName = $scope.selectedProject.name;
+    obj.introId = $scope.selectedIntro._id;
     Assignment.create(obj)
     .success(function(data){
       console.log('data', data);
@@ -91,5 +92,10 @@ angular.module('chRepo')
     var indx = $scope.projects.indexOf(this)+1;
     $scope.selectedProject = project;
     $scope.projects.splice(indx, 1);
+  };
+  $scope.selectedIntro = function(index){
+    var intro = this.assignment.intro;
+    var indx = $scope.intros.indexOf(this)+1;
+    $scope.selectedIntro = intro;
   };
 });

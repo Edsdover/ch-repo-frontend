@@ -25,9 +25,10 @@
       option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
   .form-group
     h6 Pick an Intro
-    select.form-control(ng-model='assignment.introId')
-      option
-      option(ng-repeat='intro in intros') {{intro.name}}
+    select(ng-model="assignment.intro" ng-options="intro as intro.name for intro in intros track by index" ng-change="selectedIntro(index)")
+    //- select.form-control(ng-model='assignment.introId')
+    //-   option
+    //-   option(ngChange='selectedIntro(index)' ng-repeat='intro in intros track by $index') {{intro.name}}
   .form-group
     lable Due Date:
     input.form-control(type='date' ng-model='assignment.dueDate')
