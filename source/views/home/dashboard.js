@@ -29,9 +29,11 @@ angular.module('chRepo')
     $scope.intros = intros;
   });
 
-  $scope.viewOneAssignment = function(projectId){
-    $state.go('home.show', {projectId:projectId});
+  $scope.viewOneAssignment = function(assignmentId){
+    $state.go('home.show', {assignmentId: assignmentId});
+    console.log(assignmentId);
   };
+  
   $scope.viewOneIntro = function(){
     console.log(this.assignment.introId);
     // $state.go('intros.show', {introId:introId});
