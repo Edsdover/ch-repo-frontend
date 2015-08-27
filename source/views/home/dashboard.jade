@@ -3,7 +3,7 @@
   .box.inputButton
     h5.cursor: a(ng-click='viewOneAssignment(assignment._id)') {{assignment.projectName}}
     ul
-      li: h6 Date Assigned: {{assignment.createdAt}}
-      li: h6 Due Date: {{assignment.dueDate}}
+      li: h6 Date Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
+      li: h6 Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
     h4 Intros
-      h5.cursor: a(ng-click='viewOneIntro(); $event.stopPropagation();') {{assignment.introName}}
+      h5.cursor: a(ng-click='viewOneIntro(assignment.introId); $event.stopPropagation();') {{assignment.introName}}

@@ -19,8 +19,8 @@ angular.module('chRepo')
     $scope.intros = intros;
   });
   $scope.submit = function(obj){
+    obj.projectName = $scope.selectedProject.name;  
     obj.projectId = $scope.selectedProject._id;
-    obj.projectName = $scope.selectedProject.name;
     obj.introName = $scope.selectedIntro.name;
     obj.introId = $scope.selectedIntro._id;
     Assignment.create(obj)
