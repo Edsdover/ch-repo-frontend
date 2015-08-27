@@ -8,7 +8,7 @@ angular.module('chRepo')
   .state('home', {url: '/', templateUrl: '/views/home/home.html', abstract: true})
   .state('home.dashboard', {url: 'dashboard', templateUrl: '/views/home/dashboard.html', controller: 'DashboardCtrl'})
   .state('user', {url: '', templateUrl: '/views/users/user.html', abstract: true})
-  .state('home.show', {url: 'dashboard/{projectId}', templateUrl: '/views/home/showOneProject.html', controller: 'HomeAssignmentCtrl'})
+  .state('home.show', {url: 'dashboard/{assignmentId}', templateUrl: '/views/home/showOneAssignment.html', controller: 'HomeAssignmentCtrl'})
   .state('home.showOneIntro', {url: '/dashboard/{introId}', templateUrl: '/views/home/showOneIntro.html', controller: 'HomeIntroCtrl'})
 
   .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})

@@ -22,8 +22,8 @@ angular.module('chRepo')
   Assignment.index = function(){
     return $http.get(apiUrl + '/assignments');
   };
-  // Assignment.findById = function(introId){
-  //   return $http.get(apiUrl + '/cohorts/' + introId);
-  // };
+  Assignment.findById = function(assignmentId){
+    return $http.get(apiUrl + '/assignments/' + assignmentId);
+  };
   return Assignment;
 });

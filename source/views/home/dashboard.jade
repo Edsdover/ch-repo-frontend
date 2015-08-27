@@ -1,7 +1,7 @@
 .col-md-4.col-md-offset-1.col-sm-11(ng-repeat='assignment in assignments track by $index')
   h4 Assignments
   .box.inputButton
-    h5.cursor: a(ng-click='viewOneAssignment(assignment.projectId)') {{assignment.projectName}}
+    h5.cursor: a(ng-click='viewOneAssignment(assignment._id)') {{assignment.projectName}}
     ul
       li: h6 Date Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
       li: h6 Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
