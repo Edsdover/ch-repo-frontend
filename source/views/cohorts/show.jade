@@ -1,0 +1,11 @@
+.row
+  .col-xs-10
+    h4.bold.underline {{cohort.cohortName}} Students:
+.row
+  .col-xs-12
+    div(ng-repeat='student in students')
+      .col-md-2.col-xs-11
+        img.img-responsive.img-thumbnail.studentCard(ng-src='{{student.profileImageURL}}')
+      .col-md-4.col-xs-11
+        h5 Name: {{student.displayName}}
+        h5 Username: {{student.username}}

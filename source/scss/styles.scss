@@ -1,0 +1,52 @@
+$size: 100px;
+
+.logos > img{
+  max-width: $size;
+  max-height: 100px;
+}
+.box{
+  border: 1px solid rgba(0, 0, 0, 0.19);
+  padding: 10px;
+}
+.projectScoring {
+  padding-top: 6px;
+}
+.bold{
+  font-weight: bold;
+}
+.inputButton{
+  margin-bottom: 20px;
+}
+.rightFloat{
+  float: right;
+  margin-right: 10px;
+}
+.cursor{
+  cursor: pointer;
+}
+.underline{
+  text-decoration: underline;
+}
+.leftFloat{
+  float: left;
+  margin-right: 55px;
+  margin-top: 5px;
+}
+.userListPic{
+  max-width: 100px;
+}
+.userCard{
+  margin-left: 5%;
+}
+.studentCard{
+  max-width: 65px;
+}
+.logInButton{
+  padding-top: 18px;
+}
+.borderRight{
+  border-right: 1px solid black;
+}
+.textCenter{
+  text-align: center;
+}

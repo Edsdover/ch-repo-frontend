@@ -1,0 +1,26 @@
+.row
+  .col-md-12.col-xs-11
+    h3.underline.bold.leftFloat {{project.name}}
+      h4.presetCategory {{project.tech}}
+        button.btn.btn-sm.btn-danger.rightFloat(title="Edit Project" ui-sref='projects.edit({projectId:project._id})').glyphicon.glyphicon-edit
+        button.btn.btn-sm.btn-warning.rightFloat(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();'): i.fa.fa-trash
+.row
+  .col-md-6.col-xs-11
+    h4.underline.projectScoring Alternatives:
+    h5 {{project.alternatives}}
+    h4.underline Concepts:
+    h5 {{project.concepts}}
+    h4.underline Pros:
+    h5 {{project.pros}}
+    h4.underline References:
+    h5 {{project.references}}
+  .col-md-6.col-xs-11
+    h4.underline.projectScoring Requirements:
+    h5 {{project.requirements}}
+    h4.underline Deployment Instructions:
+    h5 {{project.deployment}}
+    h4.underline Notes:
+    h5 {{project.notes}}
+    h4.underline GitHub URL:
+    h5 {{project.githubURL}}
+    button.btn.btn-sm.btn-info.projectScoring(title="Assign Project" ng-click='assignProject(project); $event.stopPropagation();'): i.fa.fa-arrow-right &nbsp Assign

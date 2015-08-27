@@ -1,0 +1,37 @@
+
+.row
+  .col-md-12.col-xs-11
+    h3.underline.bold.leftFloat {{assignment.projectName}}
+      h4.presetCategory {{project.tech}}
+.row
+  .col-md-6.col-xs-11
+    h4.underline.projectScoring Due Date:
+    h5 {{assignment.dueDate}}
+    h4.underline Alternatives:
+    h5 {{project.alternatives}}
+    h4.underline Concepts:
+    h5 {{project.concepts}}
+    h4.underline Pros:
+    h5 {{project.pros}}
+    h4.underline References:
+    h5 {{project.references}}
+  .col-md-6.col-xs-11
+    h4.underline.projectScoring Requirements:
+    h5 {{project.requirements}}
+    h4.underline Deployment Instructions:
+    h5 {{project.deployment}}
+    h4.underline Notes:
+    h5 {{project.notes}}
+    h4.underline GitHub URL:
+    h5 {{project.githubURL}}
+.row
+  .col-md-6.col-xs-11
+    h4.underline.projectScoring Grading:
+    h5.underline Functionality Points: 
+    h6 {{assignment.functionalityPoints}}
+    h5.underline HTML/CSS Points: 
+    h6 {{assignment.htmlPoints}}
+    h5.underline Javascript Points: 
+    h6 {{assignment.javascriptPoints}}
+    h5.underline Readability Points: 
+    h6 {{assignment.readabilityPoints}}

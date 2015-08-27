@@ -1,0 +1,29 @@
+doctype html
+html(lang='en', ng-app='chRepo')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title CHRepo
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/lumen/bootstrap.min.css')
+    link(rel='stylesheet', href='./packages/sweetalert/dist/sweetalert.css')
+    link(rel='stylesheet', href='./packages/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href=isProd ? '/styles.min.css' : '/styles.css')
+    link(rel='shortcut icon', href='/favicon.ico')
+  body
+    include views/nav/nav
+    .container
+      .row
+        .col-xs-12
+          div(ui-view)
+
+    script(src='./packages/jquery/dist/jquery.min.js')
+    script(src='./packages/bootstrap/dist/js/bootstrap.min.js')
+    script(src='./packages/lodash/lodash.min.js')
+    script(src='./packages/firebase/firebase.js')
+    script(src='./packages/sweetalert/dist/sweetalert.min.js')
+    script(src='./packages/angular/angular.min.js')
+    script(src='./packages/angularfire/dist/angularfire.min.js')
+    script(src='./packages/angular-ui-router/release/angular-ui-router.min.js')
+    script(type='text/javascript' src='./packages/angular-h-sweetalert/dist/ngSweetAlert.js')
+    script(src=isProd ? './index.min.js' : './index.js')
