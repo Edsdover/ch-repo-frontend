@@ -10,7 +10,7 @@ angular.module('chRepo')
   .state('user', {url: '', templateUrl: '/views/users/user.html', abstract: true})
   .state('home.show', {url: 'dashboard/{assignmentId}', templateUrl: '/views/home/showOneAssignment.html', controller: 'HomeAssignmentCtrl'})
   .state('home.showOneIntro', {url: '/dashboard/{introId}', templateUrl: '/views/home/showOneIntro.html', controller: 'HomeIntroCtrl'})
-  .state('home.edit', {url: '/{assignmentId}/edit', templateUrl: '/views/home/edit.html', controller: 'EditAssignmentCtrl'})
+  .state('home.edit', {url: '{assignmentId}/edit', templateUrl: '/views/home/edit.html', controller: 'EditAssignmentCtrl'})
 
   .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})
   .state('admins.userIndex', {url: '/admins/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
