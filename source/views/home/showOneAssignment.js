@@ -21,4 +21,28 @@ angular.module('chRepo')
 
   });
 
+  $scope.deleteAssignmentConfirm = function(assignment){
+    $scope.tempAssignment = assignment;
+    sweet.show({
+        title: 'Delete? Really?',
+        text: 'This will blow this project back to Nam',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'DO IT!',
+        closeOnConfirm: false
+    },
+    function() {
+      Assignment.delete($scope.tempAssignment)
+      .success(function(res){
+        sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
+        Assignment.index()
+        .success(function(assignments){
+          $scope.assignments = assignments;
+          $state.go('home.dashboard', {assignmentId:assignmentId});
+         });
+      });
+    });
+  };
+
 });

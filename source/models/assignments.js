@@ -10,12 +10,9 @@ angular.module('chRepo')
     console.log(assignment);
     return $http.post(apiUrl + '/assignments', assignment);
   };
-  // Assignment.update = function(intro){
-  //   return $http.put(apiUrl + '/cohorts', intro);
-  // };
-  // Assignment.addAssignment = function(assignment){
-  //   return $http.put(apiUrl + '/cohorts/addAssignments', assignment);
-  // };
+  Assignment.update = function(assignment){
+    return $http.put(apiUrl + '/assignments', assignment);
+  };
   Assignment.delete = function(assignment){
     return $http.delete(apiUrl + '/assignments/' + assignment._id);
   };
