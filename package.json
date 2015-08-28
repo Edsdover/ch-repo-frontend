@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/IAmEddieDean/Sif",
   "dependencies": {
+    "bower": "^1.5.2",
     "browser-sync": "2.7.13",
     "concurrent-transform": "^1.0.0",
     "gulp": "3.9.0",
