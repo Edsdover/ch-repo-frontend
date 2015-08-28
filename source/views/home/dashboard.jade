@@ -1,7 +1,7 @@
 .col-md-4.col-md-offset-1.col-sm-11(ng-repeat='assignment in assignments track by $index')
   h4 Assignments
   .box.inputButton.cursor(ng-click='viewOneAssignment(assignment._id)') 
-    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
+    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
     button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
     h5.cursor: ASSIGNMENT: {{assignment.projectName}}
     ul
