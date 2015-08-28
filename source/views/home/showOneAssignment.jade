@@ -1,30 +1,34 @@
 .row
   .col-md-12.col-xs-11
-    h3.underline.bold.leftFloat {{assignment.projectName}}
-      h4.presetCategory {{project.tech}}
+    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
+    button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
+    h3.underline.bold Assignment: {{assignment.projectName}}
+    h4.projectScoring Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
+    h4.presetCategory {{project.tech}}
 .row
   .col-md-6.col-xs-11
-    h4.underline.projectScoring Assigned Date:
-    h5 {{assignment.createdAt}}
-    h4.underline.projectScoring Due Date:
-    h5 {{assignment.dueDate}}
+    h4.underline.projectScoring Intro:
+    a(ng-click)
+      h5 {{assignment.introName}}
     h4.underline Alternatives:
     h5 {{project.alternatives}}
     h4.underline Concepts:
     h5 {{project.concepts}}
     h4.underline Pros:
     h5 {{project.pros}}
+  .col-md-6.col-xs-11
     h4.underline References:
     h5 {{project.references}}
-  .col-md-6.col-xs-11
-    h4.underline.projectScoring Requirements:
-    h5 {{project.requirements}}
-    h4.underline Deployment Instructions:
-    h5 {{project.deployment}}
     h4.underline Notes:
     h5 {{project.notes}}
     h4.underline GitHub URL:
     h5 {{project.githubURL}}
+.row
+  .col-md-12.col-xs-11
+    h4.underline.projectScoring Requirements:
+    h5 {{project.requirements}}
+    h4.underline Deployment Instructions:
+    h5 {{project.deployment}}
 .row
   .col-md-6.col-xs-11
     h4.underline.projectScoring Grading:

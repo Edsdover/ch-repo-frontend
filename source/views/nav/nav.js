@@ -16,8 +16,8 @@ angular.module('chRepo')
   }
 
   $scope.afAuth.$onAuth(function(data){
-    if(data.github.email == 'Edsdover@gmail.com'){
-    // if(data.github.email == 'misankovich@gmail.com'){
+    // if(data.github.email == 'Edsdover@gmail.com'){
+    if(data.github.email == 'misankovich@gmail.com'){
       data.github.cachedUserProfile.site_admin = true;
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;
