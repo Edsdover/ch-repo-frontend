@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('AdminCtrl', function(User, $scope, sweet){
+.controller('AdminCtrl', function(User, $scope, sweet, $rootScope){
 
   findAllUsers();
 
@@ -23,7 +23,7 @@ angular.module('chRepo')
   }
   $scope.toggleAdminOff = function(){
     var admin = this.admin;
-    console.log($rootScope.adminUser);
+    $rootScope.adminUser = false;
     User.toggleAdmin(admin)
     .success(function(res){
       findAllUsers();
@@ -31,7 +31,7 @@ angular.module('chRepo')
   };
   $scope.toggleAdminOn = function(){
     var student = this.student;
-    console.log($rootScope.adminUser);
+    $rootScope.adminUser = true;
     User.toggleAdmin(student)
     .success(function(res){
       findAllUsers();
