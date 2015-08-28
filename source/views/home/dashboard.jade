@@ -1,11 +1,22 @@
-.col-md-4.col-md-offset-1.col-sm-11(ng-repeat='assignment in assignments track by $index')
-  h4 Assignments
-  .box.inputButton.cursor(ng-click='viewOneAssignment(assignment._id)') 
-    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
-    button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
-    h5.cursor: ASSIGNMENT: {{assignment.projectName}}
-    ul
-      li: h6 Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
-      li: h6 Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
-    
-    
+.col-md-6.col-sm-11
+  h2 Current Assignment
+  .col-md-11.col-sm-11(ng-repeat='assignment in assignments track by $index | orderBy: assignment.dueDate')
+    h4 Assignment
+    .box.inputButton.cursor(ng-click='viewOneAssignment(assignment._id)') 
+      button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
+      button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
+      h5.cursor: ASSIGNMENT: {{assignment.projectName}}
+      ul
+        li: h6 Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
+        li: h6 Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
+.col-md-6.col-sm-11         
+  h2 Past Assignments
+  .col-md-11.col-sm-11(ng-repeat='assignment in assignments track by $index | orderBy: assignment.dueDate')
+    h4 Assignment
+    .box.inputButton.cursor(ng-click='viewOneAssignment(assignment._id)') 
+      button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
+      button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
+      h5.cursor: ASSIGNMENT: {{assignment.projectName}}
+      ul
+        li: h6 Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
+        li: h6 Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
