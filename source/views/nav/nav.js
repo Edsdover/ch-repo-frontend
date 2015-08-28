@@ -22,7 +22,7 @@ angular.module('chRepo')
       $rootScope.displayName = data.github.displayName;
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
       User.initialize(data).then(function(response){
-        $rootScope.activeUser.mongoId = response.data;
+        $rootScope.activeUser.mongoId = response.data; 
         adminAssignment();
       });
     }else if(data){
