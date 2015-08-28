@@ -83,20 +83,26 @@ angular.module('chRepo')
   $scope.viewOneIntro = function(introId){
     $state.go('intros.show', {introId:introId});
   };
-  $scope.toggleProjectOff = function(){
-    var project = $scope.selectedProject;
-    $scope.projects.push(project);
-    $scope.selectedProject = null;
-  };
   $scope.toggleProjectOn = function(index){
     var project = this.project;
     var indx = $scope.projects.indexOf(this)+1;
     $scope.selectedProject = project;
     $scope.projects.splice(indx, 1);
   };
-  $scope.selectedIntro = function(index){
-    var intro = this.assignment.intro;
+  $scope.toggleProjectOff = function(){
+    var project = $scope.selectedProject;
+    $scope.projects.push(project);
+    $scope.selectedProject = null;
+  };
+  $scope.toggleIntroOn = function(index){
+    var intro = this.intro;
     var indx = $scope.intros.indexOf(this)+1;
     $scope.selectedIntro = intro;
+    $scope.intros.splice(indx, 1);
+  };
+  $scope.toggleIntroOff = function(){
+    var intro = $scope.selectedIntro;
+    $scope.intros.push(intro);
+    $scope.selectedIntro = null;
   };
 });

@@ -1,7 +1,3 @@
-// if active user show dashboard
-//
-// else big logo thing
-
 'use strict';
 
 angular.module('chRepo')
@@ -29,9 +25,9 @@ angular.module('chRepo')
     $scope.intros = intros;
   });
 
-  $scope.viewOneAssignment = function(projectId){
-    console.log('projectId', projectId);
-    $state.go('home.show', {projectId:projectId});
+  $scope.viewOneAssignment = function(assignmentId){
+    $state.go('home.show', {assignmentId: assignmentId});
+    console.log(assignmentId);
   };
   $scope.viewOneIntro = function(introId){
     console.log('introId', introId);
