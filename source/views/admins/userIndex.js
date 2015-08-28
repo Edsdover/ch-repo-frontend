@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('AdminCtrl', function(User, $scope, sweet, $rootScope){
+.controller('AdminCtrl', function(User, $scope, $rootScope){
 
   findAllUsers();
 
@@ -23,7 +23,8 @@ angular.module('chRepo')
   }
   $scope.toggleAdminOff = function(){
     var admin = this.admin;
-    $rootScope.adminUser = false;
+    $rootScope.activeUser.adminUser = false;
+    console.log($rootScope.activeUser.adminUser);
     User.toggleAdmin(admin)
     .success(function(res){
       findAllUsers();
@@ -31,23 +32,11 @@ angular.module('chRepo')
   };
   $scope.toggleAdminOn = function(){
     var student = this.student;
-    $rootScope.adminUser = true;
+    $rootScope.activeUser.adminUser = true;
+    console.log($rootScope.activeUser.adminUser);
     User.toggleAdmin(student)
     .success(function(res){
       findAllUsers();
     });
   };
-  // sweet.show({
-  //     title: 'Demote?',
-  //     text: 'Are you sure you want to revoke admin rights?',
-  //     type: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonColor: '#DD6B55',
-  //     confirmButtonText: 'Yes, demote them ALL!',
-  //     closeOnConfirm: true
-  // },
-  // function() {
-  //   sweet.show('Demoted!', 'These users have been demoted like scumb!', 'success');
-  //   console.log($scope.selection);
-  // });
 });
