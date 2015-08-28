@@ -23,6 +23,7 @@ angular.module('chRepo')
   }
   $scope.toggleAdminOff = function(){
     var admin = this.admin;
+    console.log($rootScope.adminUser);
     User.toggleAdmin(admin)
     .success(function(res){
       findAllUsers();
@@ -30,6 +31,7 @@ angular.module('chRepo')
   };
   $scope.toggleAdminOn = function(){
     var student = this.student;
+    console.log($rootScope.adminUser);
     User.toggleAdmin(student)
     .success(function(res){
       findAllUsers();
