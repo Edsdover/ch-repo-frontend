@@ -16,9 +16,9 @@ angular.module('chRepo')
   // Assignment.addAssignment = function(assignment){
   //   return $http.put(apiUrl + '/cohorts/addAssignments', assignment);
   // };
-  // Assignment.delete = function(intro){
-  //   return $http.delete(apiUrl + '/cohorts/' + intro._id);
-  // };
+  Assignment.delete = function(assignment){
+    return $http.delete(apiUrl + '/assignments/' + assignment._id);
+  };
   Assignment.index = function(){
     return $http.get(apiUrl + '/assignments');
   };
