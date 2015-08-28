@@ -22,20 +22,22 @@ angular.module('chRepo')
     });
   }
   $scope.toggleAdminOff = function(){
+    console.log(this.admin);
     var admin = this.admin;
-    $rootScope.activeUser.adminUser = false;
-    console.log($rootScope.activeUser.adminUser);
+    admin.adminUser = false;
     User.toggleAdmin(admin)
     .success(function(res){
+      console.log('res', res);
       findAllUsers();
     });
   };
   $scope.toggleAdminOn = function(){
+    console.log(this.student);
     var student = this.student;
-    $rootScope.activeUser.adminUser = true;
-    console.log($rootScope.activeUser.adminUser);
+    student.adminUser = true;
     User.toggleAdmin(student)
     .success(function(res){
+      console.log('res', res);
       findAllUsers();
     });
   };

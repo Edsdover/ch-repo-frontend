@@ -42,6 +42,7 @@ angular.module('chRepo')
   });
   var adminAssignment = function(){
     $rootScope.adminUser = $rootScope.activeUser.github.cachedUserProfile.site_admin ? true : false;
+    $rootScope.adminUser = $rootScope.activeUser.mongoId.adminUser ? true : false;
   };
   $scope.logout = function(){
     User.logout();
