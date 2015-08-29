@@ -9,11 +9,22 @@ angular.module('chRepo')
 
   $scope.tempProject = {};
   $scope.tempIntro = {};
+  var currentAssignments = [];
+  var pastAssignments = [];
+
 
   Assignment.index()
   .success(function(assignments){
-    $scope.assignments = assignments;
-    console.log('$scope.assignments', $scope.assignments);
+    var currentTime = Number(new Date());
+    assignments.forEach(function(assignment){
+      if(Date.parse(assignment.dueDate) > currentTime){
+        currentAssignments.push(assignment);
+      }else{
+        pastAssignments.push(assignment);
+      }
+      $scope.currentAssignments = currentAssignments;
+      $scope.pastAssignments = pastAssignments;
+    });
   });
 
   Project.index()
@@ -60,5 +71,10 @@ angular.module('chRepo')
       });
     });
   };
-
+  // $scope.finished = function(assignments) {
+  //   console.log(Number($scope.assignments.dueDate));
+  //   // if (Number($scope.assignments.dueDate) > Number(new Date())) {
+  //   //   console.log('yes');
+  //   // }
+  // };
 });

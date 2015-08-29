@@ -16,5 +16,5 @@ nav.navbar.navbar-default(ng-controller='NavCtrl')
         li: a(ui-sref='projects.new' ng-if='adminUser'): i.fa.fa-plus &nbsp; New Project
         li: a(ui-sref='intros.new' ng-if='adminUser'): i.fa.fa-plus &nbsp; New Intro
         li: a(ui-sref='cohorts.new' ng-if='adminUser'): i.fa.fa-plus &nbsp; New Cohort
-        li: a(ui-sref='projects.index' ng-if='adminUser'): i.fa.fa-list &nbsp; Index
+        li: a(ui-sref='projects.index' ng-if='adminUser'): i.fa.fa-list &nbsp; New Assignment
         li: a(href='#', ng-click='logout()'): i.fa.fa-sign-out &nbsp; {{displayName}}
