@@ -58,7 +58,7 @@ angular.module('chRepo')
   };
   $scope.toggleCohortOn = function(){
     var student = this.student;
-    var indx = $scope.students.indexOf(this)+1;
+    var indx = $scope.students.indexOf(this);
     $scope.cohortStudentIds.push(student._id);
     $scope.cohortStudents.push(student);
     $scope.students.splice(indx, 1);

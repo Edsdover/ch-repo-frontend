@@ -71,10 +71,5 @@ angular.module('chRepo')
       });
     });
   };
-  // $scope.finished = function(assignments) {
-  //   console.log(Number($scope.assignments.dueDate));
-  //   // if (Number($scope.assignments.dueDate) > Number(new Date())) {
-  //   //   console.log('yes');
-  //   // }
-  // };
+
 });
