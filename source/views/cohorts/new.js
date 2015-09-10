@@ -20,7 +20,7 @@ angular.module('chRepo')
     User.findAll()
     .then(function(res){
       res.data.forEach(function(user){
-        if(user.adminUser == false){
+        if(user.adminUser === false){
           students.push(user);
         }
         $scope.students = students;
