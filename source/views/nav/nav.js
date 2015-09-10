@@ -16,16 +16,17 @@ angular.module('chRepo')
   }
 
   $scope.afAuth.$onAuth(function(data){
-    if((data.github.email == 'misankovich@gmail.com') || (data.github.email == 'Edsdover@gmail.com')){
+    console.log('data, nav.js:', data.github);
+    if(data.github.email === 'misankovich@gmail.com') {
       data.github.cachedUserProfile.site_admin = true;
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
       User.initialize(data).then(function(response){
-        $rootScope.activeUser.mongoId = response.data; 
+        $rootScope.activeUser.mongoId = response.data;
         adminAssignment();
       });
-    }else if(data){
+    } else if(data){
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
@@ -41,7 +42,7 @@ angular.module('chRepo')
   });
   var adminAssignment = function(){
     $rootScope.adminUser = $rootScope.activeUser.github.cachedUserProfile.site_admin ? true : false;
-    $rootScope.adminUser = $rootScope.activeUser.mongoId.adminUser ? true : false;
+    // $rootScope.adminUser = $rootScope.activeUser.mongoId.adminUser ? true : false;
   };
   $scope.logout = function(){
     User.logout();
