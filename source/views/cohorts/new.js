@@ -60,7 +60,7 @@ angular.module('chRepo')
     var student = this.student;
     var indx = $scope.students.indexOf(student);
     console.log(indx);
-    $scope.cohortStudentIds.push(student._id);
+    $scope.cohortStudentIds.push(student.id);
     $scope.cohortStudents.push(student);
     $scope.students.splice(indx, 1);
     console.log($scope.students);

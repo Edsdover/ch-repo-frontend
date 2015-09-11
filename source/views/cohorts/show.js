@@ -4,17 +4,30 @@ angular.module('chRepo')
 .controller('ShowOneCohortCtrl', function($scope, Cohort, $state, sweet, User){
 
   var cohortId = $state.params.cohortId;
+  $scope.cohortStudentIds = [];
+  $scope.cohortStudents = [];
+  $scope.students = [];
 
   Cohort.findById(cohortId)
   .then(function(response){
     $scope.cohort = response.data;
     var studentIds = response.data.cohortStudentIds;
-    console.log(studentIds);
-    User.findById(studentIds)
-    .then(function(response){
-      console.log(response.data);
+    // console.log(studentIds);
+    var students = [];
+    User.findAll()
+    .then(function(res){
+      res.data.forEach(function(user){
+        // console.log(user.id);
+        if((studentIds).indexOf(user.id) > -1){
+          students.push(user);
+        }
+        $scope.students = students;
+      });
+      console.log(students);
     });
   });
+
+
 
   // $scope.deleteProject = function(obj){
   //   Project.delete(obj)
