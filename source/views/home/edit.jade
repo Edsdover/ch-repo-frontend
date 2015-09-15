@@ -17,7 +17,7 @@
   h4 Assign Projects
   .form-group
   h4.textCenter(ng-hide='selectedProject') Click on the green + to add a project to your assignment!
-  h4.textCenter(ng-show='selectedProject') {{selectedProject.name}} &nbsp; Will be assigned! &nbsp; 
+  h4.textCenter(ng-show='selectedProject') {{selectedProject.name}} &nbsp; Will be assigned! &nbsp;
     button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-show='selectedProject' ng-click='toggleProjectOff(); $event.stopPropagation();')
   .form-group
     h6 Pick a Cohort
@@ -27,9 +27,6 @@
     h6 Pick an Intro
     select(ng-model="assignment.intro" ng-options="intro as intro.name for intro in intros track by index" ng-change="selectedIntro(index)")
       option
-  //- .form-group
-  //-   lable Due Date:
-  //-   input.form-control(type='date' ng-model='assignment.dueDate')
   .form-group
     h6 Category:
       h5.box Functionality

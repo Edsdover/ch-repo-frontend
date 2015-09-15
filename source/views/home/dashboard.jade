@@ -1,17 +1,17 @@
 .col-md-6.col-sm-11
   h2 Current Assignment
   .col-md-11.col-sm-11(ng-repeat='currentAssignment in currentAssignments track by $index | orderBy: currentAssignment.dueDate')
-    .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id)') 
+    .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id)')
       button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:currentAssignment._id})').glyphicon.glyphicon-edit
       button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
       h5.cursor: ASSIGNMENT: {{currentAssignment.projectName}}
       ul
         li: h6 Assigned: {{currentAssignment.createdAt | date: 'MMM-dd-yyyy'}}
         li: h6 Due Date: {{currentAssignment.dueDate | date: 'MMM-dd-yyyy'}}
-.col-md-6.col-sm-11         
+.col-md-6.col-sm-11
   h2 Past Assignments
   .col-md-11.col-sm-11(ng-repeat='pastAssignment in pastAssignments track by $index | orderBy: pastAssignment.dueDate')
-    .box.inputButton.cursor(ng-click='viewOneAssignment(pastAssignment._id)') 
+    .box.inputButton.cursor(ng-click='viewOneAssignment(pastAssignment._id)')
       button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:pastAssignment._id})').glyphicon.glyphicon-edit
       button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(pastAssignment); $event.stopPropagation();'): i.fa.fa-trash
       h5.cursor: ASSIGNMENT: {{pastAssignment.projectName}}
