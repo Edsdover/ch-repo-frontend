@@ -13,6 +13,7 @@ angular.module('chRepo')
   Cohort.index()
   .success(function(cohorts){
     $scope.cohorts = cohorts;
+    console.log($scope.cohorts);
   });
   Intro.index()
   .success(function(intros){
@@ -27,6 +28,41 @@ angular.module('chRepo')
     Assignment.create(obj)
     .success(function(data){
       console.log('data', data);
+        var email = Cohort.findOne($scope.assignment.cohortName)
+        .then(function(response){
+          console.log(response, "Here ya go");
+          $scope.assignment = response.data});
+        var name = 'MIke';
+        var msg = 'New Assignment at ch-repo.herokuapp.com';
+        $.ajax({
+          type: "POST",
+          url: "https://mandrillapp.com/api/1.0/messages/send.json",
+          data: {
+            'key': 'MDTpzgc6BNZ7carbIFxuYw',
+            'message': {
+              'from_email': email,
+              'from_name': name,
+              'headers': {
+                'Reply-To': email
+              },
+              'subject': 'New Assignment',
+              'text': msg,
+              'to': [{
+                'email': 'misankovich@gmail.com',
+                'name': 'Michael Sankovich',
+                'type': 'to'
+              }]
+            }
+          }
+        })
+        .done(function(response) {
+          alert('yaaaaay');
+        })
+        .fail(function(response) {
+          alert('noooooo');
+        });
+        return false;
+
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
       $scope.assignment = {};
     })
@@ -37,13 +73,13 @@ angular.module('chRepo')
   $scope.deleteProjectConfirm = function(project){
     $scope.tempProject = project;
     sweet.show({
-        title: 'Delete? Really?',
-        text: 'This will blow this project back to Nam',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'DO IT!',
-        closeOnConfirm: false
+      title: 'Delete? Really?',
+      text: 'This will blow this project back to Nam',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
     },
     function() {
       Project.delete($scope.tempProject)
@@ -52,20 +88,20 @@ angular.module('chRepo')
         Project.index()
         .success(function(projects){
           $scope.projects = projects;
-         });
+        });
       });
     });
   };
   $scope.deleteIntro = function(intro){
     $scope.tempIntro = intro;
     sweet.show({
-        title: 'Delete? Really?',
-        text: 'This will blow this intro back to Nam',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'DO IT!',
-        closeOnConfirm: false
+      title: 'Delete? Really?',
+      text: 'This will blow this intro back to Nam',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
     },
     function() {
       Intro.delete($scope.tempIntro)
@@ -74,7 +110,7 @@ angular.module('chRepo')
         Intro.index()
         .success(function(intros){
           $scope.intros = intros;
-         });
+        });
       });
     });
   };

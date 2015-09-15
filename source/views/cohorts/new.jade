@@ -17,6 +17,8 @@ form(name='newProjectForm', novalidate)
       .form-group
         label.bold Title:
         input.form-control.inputButton#projectName(ng-model='cohort.cohortName')
+        label.bold Cohort Email
+        input.form-control.inputButton#projectName(ng-model='cohort.cohortEmail')
         button.btn.btn-success.btn-lg.rightFloat(ng-click='update(cohort)') Submit
       .form-group
 h4 Add Students:

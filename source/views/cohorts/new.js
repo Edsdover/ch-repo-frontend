@@ -77,6 +77,7 @@ angular.module('chRepo')
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.create(obj)
     .success(function(res){
+      console.log('LOOK AT MEEEEE BITCHES', res);
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
       $scope.cohort = {};
       $scope.cohortStudents = [];

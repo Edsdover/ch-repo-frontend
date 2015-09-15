@@ -46,5 +46,6 @@ angular.module('chRepo')
   };
   $scope.logout = function(){
     User.logout();
+    $state.go('home');
   };
 });
