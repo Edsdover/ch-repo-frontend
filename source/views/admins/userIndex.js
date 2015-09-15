@@ -14,7 +14,7 @@ angular.module('chRepo')
         if(user.adminUser == true){
           admins.push(user);
         }else if(user.adminUser == false){
-          users.push(user);
+          students.push(user);
         }
         $scope.admins = admins;
         $scope.students = students;
