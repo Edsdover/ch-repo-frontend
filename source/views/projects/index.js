@@ -28,11 +28,12 @@ angular.module('chRepo')
     Assignment.create(obj)
     .success(function(data){
       console.log('data', data);
-        var email = Cohort.findOne($scope.assignment.cohortName)
-        .then(function(response){
-          console.log(response, "Here ya go");
-          $scope.assignment = response.data});
-        var name = 'MIke';
+      var email = 'aug.2015@codinghouse.co';
+        // var email = Cohort.findOne($scope.assignment.cohortName).cohortEmail
+        // .then(function(response){
+        //   console.log(response, "Here ya go");
+        //   $scope.assignment = response.data});
+        var name = 'Some TA';
         var msg = 'New Assignment at ch-repo.herokuapp.com';
         $.ajax({
           type: "POST",
