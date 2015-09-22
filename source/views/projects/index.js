@@ -20,6 +20,7 @@ angular.module('chRepo')
     $scope.intros = intros;
   });
   $scope.submit = function(obj){
+    console.log('name', $scope.assignment.cohortName);
     obj.projectName = $scope.selectedProject.name;
     obj.projectId = $scope.selectedProject._id;
     obj.introName = $scope.selectedIntro.name;
@@ -28,43 +29,50 @@ angular.module('chRepo')
     Assignment.create(obj)
     .success(function(data){
       console.log('data', data);
-      var email = 'aug.2015@codinghouse.co';
-        // var email = Cohort.findOne($scope.assignment.cohortName).cohortEmail
-        // .then(function(response){
-        //   console.log(response, "Here ya go");
-        //   $scope.assignment = response.data});
+      // var email = 'misankovich@gmail.com';
+        Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
+          if (doc) {
+            console.log(doc, 'doc');
+            var email = doc.cohortEmail;
+          }
+          console.log(email, 'email');
+        })
+        .then(function(response){
+          console.log(response, "Here ya go");
+          $scope.assignment = response.data;
+        });
         var name = 'Some TA';
         var msg = 'New Assignment at ch-repo.herokuapp.com';
-        $.ajax({
-          type: "POST",
-          url: "https://mandrillapp.com/api/1.0/messages/send.json",
-          data: {
-            'key': 'MDTpzgc6BNZ7carbIFxuYw',
-            'message': {
-              'from_email': email,
-              'from_name': name,
-              'headers': {
-                'Reply-To': email
-              },
-              'subject': 'New Assignment',
-              'text': msg,
-              'to': [{
-                'email': 'misankovich@gmail.com',
-                'name': 'Michael Sankovich',
-                'type': 'to'
-              }]
-            }
-          }
-        })
-        .done(function(response) {
-          alert('yaaaaay');
-        })
-        .fail(function(response) {
-          alert('noooooo');
-        });
-        return false;
-
-      sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+      //   $.ajax({
+      //     type: "POST",
+      //     url: "https://mandrillapp.com/api/1.0/messages/send.json",
+      //     data: {
+      //       'key': 'MDTpzgc6BNZ7carbIFxuYw',
+      //       'message': {
+      //         'from_email': email,
+      //         'from_name': name,
+      //         'headers': {
+      //           'Reply-To': email
+      //         },
+      //         'subject': 'New Assignment',
+      //         'text': msg,
+      //         'to': [{
+      //           'email': 'misankovich@gmail.com',
+      //           'name': 'Michael Sankovich',
+      //           'type': 'to'
+      //         }]
+      //       }
+      //     }
+      //   })
+      //   .done(function(response) {
+      //     alert('yaaaaay');
+      //   })
+      //   .fail(function(response) {
+      //     alert('noooooo');
+      //   });
+      //   return false;
+      //
+      // sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
       $scope.assignment = {};
     })
     .error(function(error){
