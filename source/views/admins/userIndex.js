@@ -11,9 +11,9 @@ angular.module('chRepo')
     User.findAll()
     .then(function(res){
       res.data.forEach(function(user){
-        if(user.adminUser == true){
+        if(user.adminUser == true){ // jshint ignore:line
           admins.push(user);
-        }else if(user.adminUser == false){
+        }else if(user.adminUser == false){ // jshint ignore:line
           students.push(user);
         }
         $scope.admins = admins;
