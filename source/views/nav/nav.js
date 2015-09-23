@@ -8,6 +8,8 @@ angular.module('chRepo')
     .then(function(response){
       $rootScope.displayName = response.github.displayName;
       $state.go('home.dashboard');
+    }).then(function(){
+      location.reload();
     });
   };
 
@@ -46,6 +48,8 @@ angular.module('chRepo')
   };
   $scope.logout = function(){
     User.logout();
-    $state.go('home');
+    $state.go('home.dashboard').then(function(){
+      location.reload();
+    });
   };
 });

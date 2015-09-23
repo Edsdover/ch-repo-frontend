@@ -6,11 +6,11 @@ angular.module('chRepo')
   var assignmentId = $state.params.assignmentId;
   $scope.tempProject = {};
 
-  User.find({}).then(function(response) {
-    console.log('students');
-    $scope.students = response.data;
-    console.log(response.data);
-  });
+  // User.find({}).then(function(response) {
+  //   console.log('students');
+  //   $scope.students = response.data;
+  //   console.log(response.data);
+  // });
 
   Assignment.findById(assignmentId)
   .then(function(response){

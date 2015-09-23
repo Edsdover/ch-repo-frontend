@@ -1,6 +1,12 @@
 .row
   h4 Admin Accounts
-  .col-md-4.col-xs-11.userCard(ng-repeat='admin in admins')
+  .col-xs-12.borderRight
+    .filter.col-xs-12
+      label
+        | Filter: 
+        input(ng-model='searchtext')
+.row
+  .col-md-4.col-xs-11.userCard(ng-repeat='admin in admins | filter: searchtext')
     .col-xs-4
       img.img-responsive.img-thumbnail.userListPic(ng-src='{{admin.profileImageURL}}')
     .col-xs-8
@@ -10,7 +16,13 @@
         .glyphicon.glyphicon-arrow-down
 .row
   h4 Student Accounts
-  .col-md-4.col-xs-11.userCard(ng-repeat='student in students')
+  .col-xs-12.borderRight
+    .filter.col-xs-12
+      label
+        | Filter: 
+        input(ng-model='searchText')
+.row
+  .col-md-4.col-xs-11.userCard(ng-repeat='student in students | filter: searchText : student.username')
     .col-xs-4
       img.img-responsive.img-thumbnail.userListPic(ng-src='{{student.profileImageURL}}')
     .col-xs-8
