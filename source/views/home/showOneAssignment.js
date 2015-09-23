@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state){
+.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, User){
 
   var assignmentId = $state.params.assignmentId;
   $scope.tempProject = {};
 
+  User.find({}).then(function(response) {
+    console.log('students');
+    $scope.students = response.data;
+    console.log(response.data);
+  });
 
   Assignment.findById(assignmentId)
   .then(function(response){

@@ -40,3 +40,24 @@
     h6 {{assignment.javascriptPoints}}
     h5.underline Readability Points: 
     h6 {{assignment.readabilityPoints}}
+.row
+  h4 Student Accounts
+  .col-md-4.col-xs-11.userCard(ng-repeat='student in students')
+    .col-xs-4
+      img.img-responsive.img-thumbnail.userListPic(ng-src='{{student.profileImageURL}}')
+    .col-xs-8
+      h5 Name: {{student.displayName}}
+      h5 Username: {{student.username}}
+      form(name='newGrade', novalidate)
+        .row
+          .col-xs-offset-1.col-xs-10
+            .form-group
+              label.bold Points Scored:
+              input.form-control(ng-model='user.grades.pointsScored')
+            .form-group
+              label.bold Possible Points:
+              input.form-control(ng-model='user.grades.pointsPossible')
+        .row.col-xs-offset-1
+          .col-xs-10
+            .form-group
+              button.btn.btn-default.btn-lg(ng-if='newGrade' ng-click='submit(newGrade)') Submit Grade
