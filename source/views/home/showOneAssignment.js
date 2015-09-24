@@ -6,8 +6,12 @@ angular.module('chRepo')
   var assignmentId = $state.params.assignmentId;
   $scope.tempProject = {};
 
+  var currentTime = Number(new Date());
   Assignment.findById(assignmentId)
   .then(function(response){
+    if(Date.parse(response.data.dueDate) > currentTime){
+      $scope.currentAssignment = true;
+    }
     $scope.assignment = response.data;
     Project.findById(response.data.projectId)
     .then(function(response){

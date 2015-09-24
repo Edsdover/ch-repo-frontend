@@ -37,8 +37,6 @@ angular.module('chRepo')
   });
 
   $scope.viewOneAssignment = function(assignmentId){
-
-    console.log('assignmentId', assignmentId);
     $state.go('home.show', {assignmentId:assignmentId});
   };
 

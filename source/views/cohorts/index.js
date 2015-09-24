@@ -7,8 +7,8 @@ angular.module('chRepo')
   .success(function(res){
     res.forEach(function(cohort){
       cohort.studentNumber = cohort.cohortStudentIds.length;
-      $scope.cohorts = res;
     });
+    $scope.cohorts = res;
   });
   $scope.deleteCohort = function(){
     var cohort = this.cohort;
@@ -28,6 +28,9 @@ angular.module('chRepo')
         sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
         Cohort.index()
         .success(function(cohorts){
+          cohorts.forEach(function(cohort){
+            cohort.studentNumber = cohort.cohortStudentIds.length;
+          });
           $scope.cohorts = cohorts;
          });
       });

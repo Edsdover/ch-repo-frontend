@@ -19,7 +19,7 @@ form(name='newProjectForm', novalidate)
         textarea.form-control#projectRequirements(ng-model='project.requirements', rows='3', cols='50')
       .form-group
         label.bold Notes:
-        input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets Sharable Link Here')
+        input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets embeded iframe link here')
       .form-group
         label.bold GitHub URL:
         input.form-control#projectNotes(type='url' ng-model='project.githubURL' placeholder='Enter GitHub Link Here')
