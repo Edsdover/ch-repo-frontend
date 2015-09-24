@@ -1,46 +1,44 @@
-form(name='newProjectForm', novalidate)
-  .row
-    .col-xs-offset-1.col-xs-10
-      h1 Create A New Cohort
-    .col-xs-1
-  .row
-    .col-xs-3
-      h4.bold Saved Cohorts:
-      table
-        tr
-          th Cohort Name:
-        tr(ng-repeat='cohort in cohorts')
-          td.cursor(ng-click='showOneCohort()') {{cohort.cohortName}} &nbsp;
-            button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='deleteCohort(); $event.stopPropagation();')
-            button.btn.btn-xs.btn-warning.i.fa.fa-edit(ng-click='editCohort(); $event.stopPropagation();')
-    .col-xs-offset-6.col-xs-3
-      .form-group
-        label.bold Title:
+.row
+  .col-xs-11.col-md-6
+    h1 Create A New Cohort
+  .col-xs-11.col-md-6.newCohortForm
+    .form-group
+      label.bold Title:
         input.form-control.inputButton#projectName(ng-model='cohort.cohortName')
-        label.bold Cohort Email
+      label.bold Cohort Email
         input.form-control.inputButton#projectName(ng-model='cohort.cohortEmail')
-        button.btn.btn-success.btn-lg.rightFloat(ng-click='update(cohort)' ng-hide='editing') Submit
-        button.btn.btn-success.btn-lg.rightFloat(ng-click='edit(cohort)' ng-show='editing') Update
-      .form-group
-h4 Add Students:
-.col-xs-8.borderRight
-  .filter.col-xs-12
-    label
-      | Filter: 
-      input(ng-model='searchText')
+      button.btn.btn-success.btn-lg.cohortBoxButtons(ng-click='update(cohort)' ng-hide='editing') Submit
+      button.btn.btn-success.btn-lg(ng-click='edit(cohort)' ng-show='editing') Update
+.row
   .col-xs-12
-    .col-md-4.col-xs-12(ng-repeat='student in students | filter: searchText : student.username')
-      .studentboxtwo
-        .nbsp.glyphicon.glyphicon-plus.cursor(ng-click='toggleCohortOn()')
-        h5 Name: {{student.displayName}}
-        h5 Name: {{student.username}}
-        h5 Email: {{student.email}}
-.col-xs-4
-  h4 Cohort:
-    div(ng-repeat='cohortStudent in cohortStudents')
-      .studentboxtwo
-        img.img-responsive.img-thumbnail.studentCard(ng-src='{{cohortStudent.profileImageURL}}')
-        button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='toggleCohortOff(); $event.stopPropagation();')
-        h5 Name: {{cohortStudent.displayName}}
-        h5 Username: {{cohortStudent.username}}
-        h5 Email: {{student.email}}
+    .filter
+      label
+        | Search:
+        input(ng-model='searchText')
+.row
+  .col-xs-11.col-md-6
+    h4 Enrolled Students:
+    table.table-bordered.table-hover
+      tr
+        th.cohortBox Name
+        th.cohortBox Username
+        th.cohortBox E-mail
+        th.cohortBox Add to new cohort
+      tr(ng-repeat='student in students | filter: searchText : student.username')
+        td.cohortBox {{student.displayName}}
+        td.cohortBox {{student.username}}
+        td.cohortBox {{student.email}}
+        td.nbsp.glyphicon.glyphicon-plus.cursor.cohortBox.cohortBoxButtons.addStudentButton(ng-click='toggleCohortOn()')
+  .col-xs-11.col-md-5.col-md-offset-1
+    h4 New Cohort:
+    table.table-bordered.table-hover
+      tr
+        th.cohortBox Name
+        th.cohortBox Username
+        th.cohortBox E-mail
+        th.cohortBox Remove from cohort
+      tr(ng-repeat='cohortStudent in cohortStudents | filter: searchText : student.username')
+        td.cohortBox {{cohortStudent.displayName}}
+        td.cohortBox {{cohortStudent.username}}
+        td.cohortBox {{cohortStudent.email}}
+        td: button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='toggleCohortOff(); $event.stopPropagation();')

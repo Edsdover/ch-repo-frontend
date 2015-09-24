@@ -41,10 +41,6 @@ angular.module('chRepo')
     console.log('assignmentId', assignmentId);
     $state.go('home.show', {assignmentId:assignmentId});
   };
-  $scope.viewOneIntro = function(introId){
-    console.log('introId', introId);
-    $state.go('intros.show', {introId:introId});
-  };
 
   $scope.deleteAssignmentConfirm = function(assignment){
     $scope.tempAssignment = assignment;

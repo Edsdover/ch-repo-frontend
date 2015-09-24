@@ -1,16 +1,10 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, User){
+.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, User, Intro, $sce){
 
   var assignmentId = $state.params.assignmentId;
   $scope.tempProject = {};
-
-  // User.find({}).then(function(response) {
-  //   console.log('students');
-  //   $scope.students = response.data;
-  //   console.log(response.data);
-  // });
 
   Assignment.findById(assignmentId)
   .then(function(response){
@@ -21,9 +15,16 @@ angular.module('chRepo')
     Project.findById(projectId)
     .then(function(response){
       console.log(response, "And here");
+      $scope.iframeURL = $sce.trustAsHtml(response.data.notes); // jshint ignore:line
+      console.log($scope.iframeURL);
       $scope.project = response.data;
     });
-
+    var introId = response.data.introId;
+    Intro.findById(introId)
+    .then(function(response){
+      console.log(response, "And here there!");
+      $scope.intro = response.data;
+    });
   });
 
   $scope.deleteAssignmentConfirm = function(assignment){

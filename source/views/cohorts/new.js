@@ -12,6 +12,11 @@ angular.module('chRepo')
 
   Cohort.index()
   .success(function(res){
+    console.log('cohorts res', res);
+    res.forEach(function(cohort){
+      console.log(cohort.cohortStudentIds.length);
+      cohort.studentNumber = cohort.cohortStudentIds.length;
+    });
     $scope.cohorts = res;
   });
 

@@ -44,13 +44,23 @@ $size: 100px;
 .logInButton{
   padding-top: 18px;
 }
-.borderRight{
-  border-right: 1px solid black;
-}
 .textCenter{
   text-align: center;
 }
-
+.cohortBox{
+  padding: 5px;
+}
+.newCohortForm{
+  margin-top: 25px;
+  padding-right: 5px;
+}
+.addStudentButton{
+  color: green;
+}
+.cohortBoxButtons{
+  margin-left: 10px;
+  margin-right: 8px;
+}
 .studentbox{
   border: 1px solid rgba(0, 0, 0, 0.19);
   padding: 10px;

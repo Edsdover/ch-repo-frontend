@@ -2,16 +2,22 @@
   .col-xs-10
     h4.bold.underline {{cohort.cohortName}} Students:
 .row
-  .col-xs-8.borderRight
+  .col-xs-3
     .filter.col-xs-12
-      label
-        | Filter: 
+      label Filter:
         input(ng-model='searchText')
+  .col-xs-1
+    button.btn.btn-xs.btn-warning Edit
+  .col-xs-1
+    button.btn.btn-xs.btn-danger Delete
 .row
-  .col-xs-12
-    div(ng-repeat='student in students | filter: searchText : student.username')
-      .col-md-3.col-xs-12
-        .studentboxtwo
-          h5 Name: {{student.displayName}}
-          h5 Username: {{student.username}}
-          h5 Email: {{student.email}}
+  .col-xs-8
+    table.table-bordered.table-hover
+      tr
+        th.cohortBox Name
+        th.cohortBox Username
+        th.cohortBox E-mail
+      tr(ng-repeat='student in students | filter: searchText : student.username')
+        td.cohortBox {{student.displayName}}
+        td.cohortBox {{student.username}}
+        td.cohortBox {{student.email}}

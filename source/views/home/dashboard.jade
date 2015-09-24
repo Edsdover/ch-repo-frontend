@@ -6,7 +6,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
 .col-md-6.col-sm-11(ng-show="activeUser")
   h2 Current Assignment
   .col-md-11.col-sm-11(ng-repeat='currentAssignment in currentAssignments track by $index | orderBy: currentAssignment.dueDate')
-    .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id)')
+    .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id); $event.stopPropagation();')
       button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:currentAssignment._id})').glyphicon.glyphicon-edit
       button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(currentAssignment); $event.stopPropagation();'): i.fa.fa-trash
       h5.cursor: ASSIGNMENT : {{currentAssignment.projectName}}

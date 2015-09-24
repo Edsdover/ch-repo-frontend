@@ -9,7 +9,7 @@ angular.module('chRepo')
       $rootScope.displayName = response.github.displayName;
       $state.go('home.dashboard');
     }).then(function(){
-      location.reload();
+      location.reload(); // jshint ignore:line
     });
   };
 
@@ -18,7 +18,6 @@ angular.module('chRepo')
   }
 
   $scope.afAuth.$onAuth(function(data){
-    console.log('data, nav.js:', data.github);
     if(data.github.email === 'misankovich@gmail.com') {
       data.github.cachedUserProfile.site_admin = true;
       $rootScope.activeUser = data;
@@ -49,7 +48,7 @@ angular.module('chRepo')
   $scope.logout = function(){
     User.logout();
     $state.go('home.dashboard').then(function(){
-      location.reload();
+      location.reload(); // jshint ignore:line
     });
   };
 });
