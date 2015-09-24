@@ -17,6 +17,7 @@ angular.module('chRepo')
     .success(function(data){
       sweet.show('Project Save Success', 'Success, Your project is saved!', 'success');
       $scope.project = {};
+      console.log(data);
     })
     .error(function(error){
       $window.swal({title: 'Project Save Error', text: 'Warning, there was a problem saving your project.', type: 'error'});
