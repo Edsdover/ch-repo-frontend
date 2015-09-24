@@ -1,6 +1,9 @@
 .col-md-3.col-sm-11
   h4 Projects
-  .box.inputButton(ng-repeat='project in projects track by $index')
+  label
+    | Filter: 
+    input(ng-model='searchText')
+  .box.inputButton(ng-repeat='project in projects | filter : searchText track by $index')
     h5.cursor: a(ng-click='viewOneProject(project._id)') {{project.name}}
     button.btn.btn-xs.btn-danger.rightFloat(title="Edit Project" ui-sref='projects.edit({projectId:project._id})').glyphicon.glyphicon-edit
     button.btn.btn-xs.btn-warning.rightFloat(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();'): i.fa.fa-trash
@@ -9,7 +12,10 @@
     button.btn.btn-xs.btn-success.glyphicon.glyphicon-plus(ng-hide='selectedProject' ng-click='toggleProjectOn($index); $event.stopPropagation();') Assign
 .col-md-3.col-sm-11
   h4 Intros
-  .box.inputButton(ng-repeat='intro in intros track by $index')
+  label
+    | Filter: 
+    input(ng-model='searchtext')
+  .box.inputButton(ng-repeat='intro in intros | filter: searchtext track by $index')
     h5.cursor: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
       button.btn.btn-xs.btn-danger.rightFloat(title="Edit Intro" ui-sref='intros.edit({introId:intro._id})').glyphicon.glyphicon-edit
       button.btn.btn-xs.btn-warning.rightFloat(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();'): i.fa.fa-trash
@@ -25,36 +31,81 @@
   h4.textCenter(ng-hide='selectedIntro') Click on the green + to add an intro to your assignment!
   h4.textCenter(ng-show='selectedIntro') {{selectedIntro.name}} &nbsp; Will be assigned! &nbsp; 
     button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-show='selectedIntro' ng-click='toggleIntroOff(); $event.stopPropagation();')
-  .form-group
-    h6 Pick a Cohort
-    select.form-control(ng-model='assignment.cohortName' required)
-      option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
-  .form-group
-    lable Due Date:
-    input.form-control(type='date' ng-model='assignment.dueDate' required)
-  .form-group
-    h6 Category:
-      h5.box Functionality
-  .form-group
-    h6 Points:
-      input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
-  .form-group
-    h6 Category:
-      h5.box Readability
-  .form-group
-    h6 Points:
-      input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
-  .form-group
-    h6 Category:
-      h5.box HTML/CSS
-  .form-group
-    h6 Points:
-      input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
-  .form-group
-    h6 Category:
-      h5.box JavaScript
-  .form-group
-    h6 Points:
-      input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
-    button.btn.btn-success.btn-lg(ng-click='submit(assignment)') Submit
-  
+  //- .form-group
+  //-   h6 Pick a Cohort
+  //-   select.form-control(ng-model='assignment.cohortName' required)
+  //-     option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
+  //- .form-group
+  //-   lable Due Date:
+  //-   input.form-control(type='date' ng-model='assignment.dueDate' required)
+  //- .form-group
+  //-   h6 Category:
+  //-     h5.box Functionality
+  //- .form-group
+  //-   h6 Points:
+  //-     input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+  //- .form-group
+  //-   h6 Category:
+  //-     h5.box Readability
+  //- .form-group
+  //-   h6 Points:
+  //-     input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+  //- .form-group
+  //-   h6 Category:
+  //-     h5.box HTML/CSS
+  //- .form-group
+  //-   h6 Points:
+  //-     input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+  //- .form-group
+  //-   h6 Category:
+  //-     h5.box JavaScript
+  //- .form-group
+  //-   h6 Points:
+  //-     input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+  //-   button.btn.btn-success.btn-lg(ng-click='submit(assignment)') Submit
+
+
+
+
+
+button.btn.btn-info.btn-lg(type='button' data-toggle='modal' data-target='#myModal') Assign This Project
+#myModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Modal Header
+      .modal-body
+        .form-group
+          h6 Pick a Cohort
+          select.form-control(ng-model='assignment.cohortName' required)
+            option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
+        .form-group
+          lable Due Date:
+          input.form-control(type='date' ng-model='assignment.dueDate' required)
+        .form-group
+          h6 Category:
+            h5.box Functionality
+        .form-group
+          h6 Points:
+            input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+        .form-group
+          h6 Category:
+            h5.box Readability
+        .form-group
+          h6 Points:
+            input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+        .form-group
+          h6 Category:
+            h5.box HTML/CSS
+        .form-group
+          h6 Points:
+            input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+        .form-group
+          h6 Category:
+            h5.box JavaScript
+        .form-group
+          h6 Points:
+            input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+          button.btn.btn-success.btn-lg(ng-click='submit(assignment)', data-dismiss='modal') Submit
+          button.btn.btn-default(type='button', data-dismiss='modal') Close

@@ -28,6 +28,7 @@ angular.module('chRepo')
     obj.introId = $scope.selectedIntro._id;
     Assignment.create(obj)
     .success(function(data){
+      sweet.show('Check', 'Your Assignment is saved!', 'success');
       console.log('data', data);
       // var email = 'misankovich@gmail.com';
         // Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
@@ -41,8 +42,8 @@ angular.module('chRepo')
         //   console.log(response, "Here ya go");
         //   $scope.assignment = response.data;
         // });
-        var name = 'Some TA';
-        var msg = 'New Assignment at ch-repo.herokuapp.com';
+        // var name = 'Some TA';
+        // var msg = 'New Assignment at ch-repo.herokuapp.com';
       //   $.ajax({
       //     type: "POST",
       //     url: "https://mandrillapp.com/api/1.0/messages/send.json",
