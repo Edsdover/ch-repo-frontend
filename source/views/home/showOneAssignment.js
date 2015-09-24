@@ -6,23 +6,20 @@ angular.module('chRepo')
   var assignmentId = $state.params.assignmentId;
   $scope.tempProject = {};
 
+  var currentTime = Number(new Date());
   Assignment.findById(assignmentId)
   .then(function(response){
-    console.log(response, "Here ya go");
+    if(Date.parse(response.data.dueDate) > currentTime){
+      $scope.currentAssignment = true;
+    }
     $scope.assignment = response.data;
-
-    var projectId = response.data.projectId;
-    Project.findById(projectId)
+    Project.findById(response.data.projectId)
     .then(function(response){
-      console.log(response, "And here");
-      $scope.iframeURL = $sce.trustAsHtml(response.data.notes); // jshint ignore:line
-      console.log($scope.iframeURL);
+      $scope.iframeURL = $sce.trustAsHtml(response.data.notes);
       $scope.project = response.data;
     });
-    var introId = response.data.introId;
-    Intro.findById(introId)
+    Intro.findById(response.data.introId)
     .then(function(response){
-      console.log(response, "And here there!");
       $scope.intro = response.data;
     });
   });
@@ -50,5 +47,4 @@ angular.module('chRepo')
       });
     });
   };
-
 });

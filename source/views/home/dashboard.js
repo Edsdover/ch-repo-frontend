@@ -37,8 +37,6 @@ angular.module('chRepo')
   });
 
   $scope.viewOneAssignment = function(assignmentId){
-
-    console.log('assignmentId', assignmentId);
     $state.go('home.show', {assignmentId:assignmentId});
   };
 
@@ -60,9 +58,15 @@ angular.module('chRepo')
         Assignment.index()
         .success(function(assignments){
           $scope.assignments = assignments;
+<<<<<<< HEAD
          })
          .then(function(){
            location.reload(); // jshint ignore:line
+=======
+        })
+        .then(function(){
+          location.reload(); // jshint ignore:line
+>>>>>>> 298e236f11ed9f999640aa13df7a3e8d6845b9ff
          });
       });
     });

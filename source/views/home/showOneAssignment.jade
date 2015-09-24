@@ -1,63 +1,58 @@
-.row
-  .col-md-12.col-xs-11
-    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
-    button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
-    h3.underline.bold Assignment: {{assignment.projectName}}
-    h4.projectScoring Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}} &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
-    h4.presetCategory {{project.tech}}
-.row
-  .col-md-6.col-xs-11
-    h4.underline.projectScoring Intro:
-    a(ng-click)
-      h5 {{assignment.introName}}
-    h4.underline Alternatives:
-    h5 {{project.alternatives}}
-    h4.underline Concepts:
-    h5 {{project.concepts}}
-    h4.underline Pros:
-    h5 {{project.pros}}
-  .col-md-6.col-xs-11
-    h4.underline References:
-    h5 {{project.references}}
-    h4.underline Notes:
-    div(ng-bind-html='iframeURL')
-    h4.underline GitHub URL:
-    h5 {{project.githubURL}}
-.row
-  .col-md-12.col-xs-11
-    h4.underline.projectScoring Requirements:
-    h5 {{project.requirements}}
-    h4.underline Deployment Instructions:
-    h5 {{project.deployment}}
+.col-md-5.col-xs-11
+  .container(ng-if='currentAssignment')
+    button.btn.btn-xs.btn-danger.rightFloat(ng-if='adminUser' title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
+    button.btn.btn-xs.btn-warning.rightFloat(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
+  h3.underline.bold Assignment: &nbsp {{assignment.projectName}}
+  h4.projectScoring Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
+  h4.projectScoring Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
+  h4.presetCategory Tech: {{project.tech}}
+  h4.underline.projectScoring.bold Intro: &nbsp {{assignment.introName}}
+  h4.underline Alternatives:
+  h5 {{project.alternatives}}
+  h4.underline Concepts:
+  h5 {{project.concepts}}
+  h4.underline Pros:
+  h5 {{project.pros}}
+  h4.underline References:
+  h5 {{project.references}}
+  h4.underline GitHub URL:
+  h5 {{project.githubURL}}
+  h4.underline.projectScoring Requirements:
+  h5 {{project.requirements}}
+  h4.underline Deployment Instructions:
+  h5 {{project.deployment}}
+.col-md-7.col-xs-11
+  h4.underline Notes:
+  div(ng-bind-html='iframeURL' ng-width="800" ng-height="500")
 .row
   .col-md-6.col-xs-11
-    h4.underline.projectScoring Grading:
-    h5.underline Functionality Points: 
+    h4.underline.projectScoring.bold Grading:
+    h5.underline Functionality Points:
     h6 {{assignment.functionalityPoints}}
-    h5.underline HTML/CSS Points: 
+    h5.underline HTML/CSS Points:
     h6 {{assignment.htmlPoints}}
-    h5.underline Javascript Points: 
+    h5.underline Javascript Points:
     h6 {{assignment.javascriptPoints}}
-    h5.underline Readability Points: 
+    h5.underline Readability Points:
     h6 {{assignment.readabilityPoints}}
-.row
-  h4 Student Accounts
-  .col-md-4.col-xs-11.userCard(ng-repeat='student in students')
-    .col-xs-4
-      img.img-responsive.img-thumbnail.userListPic(ng-src='{{student.profileImageURL}}')
-    .col-xs-8
-      h5 Name: {{student.displayName}}
-      h5 Username: {{student.username}}
-      form(name='newGrade', novalidate)
-        .row
-          .col-xs-offset-1.col-xs-10
-            .form-group
-              label.bold Points Scored:
-              input.form-control(ng-model='user.grades.pointsScored')
-            .form-group
-              label.bold Possible Points:
-              input.form-control(ng-model='user.grades.pointsPossible')
-        .row.col-xs-offset-1
-          .col-xs-10
-            .form-group
-              button.btn.btn-default.btn-lg(ng-if='newGrade' ng-click='submit(newGrade)') Submit Grade
+//- .row
+//-   h4 Student Accounts
+//-   .col-md-4.col-xs-11.userCard(ng-repeat='student in students')
+//-     .col-xs-4
+//-       img.img-responsive.img-thumbnail.userListPic(ng-src='{{student.profileImageURL}}')
+//-     .col-xs-8
+//-       h5 Name: {{student.displayName}}
+//-       h5 Username: {{student.username}}
+//-       form(name='newGrade', novalidate)
+//-         .row
+//-           .col-xs-offset-1.col-xs-10
+//-             .form-group
+//-               label.bold Points Scored:
+//-               input.form-control(ng-model='user.grades.pointsScored')
+//-             .form-group
+//-               label.bold Possible Points:
+//-               input.form-control(ng-model='user.grades.pointsPossible')
+//-         .row.col-xs-offset-1
+//-           .col-xs-10
+//-             .form-group
+//-               button.btn.btn-default.btn-lg(ng-if='newGrade' ng-click='submit(newGrade)') Submit Grade

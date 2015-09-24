@@ -9,17 +9,18 @@ h1.text-center(ng-hide="activeUser") Content Repo
     .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id); $event.stopPropagation();')
       button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:currentAssignment._id})').glyphicon.glyphicon-edit
       button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(currentAssignment); $event.stopPropagation();'): i.fa.fa-trash
-      h5.cursor: ASSIGNMENT : {{currentAssignment.projectName}}
+      h5.cursor {{currentAssignment.projectName}}
       ul
         li: h6 Assigned: {{currentAssignment.createdAt | date: 'MMM-dd-yyyy'}}
         li: h6 Due Date: {{currentAssignment.dueDate | date: 'MMM-dd-yyyy'}}
 .col-md-6.col-sm-11(ng-show="activeUser")
   h2 Past Assignments
-  .col-md-11.col-sm-11(ng-repeat='pastAssignment in pastAssignments track by $index | orderBy: pastAssignment.dueDate')
-    .box.inputButton.cursor(ng-click='viewOneAssignment(pastAssignment._id)')
-      button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:pastAssignment._id})').glyphicon.glyphicon-edit
-      button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(pastAssignment); $event.stopPropagation();'): i.fa.fa-trash
-      h5.cursor: ASSIGNMENT : {{pastAssignment.projectName}}
-      ul
-        li: h6 Assigned: {{pastAssignment.createdAt | date: 'MMM-dd-yyyy'}}
-        li: h6 Due Date: {{pastAssignment.dueDate | date: 'MMM-dd-yyyy'}}
+  table.table-bordered.table-hover
+    tr
+      th.cohortBox Name
+      th.cohortBox Due Date
+      th.cohortBox Created
+    tr.cursor(ng-repeat='pastAssignment in pastAssignments track by $index | orderBy: pastAssignment.dueDate' ng-click='viewOneAssignment(pastAssignment._id)')
+      td.cohortBox {{pastAssignment.projectName}}
+      td.cohortBox.textCenter {{pastAssignment.dueDate}}
+      td.cohortBox.textCenter {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;

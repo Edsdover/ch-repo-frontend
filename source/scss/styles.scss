@@ -1,5 +1,8 @@
 $size: 100px;
-
+iframe{
+  width: 700px;
+  height: 600px;
+}
 .logos > img{
   max-width: $size;
   max-height: 100px;
@@ -52,7 +55,6 @@ $size: 100px;
 }
 .newCohortForm{
   margin-top: 25px;
-  padding-right: 5px;
 }
 .addStudentButton{
   color: green;
