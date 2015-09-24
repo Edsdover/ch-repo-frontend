@@ -7,7 +7,6 @@ angular.module('chRepo')
   var Assignment = {};
 
   Assignment.create = function(assignment){
-    console.log(assignment);
     return $http.post(apiUrl + '/assignments', assignment);
   };
   Assignment.update = function(assignment){

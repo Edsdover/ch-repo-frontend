@@ -1,7 +1,6 @@
 .col-md-5.col-xs-11
   .container(ng-if='currentAssignment')
-    button.btn.btn-xs.btn-danger.rightFloat(ng-if='adminUser' title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
-    button.btn.btn-xs.btn-warning.rightFloat(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
+    button.btn.btn-xs.btn-danger.rightFloat(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
   h3.underline.bold Assignment: &nbsp {{assignment.projectName}}
   h4.projectScoring Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
   h4.projectScoring Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}

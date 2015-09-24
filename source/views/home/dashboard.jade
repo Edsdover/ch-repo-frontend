@@ -1,26 +1,174 @@
 .col-xs-12.text-center(ng-hide="activeUser")
   img(src='media/logo-black.png')
 h1.text-center(ng-hide="activeUser") Content Repo
-
-
-.col-md-6.col-sm-11(ng-show="activeUser")
-  h2 Current Assignment
-  .col-md-11.col-sm-11(ng-repeat='currentAssignment in currentAssignments track by $index | orderBy: currentAssignment.dueDate')
-    .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id); $event.stopPropagation();')
-      button.btn.btn-xs.btn-danger.rightFloat(title="Edit Assignment" ui-sref='home.edit({assignmentId:currentAssignment._id})').glyphicon.glyphicon-edit
-      button.btn.btn-xs.btn-warning.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(currentAssignment); $event.stopPropagation();'): i.fa.fa-trash
-      h5.cursor {{currentAssignment.projectName}}
-      ul
-        li: h6 Assigned: {{currentAssignment.createdAt | date: 'MMM-dd-yyyy'}}
-        li: h6 Due Date: {{currentAssignment.dueDate | date: 'MMM-dd-yyyy'}}
-.col-md-6.col-sm-11(ng-show="activeUser")
-  h2 Past Assignments
-  table.table-bordered.table-hover
-    tr
-      th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
-      th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
-      th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
-    tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse' ng-click='viewOneAssignment(pastAssignment._id)')
-      td.cohortBox {{pastAssignment.projectName}}
-      td.cohortBox.textCenter {{pastAssignment.dueDate}}
-      td.cohortBox.textCenter {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+.row
+  .col-xs-12
+    button.btn.btn-xs.btn-info(ng-show="activeUser" ng-if='adminUser' ng-click='toggleProjectOn($index);' type='button' data-toggle='modal' data-target='#newProjectModal') Create a New Project
+      button.btn.btn-xs.btn-info.userCard(ng-show="activeUser" ng-if='adminUser' ng-click='toggleProjectOn($index);' type='button' data-toggle='modal' data-target='#newIntroModal') Create a New Intro
+.row
+  .col-md-6.col-sm-11(ng-show="activeUser")
+    h2 Current Assignments
+    .col-md-11.col-sm-11(ng-repeat='currentAssignment in currentAssignments track by $index | orderBy: currentAssignment.dueDate')
+      .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id); $event.stopPropagation();')
+        button.btn.btn-xs.btn-warning.rightFloat(ng-click='editAssignment(currentAssignment); $event.stopPropagation();').glyphicon.glyphicon-edit
+        button.btn.btn-xs.btn-danger.rightFloat(title="Delete Assignment" ng-click='deleteAssignmentConfirm(currentAssignment); $event.stopPropagation();'): i.fa.fa-trash
+        h5.cursor {{currentAssignment.projectName}}
+        ul
+          li: h6 Assigned: {{currentAssignment.createdAt | date: 'MMM-dd-yyyy'}}
+          li: h6 Due Date: {{currentAssignment.dueDate | date: 'MMM-dd-yyyy'}}
+  .col-md-6.col-sm-11(ng-show="activeUser")
+    h2 Past Assignments
+    table.table-bordered.table-hover
+      tr
+        th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+        th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
+        th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
+        th.cohortBox.cursor(ng-if='adminUser') Delete
+      tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse' ng-click='viewOneAssignment(pastAssignment._id)')
+        td.cohortBox {{pastAssignment.projectName}}
+        td.cohortBox.textCenter {{pastAssignment.dueDate}}
+        td.cohortBox.textCenter {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+        td: button.btn.btn-xs.btn-danger.cohortBox.userCard(title="Delete Assignment" ng-if='adminUser' ng-click='deleteAssignmentConfirm(pastAssignment); $event.stopPropagation();'): i.fa.fa-trash
+#newProjectModal.modal.fade(role='newProject')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title New Project
+      .modal-body
+        form(name='newProjectForm', novalidate)
+          .row
+            .col-xs-offset-1.col-xs-10
+              h1 Create A New Project
+            .col-xs-1
+          .row
+            form
+              .col-xs-offset-1.col-xs-10
+                .form-group
+                  label.bold Name:
+                  input.form-control#projectName(ng-model='project.name')
+                .form-group
+                  label.bold Core Concept:
+                  select.form-control#projectConcepts(ng-model='project.concepts')
+                    option(value='' disabled)
+                    option(value='Core Javascript') Core Javascript
+                    option(value='Node.js') Node.js
+                    option(value='AngularJS') AngularJS
+                    option(value='Angular2') Angular2
+                    option(value='ExpressJS') ExpressJS
+                    option(value='MongoDb/Mongoose') MongoDb / Mongoose
+                    option(value='MEAN') MEAN
+                    option(value='jQuery') jQuery
+                    option(value='AJAX') AJAX
+                    option(value='Firebase') Firebase
+                    option(value='React') React
+                    option(value='Authentication') Authentication
+                    option(value='Pair Programming') Pair Programming
+                    option(value='es6') es6
+                    option(value='TDD') TDD
+                    option(value='Webpack') Webpack
+                .form-group
+                  label.bold Technology Used (select all that apply):
+                  select.form-control#sel
+                    option(value='' disabled)
+                    option(value='Core Javascript') Core Javascript
+                    option(value='Node.js') Node.js
+                    option(value='AngularJS') AngularJS
+                    option(value='Angular2') Angular2
+                    option(value='ExpressJS') ExpressJS
+                    option(value='MongoDb/Mongoose') MongoDb / Mongoose
+                    option(value='MEAN') MEAN
+                    option(value='jQuery') jQuery
+                    option(value='AJAX') AJAX
+                    option(value='Firebase') Firebase
+                    option(value='React') React
+                    option(value='Authentication') Authentication
+                    option(value='Pair Programming') Pair Programming
+                    option(value='Pair Programming') Pair Programming
+                    option(value='es6') es6
+                    option(value='TDD') TDD
+                    option(value='Webpack') Webpack
+                  textarea.form-control#projectTech(ng-model='project.tech', rows='2', cols='50')
+                .form-group
+                  label.bold Requirements:
+                  textarea.form-control#projectRequirements(ng-model='project.requirements', rows='3', cols='50')
+                .form-group
+                  label.bold Notes:
+                  input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets Sharable Link Here')
+                .form-group
+                  label.bold GitHub URL:
+                  input.form-control#projectNotes(type='url' ng-model='project.githubURL' placeholder='Enter GitHub Link Here')
+                .form-group
+                  label.bold Pros:
+                  textarea.form-control#projectPros(ng-model='project.pros', rows='6', cols='50')
+                .form-group
+                  label.bold References:
+                  textarea.form-control#projectReferences(ng-model='project.references', rows='3', cols='50')
+                .form-group
+                  label.bold Alternatives:
+                  textarea.form-control#projectAlternatives(ng-model='project.alternatives', rows='3', cols='50')
+                .form-group
+                  label.bold Deployment Instructions:
+                  textarea.form-control#projectDeployment(ng-model='project.deployment', rows='6', cols='50')
+              .row.col-xs-offset-1
+                .col-xs-10
+                  .form-group
+                    button.btn.btn-default.btn-lg(type='submit' ng-show='newItem' ng-if='formValid' ng-click='submitNewProject(project)') Save
+#newIntroModal.modal.fade(role='newIntro')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title New Intro
+      .modal-body
+        form(name='newProjectForm', novalidate)
+          .row
+            .col-xs-offset-1.col-xs-10
+              h1 Create A New Subject Introduction
+            .col-xs-1
+          .row
+            .col-xs-offset-1.col-xs-10
+              .form-group
+                label.bold Title:
+                input.form-control#projectName(ng-model='intro.name')
+              .form-group
+                label.bold Body:
+                textarea.form-control#projectBody(ng-model='intro.body', rows='10', cols='50')
+          .row.col-xs-offset-1
+            .col-xs-10
+              .form-group
+                button.btn.btn-default.btn-lg(ng-if='newItem' ng-click='submitNewIntro(intro)') Submit
+#editAssignmentModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title Edit Assignment for: &nbsp {{assignment.cohortName}}
+      .modal-body
+        .form-group
+          lable Due Date:
+          input.form-control(type='date' ng-model='assignment.dueDate' required)
+        .form-group
+          h6 Category:
+            h5.box Functionality
+        .form-group
+          h6 Points:
+            input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+        .form-group
+          h6 Category:
+            h5.box Readability
+        .form-group
+          h6 Points:
+            input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+        .form-group
+          h6 Category:
+            h5.box HTML/CSS
+        .form-group
+          h6 Points:
+            input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+        .form-group
+          h6 Category:
+            h5.box JavaScript
+        .form-group
+          h6 Points:
+            input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+          button.btn.btn-success.btn-lg(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit
+          button.btn.btn-default(type='button', data-dismiss='modal') Close
