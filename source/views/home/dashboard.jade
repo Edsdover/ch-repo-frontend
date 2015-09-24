@@ -17,10 +17,10 @@ h1.text-center(ng-hide="activeUser") Content Repo
   h2 Past Assignments
   table.table-bordered.table-hover
     tr
-      th.cohortBox Name
-      th.cohortBox Due Date
-      th.cohortBox Created
-    tr.cursor(ng-repeat='pastAssignment in pastAssignments track by $index | orderBy: pastAssignment.dueDate' ng-click='viewOneAssignment(pastAssignment._id)')
+      th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+      th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
+      th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
+    tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse' ng-click='viewOneAssignment(pastAssignment._id)')
       td.cohortBox {{pastAssignment.projectName}}
       td.cohortBox.textCenter {{pastAssignment.dueDate}}
       td.cohortBox.textCenter {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;

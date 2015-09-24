@@ -6,27 +6,30 @@
         | Filter: 
         input(ng-model='searchtext')
 .row
-  .col-md-4.col-xs-11.userCard(ng-repeat='admin in admins | filter: searchtext')
-    .col-xs-4
-      img.img-responsive.img-thumbnail.userListPic(ng-src='{{admin.profileImageURL}}')
-    .col-xs-8
-      h5 Name: {{admin.displayName}}
-      h5 Username: {{admin.username}}
-      h5.cursor(ng-click='toggleAdminOff()') Admin: {{admin.adminUser}}
-        .glyphicon.glyphicon-arrow-down
+  .col-xs-12
+    table.table-bordered.table-hover
+      tr
+        th.userListBox.cursor(ng-click="predicate='username'; reverses=!reverse") Username
+        th.userListBox.cursor(ng-click="predicate='displayName'; reverse=!reverse") Name
+        th.userListBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
+        th.userListBox.cursor Move to Students
+      tr.cursor(ng-repeat='admin in admins | orderBy:predicate:reverse | filter: searchtext' ng-click='viewOneAssignment(pastAssignment._id)')
+        td.userListBox.textCenter {{admin.username}}
+        td.userListBox {{admin.displayName}}
+        td.userListBox.textCenter {{admin.createdAt | date:'MMM d, y'}} &nbsp;
+        td: h5.cursor.textCenter(ng-click='toggleAdminOff()') Admin: {{admin.adminUser}}
+          .glyphicon.glyphicon-arrow-down
 .row
-  h4 Student Accounts
-  .col-xs-12.borderRight
-    .filter.col-xs-12
-      label
-        | Filter: 
-        input(ng-model='searchText')
-.row
-  .col-md-4.col-xs-11.userCard(ng-repeat='student in students | filter: searchText : student.username')
-    .col-xs-4
-      img.img-responsive.img-thumbnail.userListPic(ng-src='{{student.profileImageURL}}')
-    .col-xs-8
-      h5 Name: {{student.displayName}}
-      h5 Username: {{student.username}}
-      h5.cursor(ng-click='toggleAdminOn()') Admin: {{student.adminUser}}
-        .glyphicon.glyphicon-arrow-up
+  .col-xs-12
+    table.table-bordered.table-hover
+      tr
+        th.userListBox.cursor(ng-click="predicate='username'; reverse=!reverse") Username
+        th.userListBox.cursor(ng-click="predicate='displayName'; reverse=!reverse") Name
+        th.userListBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
+        th.userListBox.cursor Move to Students
+      tr.cursor(ng-repeat='student in students | orderBy:predicate:reverse | filter: searchtext' ng-click='viewOneAssignment(pastAssignment._id)')
+        td.userListBox.textCenter {{student.username}}
+        td.userListBox {{student.displayName}}
+        td.userListBox.textCenter {{student.createdAt | date:'MMM d, y'}} &nbsp;
+        td: h5.cursor.textCenter(ng-click='toggleAdminOn()') Admin: {{admin.adminUser}}
+          .glyphicon.glyphicon-arrow-down
