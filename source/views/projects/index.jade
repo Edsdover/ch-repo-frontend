@@ -27,11 +27,11 @@
     button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-show='selectedIntro' ng-click='toggleIntroOff(); $event.stopPropagation();')
   .form-group
     h6 Pick a Cohort
-    select.form-control(ng-model='assignment.cohortName')
+    select.form-control(ng-model='assignment.cohortName' required)
       option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
   .form-group
     lable Due Date:
-    input.form-control(type='date' ng-model='assignment.dueDate')
+    input.form-control(type='date' ng-model='assignment.dueDate' required)
   .form-group
     h6 Category:
       h5.box Functionality

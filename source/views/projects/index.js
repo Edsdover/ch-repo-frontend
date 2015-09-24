@@ -30,17 +30,17 @@ angular.module('chRepo')
     .success(function(data){
       console.log('data', data);
       // var email = 'misankovich@gmail.com';
-        Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
-          if (doc) {
-            console.log(doc, 'doc');
-            var email = doc.cohortEmail;
-          }
-          console.log(email, 'email');
-        })
-        .then(function(response){
-          console.log(response, "Here ya go");
-          $scope.assignment = response.data;
-        });
+        // Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
+        //   if (doc) {
+        //     console.log(doc, 'doc');
+        //     var email = doc.cohortEmail;
+        //   }
+        //   console.log(email, 'email');
+        // })
+        // .then(function(response){
+        //   console.log(response, "Here ya go");
+        //   $scope.assignment = response.data;
+        // });
         var name = 'Some TA';
         var msg = 'New Assignment at ch-repo.herokuapp.com';
       //   $.ajax({

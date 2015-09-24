@@ -19,22 +19,28 @@ form(name='newProjectForm', novalidate)
         input.form-control.inputButton#projectName(ng-model='cohort.cohortName')
         label.bold Cohort Email
         input.form-control.inputButton#projectName(ng-model='cohort.cohortEmail')
-        button.btn.btn-success.btn-lg.rightFloat(ng-click='update(cohort)') Submit
+        button.btn.btn-success.btn-lg.rightFloat(ng-click='update(cohort)' ng-hide='editing') Submit
+        button.btn.btn-success.btn-lg.rightFloat(ng-click='edit(cohort)' ng-show='editing') Update
       .form-group
 h4 Add Students:
 .col-xs-8.borderRight
-  div(ng-repeat='student in students')
-    .col-md-3.col-xs-12
-      .studentbox
-        img.img-responsive.img-thumbnail.studentCard(ng-src='{{student.profileImageURL}}')
+  .filter.col-xs-12
+    label
+      | Filter: 
+      input(ng-model='searchText')
+  .col-xs-12
+    .col-md-4.col-xs-12(ng-repeat='student in students | filter: searchText : student.username')
+      .studentboxtwo
         .nbsp.glyphicon.glyphicon-plus.cursor(ng-click='toggleCohortOn()')
         h5 Name: {{student.displayName}}
-        h5 Username: {{student.username}}
+        h5 Name: {{student.username}}
+        h5 Email: {{student.email}}
 .col-xs-4
   h4 Cohort:
     div(ng-repeat='cohortStudent in cohortStudents')
-      .studentbox
+      .studentboxtwo
         img.img-responsive.img-thumbnail.studentCard(ng-src='{{cohortStudent.profileImageURL}}')
         button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='toggleCohortOff(); $event.stopPropagation();')
         h5 Name: {{cohortStudent.displayName}}
         h5 Username: {{cohortStudent.username}}
+        h5 Email: {{student.email}}

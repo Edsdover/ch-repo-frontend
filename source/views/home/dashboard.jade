@@ -1,4 +1,9 @@
-.col-md-6.col-sm-11
+.col-xs-12.text-center(ng-hide="activeUser")
+  img(src='media/logo-black.png')
+h1.text-center(ng-hide="activeUser") Content Repo
+
+
+.col-md-6.col-sm-11(ng-show="activeUser")
   h2 Current Assignment
   .col-md-11.col-sm-11(ng-repeat='currentAssignment in currentAssignments track by $index | orderBy: currentAssignment.dueDate')
     .box.inputButton.cursor(ng-click='viewOneAssignment(currentAssignment._id)')
@@ -8,7 +13,7 @@
       ul
         li: h6 Assigned: {{currentAssignment.createdAt | date: 'MMM-dd-yyyy'}}
         li: h6 Due Date: {{currentAssignment.dueDate | date: 'MMM-dd-yyyy'}}
-.col-md-6.col-sm-11
+.col-md-6.col-sm-11(ng-show="activeUser")
   h2 Past Assignments
   .col-md-11.col-sm-11(ng-repeat='pastAssignment in pastAssignments track by $index | orderBy: pastAssignment.dueDate')
     .box.inputButton.cursor(ng-click='viewOneAssignment(pastAssignment._id)')

@@ -51,10 +51,41 @@ angular.module('chRepo')
     });
   };
   $scope.editCohort = function(){
+    $scope.editing = true;
     $scope.cohort = this.cohort;
-    $scope.cohortStudents = this.cohort.cohortStudents;
-    console.log(this.cohort);
-    console.log($scope.cohortStudents);
+    $scope.cohortStudentIds = this.cohort.cohortStudentIds;
+    var cohortStudents = [];
+    User.findAll()
+    .then(function(res){
+      res.data.forEach(function(user){
+        // console.log(user.id);
+        if(($scope.cohortStudentIds).indexOf(user.id) > -1){
+          cohortStudents.push(user);
+        }
+        $scope.cohortStudents = cohortStudents;
+      });
+      console.log('cohort students', cohortStudents);
+    });
+
+    console.log("this cohort", this.cohort);
+    console.log("this studentids", $scope.cohortStudentIds);
+  };
+  $scope.edit = function(obj){
+    obj.cohortStudentIds = $scope.cohortStudentIds;
+    Cohort.update(obj)
+    .success(function(res){
+      console.log('LOOK AT MEEEEE BITCHES', res);
+      sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+      $scope.cohort = {};
+      $scope.cohortStudents = [];
+      Cohort.index()
+      .success(function(res){
+        $scope.cohorts = res;
+      });
+    })
+    .error(function(error){
+      console.log(error);
+    });
   };
   $scope.toggleCohortOn = function(){
     var student = this.student;

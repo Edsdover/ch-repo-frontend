@@ -7,7 +7,7 @@ form(name='newProjectForm', novalidate)
     .col-xs-offset-1.col-xs-10
       .form-group
         label.bold Name:
-        input.form-control#projectName(ng-model='project.name')
+        input.form-control#projectName(ng-model='project.name' required)
       .form-group
         label.bold Core Concepts:
         textarea.form-control#projectConcepts(ng-model='project.concepts', rows='3', cols='50')
@@ -38,5 +38,5 @@ form(name='newProjectForm', novalidate)
   .row.col-xs-offset-1
     .col-xs-10
       .form-group
-        button.btn.btn-default.btn-lg(ng-if='newItem' ng-click='submit(project)') Submit
-        button.btn.btn-default.btn-lg(ng-if='editItem' ng-click='update(project)') Submit
+        button.btn.btn-default.btn-lg(ng-if='newItem' ng-click='submit(project)') Save
+        button.btn.btn-default.btn-lg(ng-if='editItem' ng-click='update(project)') Save Edits

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('NewProjectCtrl', function($scope, Project, sweet){
+.controller('NewProjectCtrl', function($scope, Project, sweet, $window){
 
   $scope.newItem = true;
 
@@ -12,7 +12,7 @@ angular.module('chRepo')
       $scope.project = {};
     })
     .error(function(error){
-      console.log(error);
+      $window.swal({title: 'Project Save Error', text: 'Warning, there was a problem saving your project.', type: 'error'});
     });
   };
 });

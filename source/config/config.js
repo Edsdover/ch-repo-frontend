@@ -5,8 +5,8 @@ angular.module('chRepo')
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-  .state('home', {url: '/', templateUrl: '/views/home/home.html', abstract: true})
-  .state('home.dashboard', {url: 'dashboard', templateUrl: '/views/home/dashboard.html', controller: 'DashboardCtrl'})
+  .state('home', {url: '', templateUrl: '/views/home/home.html', abstract: true})
+  .state('home.dashboard', {url: '/', templateUrl: '/views/home/dashboard.html', controller: 'DashboardCtrl'})
   .state('user', {url: '', templateUrl: '/views/users/user.html', abstract: true})
   .state('home.show', {url: 'dashboard/{assignmentId}', templateUrl: '/views/home/showOneAssignment.html', controller: 'HomeAssignmentCtrl'})
   .state('home.showOneIntro', {url: '/dashboard/{introId}', templateUrl: '/views/home/showOneIntro.html', controller: 'HomeIntroCtrl'})

@@ -23,7 +23,7 @@ angular.module('chRepo')
         }
         $scope.students = students;
       });
-      console.log(students);
+      console.log('students', students);
     });
   });
 
