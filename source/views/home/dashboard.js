@@ -60,6 +60,9 @@ angular.module('chRepo')
         Assignment.index()
         .success(function(assignments){
           $scope.assignments = assignments;
+         })
+         .then(function(){
+           location.reload(); // jshint ignore:line
          });
       });
     });
