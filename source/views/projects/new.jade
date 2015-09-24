@@ -9,17 +9,52 @@ form(name='newProjectForm', novalidate)
         label.bold Name:
         input.form-control#projectName(ng-model='project.name' required)
       .form-group
-        label.bold Core Concepts:
-        textarea.form-control#projectConcepts(ng-model='project.concepts', rows='3', cols='50')
+        label.bold Core Concept:
+        select.form-control#projectConcepts(ng-model='project.concepts')
+          option(value='' disabled)
+          option(value='Core Javascript') Core Javascript
+          option(value='Node.js') Node.js
+          option(value='AngularJS') AngularJS
+          option(value='Angular2') Angular2
+          option(value='ExpressJS') ExpressJS
+          option(value='MongoDb/Mongoose') MongoDb / Mongoose
+          option(value='MEAN') MEAN
+          option(value='jQuery') jQuery
+          option(value='AJAX') AJAX
+          option(value='Firebase') Firebase
+          option(value='React') React
+          option(value='Authentication') Authentication
+          option(value='Pair Programming') Pair Programming
+          option(value='es6') es6
+          option(value='TDD') TDD
+          option(value='Webpack') Webpack
       .form-group
-        label.bold Technology Used:
+        label.bold Technology Used (select all that apply):
+        select.form-control#sel
+          option(value='' disabled)
+          option(value='Core Javascript') Core Javascript
+          option(value='Node.js') Node.js
+          option(value='AngularJS') AngularJS
+          option(value='Angular2') Angular2
+          option(value='ExpressJS') ExpressJS
+          option(value='MongoDb/Mongoose') MongoDb / Mongoose
+          option(value='MEAN') MEAN
+          option(value='jQuery') jQuery
+          option(value='AJAX') AJAX
+          option(value='Firebase') Firebase
+          option(value='React') React
+          option(value='Authentication') Authentication
+          option(value='Pair Programming') Pair Programming
+          option(value='es6') es6
+          option(value='TDD') TDD
+          option(value='Webpack') Webpack
         textarea.form-control#projectTech(ng-model='project.tech', rows='3', cols='50')
       .form-group
         label.bold Requirements:
         textarea.form-control#projectRequirements(ng-model='project.requirements', rows='3', cols='50')
       .form-group
         label.bold Notes:
-        input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets embeded iframe link here')
+        input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets Sharable Link Here')
       .form-group
         label.bold GitHub URL:
         input.form-control#projectNotes(type='url' ng-model='project.githubURL' placeholder='Enter GitHub Link Here')
