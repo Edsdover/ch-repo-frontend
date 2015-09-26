@@ -8,7 +8,7 @@ angular.module('chRepo')
   $scope.cohortStudents = [];
   $scope.students = [];
   $scope.tempCohort = {};
-  findAllUsers();
+  findAllUsers(); 
 
   Cohort.index()
   .success(function(res){
