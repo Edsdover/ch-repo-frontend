@@ -13,6 +13,7 @@ angular.module('chRepo')
 
   .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})
   .state('admins.userIndex', {url: '/admins/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
+  .state('admins.show', {url: '/admins/{studentIds}', templateUrl: '/views/admins/showUser.html', controller: 'userCtrl'})
 
   .state('cohorts', {url: '/cohorts', templateUrl: '/views/cohorts/cohorts.html', abstract: true})
   .state('cohorts.index', {url: '/cohorts/index', templateUrl: '/views/cohorts/index.html', controller: 'IndexCohortCtrl'})
