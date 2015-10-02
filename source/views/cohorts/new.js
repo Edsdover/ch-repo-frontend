@@ -12,9 +12,7 @@ angular.module('chRepo')
 
   Cohort.index()
   .success(function(res){
-    console.log('cohorts res', res);
     res.forEach(function(cohort){
-      console.log(cohort.cohortStudentIds.length);
       cohort.studentNumber = cohort.cohortStudentIds.length;
     });
     $scope.cohorts = res;
@@ -36,13 +34,13 @@ angular.module('chRepo')
     var cohort = this.cohort;
     $scope.tempCohort = cohort;
     sweet.show({
-        title: 'Delete? Really?',
-        text: 'This will blow this cohort back to Nam',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'DO IT!',
-        closeOnConfirm: false
+      title: 'Delete? Really?',
+      text: 'This will blow this cohort back to Nam',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
     },
     function() {
       Cohort.delete($scope.tempCohort)
@@ -63,23 +61,17 @@ angular.module('chRepo')
     User.findAll()
     .then(function(res){
       res.data.forEach(function(user){
-        // console.log(user.id);
         if(($scope.cohortStudentIds).indexOf(user.id) > -1){
           cohortStudents.push(user);
         }
         $scope.cohortStudents = cohortStudents;
       });
-      console.log('cohort students', cohortStudents);
     });
-
-    console.log("this cohort", this.cohort);
-    console.log("this studentids", $scope.cohortStudentIds);
   };
   $scope.edit = function(obj){
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.update(obj)
     .success(function(res){
-      console.log('LOOK AT MEEEEE BITCHES', res);
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
       $scope.cohort = {};
       $scope.cohortStudents = [];
@@ -95,16 +87,13 @@ angular.module('chRepo')
   $scope.toggleCohortOn = function(){
     var student = this.student;
     var indx = $scope.students.indexOf(student);
-    console.log(indx);
     $scope.cohortStudentIds.push(student.id);
     $scope.cohortStudents.push(student);
     $scope.students.splice(indx, 1);
-    console.log($scope.students);
   };
   $scope.toggleCohortOff = function(){
     var student = this.cohortStudent;
     var indx = $scope.cohortStudents.indexOf(student);
-    console.log(indx);
     $scope.cohortStudents.splice(indx, 1);
     $scope.students.push(this.cohortStudent);
   };
@@ -113,7 +102,6 @@ angular.module('chRepo')
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.create(obj)
     .success(function(res){
-      console.log('LOOK AT MEEEEE BITCHES', res);
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
       $scope.cohort = {};
       $scope.cohortStudents = [];

@@ -117,9 +117,9 @@ angular.module('chRepo')
       })
       .error(function(error){
         sweet.show({
-            title: 'Assignment Save Error',
-            text: 'Warning, there was a problem saving your assignment.',
-            type: 'error'
+          title: 'Assignment Save Error',
+          text: 'Warning, there was a problem saving your assignment.',
+          type: 'error'
         });
       });
     };
@@ -185,7 +185,6 @@ angular.module('chRepo')
       });
     }
     $scope.updateProject = function(obj){
-      console.log(obj);
       Project.update(obj)
       .then(function(){
         Project.index()

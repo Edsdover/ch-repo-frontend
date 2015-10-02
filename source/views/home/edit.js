@@ -34,7 +34,6 @@ angular.module('chRepo')
     var indx = $scope.projects.indexOf(this)+1;
     $scope.selectedProject = project;
     $scope.projects.splice(indx, 1);
-    console.log(project.name);
   };
   $scope.selectedIntro = function(index){
     var intro = this.assignment.intro;

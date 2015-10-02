@@ -28,7 +28,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.projectName}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
-      td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') 
+      td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)')
       td.cohortBox.textCenter
         button(ng-click="submitAssignment()") Submit
       td.cohortBox.textCenter(ng-show="isAdmin")

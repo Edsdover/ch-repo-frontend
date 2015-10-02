@@ -43,22 +43,18 @@ angular.module('chRepo')
   };
 
   $scope.toggleAdminOff = function(){
-    console.log(this.admin);
     var admin = this.admin;
     admin.adminUser = false;
     User.toggleAdmin(admin)
     .success(function(res){
-      console.log('res', res);
       findAllUsers();
     });
   };
   $scope.toggleAdminOn = function(){
-    console.log(this.student);
     var student = this.student;
     student.adminUser = true;
     User.toggleAdmin(student)
     .success(function(res){
-      console.log('res', res);
       findAllUsers();
     });
   };

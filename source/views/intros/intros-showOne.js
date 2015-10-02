@@ -7,12 +7,10 @@ angular.module('chRepo')
 
   Intro.findById(introId)
   .then(function(response){
-    console.log(response.data);
     $scope.intro = response.data;
   });
 
   $scope.deleteIntro = function(obj){
-    console.log('click', obj);
     Intro.delete(obj)
     .success(function(res){
       $window.swal({title: 'Intro Deleted', text: 'Intro is Deleted!', type: 'warning'});

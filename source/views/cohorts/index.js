@@ -14,13 +14,13 @@ angular.module('chRepo')
     var cohort = this.cohort;
     $scope.tempCohort = cohort;
     sweet.show({
-        title: 'Delete? Really?',
-        text: 'This will blow this cohort back to Nam',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'DO IT!',
-        closeOnConfirm: false
+      title: 'Delete? Really?',
+      text: 'This will blow this cohort back to Nam',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
     },
     function() {
       Cohort.delete($scope.tempCohort)

@@ -14,13 +14,13 @@ angular.module('chRepo')
   $scope.deleteProject = function(project){
     $scope.tempProject = project;
     sweet.show({
-        title: 'Delete? Really?',
-        text: 'This will blow this project back to Nam',
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#DD6B55',
-        confirmButtonText: 'DO IT!',
-        closeOnConfirm: false
+      title: 'Delete? Really?',
+      text: 'This will blow this project back to Nam',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
     },
     function() {
       Project.delete($scope.tempProject)
