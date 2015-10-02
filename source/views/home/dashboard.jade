@@ -113,7 +113,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='submit' ng-show='newItem' ng-if='formValid' ng-click='submitNewProject(project)') Save
+                    button.btn.btn-default.btn-lg(type='submit' ng-if='formValid' ng-click='submitNewProject(project)') Save
 #newIntroModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -136,7 +136,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(ng-if='newItem' ng-click='submitNewIntro(intro)') Submit
+                button.btn.btn-default.btn-lg(ng-click='submitNewIntro(intro)') Submit
 #editAssignmentModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content

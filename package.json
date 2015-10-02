@@ -51,6 +51,7 @@
     "gulp-watch": "4.2.4",
     "mandrill-api": "^1.0.45",
     "moment": "^2.10.6",
+    "node-sass": "^3.3.3",
     "rimraf": "2.4.1",
     "run-sequence": "1.1.1"
   }
