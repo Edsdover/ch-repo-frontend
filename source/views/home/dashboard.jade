@@ -20,7 +20,19 @@ h1.text-center(ng-hide="activeUser") Content Repo
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
       th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
       th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
-    tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse' ng-click='viewOneAssignment(pastAssignment._id)')
-      td.cohortBox {{pastAssignment.projectName}}
-      td.cohortBox.textCenter {{pastAssignment.dueDate}}
-      td.cohortBox.textCenter {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+      th.cohortBox.cursor Status
+      th.cohortBox.cursor Submit
+      th.cohortBox.cursor(ng-show="isAdmin") Edit
+      th.cohortBox.cursor(ng-show="isAdmin") Delete
+    tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse')
+      td.cohortBox(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.projectName}}
+      td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
+      td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+      td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') 
+      td.cohortBox.textCenter
+        button(ng-click="submitAssignment()") Submit
+      td.cohortBox.textCenter(ng-show="isAdmin")
+        button(ng-click="deleteAssignmentConfirm()") Edit
+      td.cohortBox.textCenter(ng-show="isAdmin")
+        button(ng-click="deleteAssignmentConfirm()") Delete
+      

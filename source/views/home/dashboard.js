@@ -3,10 +3,19 @@
 angular.module('chRepo')
 .controller('DashboardCtrl', function($rootScope, $scope, Cohort, Project, User, Intro, Assignment, sweet, $state, $http){
 
+
+
   $scope.tempProject = {};
   $scope.tempIntro = {};
   var currentAssignments = [];
   var pastAssignments = [];
+  // $scope.isAdmin='';
+
+  $scope.checkAdmin = function() {
+    if ($scope.adminUser) { $scope.isAdmin = false; }
+    else { $scope.isAdmin = true; }
+  };
+  $scope.checkAdmin();
 
 
   Assignment.index()
@@ -41,7 +50,7 @@ angular.module('chRepo')
   };
 
   $scope.deleteAssignmentConfirm = function(assignment){
-    $scope.tempAssignment = assignment;
+    $scope.tempAssignment = this.pastAssignment._id;
     sweet.show({
         title: 'Delete? Really?',
         text: 'This will blow this project back to Nam',
@@ -65,5 +74,20 @@ angular.module('chRepo')
       });
     });
   };
+  $scope.submitAssignment= function() {
+    console.log(this.pastAssignment._id);
+    // console.log($scope.activeUser);
+    Assignment.findByIdAndUpdate(this.pastAssignment._id,
+      {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},
+      {safe: true, upsert: true},
+      function(err, assignment) {
+        console.log(assignment);
+    }
+  );
+  };
+  // $scope.submitAssignment= function() {
+  //   console.log(this.pastAssignment._id);
+  //   console.log($scope.activeUser.mongoId._id);
+  // };
 
 });

@@ -13,8 +13,11 @@ angular.module('chRepo')
   Assignment.update = function(assignment){
     return $http.put(apiUrl + '/assignments', assignment);
   };
+  Assignment.findByIdAndUpdate = function(assignment){
+    return $http.put(apiUrl + '/assignments', assignment._id);
+  };
   Assignment.delete = function(assignment){
-    return $http.delete(apiUrl + '/assignments/' + assignment._id);
+    return $http.delete(apiUrl + '/assignments/' + assignment);
   };
   Assignment.index = function(){
     return $http.get(apiUrl + '/assignments');
