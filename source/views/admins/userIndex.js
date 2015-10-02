@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('AdminCtrl', function(User, $scope, $rootScope){
+.controller('AdminCtrl', function(User, $scope, $rootScope, $state){
+
+  $scope.adminShow = false;
+  $scope.studentShow = false;
 
   findAllUsers();
 
@@ -21,6 +24,24 @@ angular.module('chRepo')
       });
     });
   }
+
+  $scope.toggleAdmins = function() {
+    if ($scope.adminShow === false) {
+      $scope.adminShow = true;
+    }
+    else {
+      $scope.adminShow = false;
+    }
+  };
+  $scope.toggleStudents = function() {
+    if ($scope.studentShow === false) {
+      $scope.studentShow = true;
+    }
+    else {
+      $scope.studentShow = false;
+    }
+  };
+
   $scope.toggleAdminOff = function(){
     console.log(this.admin);
     var admin = this.admin;
@@ -40,5 +61,13 @@ angular.module('chRepo')
       console.log('res', res);
       findAllUsers();
     });
+  };
+  $scope.showUser = function(){
+    var studentIds = this.student._id;
+    $state.go('admins.show', {studentIds:this.student._id});
+  };
+  $scope.showAdmin = function(){
+    var studentIds = this.admin._id;
+    $state.go('admins.show', {studentIds:this.admin._id});
   };
 });
