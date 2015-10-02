@@ -1,19 +1,15 @@
-# SIF
-## Because Norse Gods were cool.
+# CH-Repo
 
-### A more robust template for all your Angular.js needs.
-![Packagist](https://img.shields.io/badge/Angular-1.4.1-red.svg?style=flat-square)
-![Packagist](https://img.shields.io/badge/Bootstrap-3.3.5-blue.svg?style=flat-square)
-
-Includes: Angular.js, Bootstrap, jQuery, Firebase, AngularFire, Angular UI Router, Sass, Jade, and Lodash.
-Now also supports error resistance and persistent state. It won't crash if you forget a semi-colon in Sass.
+An assignment app designed and created for Coding House Co. Built with MongoDB backend and Angular w/ Bootstrap on the frontend. Permission must be gained from Coding House for any use of this code.
 
 #### Setup
-$ git clone https://github.com/IAmEddieDean/sif
+$ git clone https://github.com/Edsdover/ch-repo-frontend
+$ git clone https://github.com/Edsdover/ch-repo-backend
 
-$ cd sif
-
+$ cd ch-repo-frontend
 $ npm run setup
+-----thereafter
+$ gulp
 
-
-##### Happy Coding!
+$ cd ch-repo-backend
+$ npm run setup
