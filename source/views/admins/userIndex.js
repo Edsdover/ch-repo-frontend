@@ -24,40 +24,28 @@ angular.module('chRepo')
       });
     });
   }
-
   $scope.toggleAdmins = function() {
-    if ($scope.adminShow === false) {
-      $scope.adminShow = true;
-    }
-    else {
-      $scope.adminShow = false;
-    }
+    $scope.adminShow = $scope.adminShow === false ? true : false;
   };
   $scope.toggleStudents = function() {
-    if ($scope.studentShow === false) {
-      $scope.studentShow = true;
-    }
-    else {
-      $scope.studentShow = false;
-    }
+    $scope.studentShow = $scope.studentShow === false ? true : false;
   };
-
   $scope.toggleAdminOff = function(){
     var admin = this.admin;
     admin.adminUser = false;
-    User.toggleAdmin(admin)
-    .success(function(res){
-      findAllUsers();
-    });
+    userSavePrivileges(admin);
   };
   $scope.toggleAdminOn = function(){
     var student = this.student;
     student.adminUser = true;
-    User.toggleAdmin(student)
+    userSavePrivileges(student);
+  };
+  function userSavePrivileges(user){
+    User.toggleAdmin(user)
     .success(function(res){
       findAllUsers();
     });
-  };
+  }
   $scope.showUser = function(){
     var studentIds = this.student._id;
     $state.go('admins.show', {studentIds:this.student._id});

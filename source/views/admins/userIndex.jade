@@ -1,13 +1,13 @@
 .row
-  h4 Admin Accounts
-  .col-xs-12.borderRight
-    .filter.col-xs-12
-      label
-        | Filter: 
-        input(ng-model='searchtext')
-.row
   .col-xs-12
+    h4 Admin Accounts
     button(ng-click="toggleAdmins()") Show/Hide Admins
+    .row(ng-show="adminShow")
+      .col-xs-12.borderRight
+        .filter.col-xs-12
+          label
+            | Filter:
+            input(ng-model='searchtext')
     table.table-bordered.table-hover(ng-show="adminShow")
       tr
         th.userListBox.cursor(ng-click="predicate='username'; reverses=!reverse") Username
@@ -21,16 +21,16 @@
           td.userListBox.textCenter(ng-click='showAdmin()') {{admin.createdAt | date:'MMM d, y'}} &nbsp;
           td: h5.cursor.textCenter(ng-click='toggleAdminOff()') Admin: {{admin.adminUser}}
             .glyphicon.glyphicon-arrow-down
-.row
-  h4 Student Accounts
-  .col-xs-12.borderRight
-    .filter.col-xs-12
-      label
-        | Filter: 
-        input(ng-model='searchText')
 .row.newCohortForm
   .col-xs-12
+    h4 Student Accounts
     button(ng-click="toggleStudents()") Show/Hide Students
+    .row(ng-show="studentShow")
+      .col-xs-12.borderRight
+        .filter.col-xs-12
+          label
+            | Filter:
+            input(ng-model='searchText')
     table.table-bordered.table-hover(ng-show="studentShow")
       tr
         th.userListBox.cursor(ng-click="predicate='username'; reverse=!reverse") Username
