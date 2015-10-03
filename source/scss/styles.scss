@@ -27,6 +27,9 @@ iframe{
   float: right;
   margin-right: 10px;
 }
+.leftMargin{
+  margin-left: 10%;
+}
 .cursor{
   cursor: pointer;
 }
@@ -40,9 +43,6 @@ iframe{
 }
 .userListPic{
   max-width: 100px;
-}
-.userCard{
-  margin-left: 5%;
 }
 .studentCard{
   max-width: 65px;
@@ -58,7 +58,7 @@ iframe{
 }
 .userListBox{
   padding: 5px;
-  min-width: 250px;
+  min-width: 200px;
 }
 .projectIntroList{
   min-width: 115px;
@@ -83,7 +83,6 @@ iframe{
   padding: 10px;
   height: 120px;
 }
-
 .bubblies {
   color: teal;
 }

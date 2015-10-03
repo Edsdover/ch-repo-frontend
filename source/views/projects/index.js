@@ -8,28 +8,45 @@ angular.module('chRepo')
     $scope.tempIntro = {};
     $scope.selectedProject = null;
     $scope.selectedIntro = null;
+    $scope.isEdit = false;
 
     Project.index()
     .success(function(projects){
       $scope.projects = projects;
     });
-    Cohort.index()
+    Cohort.findAll()
     .success(function(cohorts){
       $scope.cohorts = cohorts;
-      console.log($scope.cohorts);
     });
     Intro.index()
     .success(function(intros){
       $scope.intros = intros;
     });
-    $scope.toggleProjectOn = function(){
+    $scope.editProjectModal = function(){
+      $scope.isEdit = true;
       $scope.selectedProject = this.project;
-      findProjects();
+      Project.findById(this.project._id)
+      .then(function(response){
+        $scope.project = response.data;
+      });
     };
-    $scope.toggleIntroOn = function(){
-      $scope.selectedIntro = this.intro;
-      findIntros();
+    $scope.editIntroModal = function(){
+      $scope.isEdit = true;
+      $scope.selectedProject = this.intro;
+      Intro.findById(this.intro._id)
+      .then(function(response){
+        $scope.intro = response.data;
+      });
     };
+    $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
+      $scope.$apply(function () {
+        $scope.message = "Timeout called!";
+        $scope.intro = null;
+        $scope.project = null;
+        $scope.selectedProject = null;
+        $scope.isEdit = false;
+      });
+    });
     $scope.submitProject = function(obj){
       obj.projectName = $scope.selectedProject.name;
       obj.projectId = $scope.selectedProject._id;
@@ -112,18 +129,6 @@ angular.module('chRepo')
     $scope.viewOneIntro = function(introId){
       $state.go('intros.show', {introId:introId});
     };
-    function findProjects(){
-      Project.findById($scope.selectedProject._id)
-      .then(function(response){
-        $scope.project = response.data;
-      });
-    }
-    function findIntros(){
-      Intro.findById($scope.selectedIntro._id)
-      .then(function(response){
-        $scope.intro = response.data;
-      });
-    }
     $scope.updateProject = function(obj){
       Project.update(obj)
       .then(function(){
@@ -150,10 +155,10 @@ angular.module('chRepo')
       console.log(err);
     });
   };
-    $('#sel').change(function() { // jshint ignore:line
-      var currentVal = $('#projectTech').val(); // jshint ignore:line
-      $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
-    });
+  $('#sel').change(function() { // jshint ignore:line
+    var currentVal = $('#projectTech').val(); // jshint ignore:line
+    $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
+  });
   // $scope.submit = function(obj){
   //   console.log('name', $scope.assignment.cohortName);
   //   obj.projectName = $scope.selectedProject.name;

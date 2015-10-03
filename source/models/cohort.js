@@ -7,7 +7,6 @@ angular.module('chRepo')
   var Cohort = {};
 
   Cohort.create = function(cohort){
-    console.log(cohort);
     return $http.post(apiUrl + '/cohorts', cohort);
   };
   // Cohort.update = function(intro){
@@ -16,7 +15,7 @@ angular.module('chRepo')
   Cohort.delete = function(cohort){
     return $http.delete(apiUrl + '/cohorts/' + cohort._id);
   };
-  Cohort.index = function(){
+  Cohort.findAll = function(){
     return $http.get(apiUrl + '/cohorts');
   };
   Cohort.findById = function(cohortId){

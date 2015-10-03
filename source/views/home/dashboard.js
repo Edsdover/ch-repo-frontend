@@ -33,7 +33,7 @@ angular.module('chRepo')
   .success(function(projects){
     $scope.projects = projects;
   });
-  Cohort.index()
+  Cohort.findAll()
   .success(function(cohorts){
     $scope.cohorts = cohorts;
   });
