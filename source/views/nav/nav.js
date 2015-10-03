@@ -30,16 +30,12 @@ angular.module('chRepo')
     }
   });
   function updateUser(data){
-    console.log("here", data);
     User.initialize(data).then(function(response){
       $rootScope.activeUser.mongoId = response.data;
-      adminAssignment();
+      $rootScope.adminUser = $rootScope.activeUser.github.cachedUserProfile.site_admin ? true : false;
+      $rootScope.adminUser = $rootScope.activeUser.mongoId.adminUser ? true : false;
     });
   }
-  var adminAssignment = function(){
-    $rootScope.adminUser = $rootScope.activeUser.github.cachedUserProfile.site_admin ? true : false;
-    $rootScope.adminUser = $rootScope.activeUser.mongoId.adminUser ? true : false;
-  };
   $scope.logout = function(){
     User.logout();
     $state.go('home.dashboard').then(function(){
