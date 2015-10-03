@@ -84,27 +84,21 @@
                 input.form-control.inputButton#projectName(ng-model='modalCohort.cohortName')
               label.bold Cohort Email
                 input.form-control.inputButton#projectName(ng-model='modalCohort.cohortEmail')
-              button.btn.btn-success.btn-lg.cohortBoxButtons(ng-click='saveNewCohort(modalCohort)' ng-hide='isEdit') Submit
+              button.btn.btn-success.btn-lg.cohortBoxButtons(ng-click='saveNewCohort(modalCohort)' ng-hide='isEdit' data-dismiss='modal') Submit
               button.btn.btn-success.btn-lg(ng-click='updateCohort(cohort)' ng-show='isEdit') Update
-        .row
-          .col-xs-12
-            .filter
-              label
-                | Search Students:
-                input(ng-model='studentList')
         .row
           .col-xs-11.col-md-6
             h4 Enrolled Students:
-            table.table-bordered.table-hover
+            table.table-bordered.table-hover(ng-model='modalListStudent')
               tr
                 th.cohortBox Name
                 th.cohortBox Username
                 th.cohortBox E-mail
                 th.cohortBox Add to new cohort
-              tr(ng-repeat='modalStudent in modalStudents | filter: studentList : modalStudent.username')
-                td.cohortBox {{modalStudent.displayName}}
-                td.cohortBox {{modalStudent.username}}
-                td.cohortBox {{modalStudent.email}}
+              tr(ng-repeat='modalListStudent in modalListStudents track by $index')
+                td.cohortBox {{modalListStudent.displayName}}
+                td.cohortBox {{modalListStudent.username}}
+                td.cohortBox {{modalListStudent.email}}
                 td.nbsp.glyphicon.glyphicon-plus.cursor.cohortBox.cohortBoxButtons.addStudentButton(ng-click='addStudentToList()')
           .col-xs-11.col-md-5.col-md-offset-1
             h4 New Cohort:
@@ -114,10 +108,9 @@
                 th.cohortBox Username
                 th.cohortBox E-mail
                 th.cohortBox Remove from cohort
-              tr(ng-repeat='cohortStudent in cohortStudents | filter: searchText : student.username')
-                td.cohortBox {{cohortStudent.displayName}}
-                td.cohortBox {{cohortStudent.username}}
-                td.cohortBox {{cohortStudent.email}}
+              tr(ng-repeat='modalCohortStudent in modalCohortStudents track by $index')
+                td.cohortBox {{modalCohortStudent.displayName}}
+                td.cohortBox {{modalCohortStudent.username}}
+                td.cohortBox {{modalCohortStudent.email}}
                 td: button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='removeStudentFromList(); $event.stopPropagation();')
-            button.btn.btn-success.btn-lg(ng-click='submitProject(assignment)', data-dismiss='modal') Submit
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel

@@ -23,6 +23,7 @@ angular.module('chRepo')
         }else if(user.adminUser === false){
           students.push(user);
         }
+        $scope.modalListStudents = res.data;
         $scope.admins = admins;
         $scope.students = students;
       });
@@ -77,21 +78,29 @@ angular.module('chRepo')
     $state.go('cohorts.show', {cohortId:cohortId});
   };
   $scope.editCohortModal = function(){
-    var modalStudents = [];
-    $scope.modalCohort = this.cohort;
     $scope.isEdit = true;
-    $scope.cohortStudentIds = this.cohort.cohortStudentIds;
-    console.log($scope.students);
-    $scope.cohortStudentIds.forEach(function(student){
-      if($scope.students[student.id]){
-        modalStudents.push(student);
-        $scope.modalStudents = modalStudents;
-      }
+    var modalListStudents = [];
+    var modalCohortStudents = [];
+    var cohortStudentIds = this.cohort.cohortStudentIds;
+    var modalStudents = $scope.modalListStudents;
+    $scope.modalCohort = this.cohort;
+    modalStudents.forEach(function(student){
+      if(cohortStudentIds.indexOf(student.id) > 0){
+          modalCohortStudents.push(student);
+        } else if (modalCohortStudents.indexOf(student) < 0){
+          modalListStudents.push(student);
+        }
+      $scope.modalListStudents = modalListStudents;
+      $scope.modalCohortStudents = modalCohortStudents;
     });
   };
   $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
     $scope.$apply(function () {
       $scope.isEdit = false;
+      $scope.modalCohort = null;
+      $scope.modalCohortStudents = [];
+      findAllUsers();
+      findAllCohorts();
     });
   });
   $scope.deleteCohort = function(){

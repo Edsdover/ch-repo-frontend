@@ -86,7 +86,7 @@
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
           button.btn.btn-success.btn-lg(ng-click='submitProject(assignment)', data-dismiss='modal') Submit
-          button.btn.btn-default(type='button', data-dismiss='modal') Close
+          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
 #assignIntroModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
@@ -126,7 +126,7 @@
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
           button.btn.btn-success.btn-lg(ng-click='submitIntro(assignment)', data-dismiss='modal') Submit
-          button.btn.btn-default(type='button', data-dismiss='modal') Close
+          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
 #projectModal.modal.fade(role='newProject')
   .modal-dialog
     .modal-content
@@ -208,7 +208,8 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='submit' ng-click='updateProject(project)') Save Edits
+                    button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
+                    button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
 #introModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -229,4 +230,5 @@
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(ng-click='updateIntro(intro)') Save Edits
+                button.btn.btn-default.btn-lg(ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
