@@ -30,67 +30,6 @@ angular.module('chRepo')
       $scope.selectedIntro = this.intro;
       findIntros();
     };
-  // $scope.submit = function(obj){
-  //   console.log('name', $scope.assignment.cohortName);
-  //   obj.projectName = $scope.selectedProject.name;
-  //   obj.projectId = $scope.selectedProject._id;
-  //   obj.introName = $scope.selectedIntro.name;
-  //   console.log($scope.selectedIntro.name);
-  //   obj.introId = $scope.selectedIntro._id;
-  //   Assignment.create(obj)
-  //   .success(function(data){
-  //     sweet.show('Check', 'Your Assignment is saved!', 'success');
-  //     console.log('data', data);
-  //     // var email = 'misankovich@gmail.com';
-  //       // Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
-  //       //   if (doc) {
-  //       //     console.log(doc, 'doc');
-  //       //     var email = doc.cohortEmail;
-  //       //   }
-  //       //   console.log(email, 'email');
-  //       // })
-  //       // .then(function(response){
-  //       //   console.log(response, "Here ya go");
-  //       //   $scope.assignment = response.data;
-  //       // });
-  //       // var name = 'Some TA';
-  //       // var msg = 'New Assignment at ch-repo.herokuapp.com';
-  //     //   $.ajax({
-  //     //     type: "POST",
-  //     //     url: "https://mandrillapp.com/api/1.0/messages/send.json",
-  //     //     data: {
-  //     //       'key': 'MDTpzgc6BNZ7carbIFxuYw',
-  //     //       'message': {
-  //     //         'from_email': email,
-  //     //         'from_name': name,
-  //     //         'headers': {
-  //     //           'Reply-To': email
-  //     //         },
-  //     //         'subject': 'New Assignment',
-  //     //         'text': msg,
-  //     //         'to': [{
-  //     //           'email': 'misankovich@gmail.com',
-  //     //           'name': 'Michael Sankovich',
-  //     //           'type': 'to'
-  //     //         }]
-  //     //       }
-  //     //     }
-  //     //   })
-  //     //   .done(function(response) {
-  //     //     alert('yaaaaay');
-  //     //   })
-  //     //   .fail(function(response) {
-  //     //     alert('noooooo');
-  //     //   });
-  //     //   return false;
-  //     //
-  //     // sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
-  //     $scope.assignment = {};
-  //   })
-  //   .error(function(error){
-  //     console.log(error);
-  //   });
-  // };
     $scope.submitProject = function(obj){
       obj.projectName = $scope.selectedProject.name;
       obj.projectId = $scope.selectedProject._id;
@@ -101,9 +40,9 @@ angular.module('chRepo')
       })
       .error(function(error){
         sweet.show({
-            title: 'Assignment Save Error',
-            text: 'Warning, there was a problem saving your assignment.',
-            type: 'error'
+          title: 'Assignment Save Error',
+          text: 'Warning, there was a problem saving your assignment.',
+          type: 'error'
         });
       });
     };
@@ -173,15 +112,16 @@ angular.module('chRepo')
     $scope.viewOneIntro = function(introId){
       $state.go('intros.show', {introId:introId});
     };
-// edit modals
-    $('#sel').change(function() { // jshint ignore:line
-      var currentVal = $('#projectTech').val(); // jshint ignore:line
-      $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
-    });
     function findProjects(){
       Project.findById($scope.selectedProject._id)
       .then(function(response){
         $scope.project = response.data;
+      });
+    }
+    function findIntros(){
+      Intro.findById($scope.selectedIntro._id)
+      .then(function(response){
+        $scope.intro = response.data;
       });
     }
     $scope.updateProject = function(obj){
@@ -199,12 +139,6 @@ angular.module('chRepo')
       });
     };
   });
-  function findIntros(){
-    Intro.findById($scope.selectedIntro._id)
-    .then(function(response){
-      $scope.intro = response.data;
-    });
-  }
   $scope.updateIntro = function(obj){
     Intro.update(obj)
     .then(function(){
@@ -216,4 +150,69 @@ angular.module('chRepo')
       console.log(err);
     });
   };
+    $('#sel').change(function() { // jshint ignore:line
+      var currentVal = $('#projectTech').val(); // jshint ignore:line
+      $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
+    });
+  // $scope.submit = function(obj){
+  //   console.log('name', $scope.assignment.cohortName);
+  //   obj.projectName = $scope.selectedProject.name;
+  //   obj.projectId = $scope.selectedProject._id;
+  //   obj.introName = $scope.selectedIntro.name;
+  //   console.log($scope.selectedIntro.name);
+  //   obj.introId = $scope.selectedIntro._id;
+  //   Assignment.create(obj)
+  //   .success(function(data){
+  //     sweet.show('Check', 'Your Assignment is saved!', 'success');
+  //     console.log('data', data);
+  //     // var email = 'misankovich@gmail.com';
+  //       // Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
+  //       //   if (doc) {
+  //       //     console.log(doc, 'doc');
+  //       //     var email = doc.cohortEmail;
+  //       //   }
+  //       //   console.log(email, 'email');
+  //       // })
+  //       // .then(function(response){
+  //       //   console.log(response, "Here ya go");
+  //       //   $scope.assignment = response.data;
+  //       // });
+  //       // var name = 'Some TA';
+  //       // var msg = 'New Assignment at ch-repo.herokuapp.com';
+  //     //   $.ajax({
+  //     //     type: "POST",
+  //     //     url: "https://mandrillapp.com/api/1.0/messages/send.json",
+  //     //     data: {
+  //     //       'key': 'MDTpzgc6BNZ7carbIFxuYw',
+  //     //       'message': {
+  //     //         'from_email': email,
+  //     //         'from_name': name,
+  //     //         'headers': {
+  //     //           'Reply-To': email
+  //     //         },
+  //     //         'subject': 'New Assignment',
+  //     //         'text': msg,
+  //     //         'to': [{
+  //     //           'email': 'misankovich@gmail.com',
+  //     //           'name': 'Michael Sankovich',
+  //     //           'type': 'to'
+  //     //         }]
+  //     //       }
+  //     //     }
+  //     //   })
+  //     //   .done(function(response) {
+  //     //     alert('yaaaaay');
+  //     //   })
+  //     //   .fail(function(response) {
+  //     //     alert('noooooo');
+  //     //   });
+  //     //   return false;
+  //     //
+  //     // sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+  //     $scope.assignment = {};
+  //   })
+  //   .error(function(error){
+  //     console.log(error);
+  //   });
+  // };
 });
