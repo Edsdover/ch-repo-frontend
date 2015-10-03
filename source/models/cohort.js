@@ -9,9 +9,9 @@ angular.module('chRepo')
   Cohort.create = function(cohort){
     return $http.post(apiUrl + '/cohorts', cohort);
   };
-  // Cohort.update = function(intro){
-  //   return $http.put(apiUrl + '/cohorts', intro);
-  // };
+  Cohort.update = function(intro){
+    return $http.put(apiUrl + '/cohorts/update', intro);
+  };
   Cohort.delete = function(cohort){
     return $http.delete(apiUrl + '/cohorts/' + cohort._id);
   };

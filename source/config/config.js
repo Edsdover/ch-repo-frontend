@@ -15,13 +15,8 @@ angular.module('chRepo')
   .state('admins.userIndex', {url: '/admins/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
   .state('admins.show', {url: '/admins/{studentIds}', templateUrl: '/views/admins/showUser.html', controller: 'userCtrl'})
 
-  .state('cohorts', {url: '/cohorts', templateUrl: '/views/cohorts/cohorts.html', abstract: true})
-  .state('cohorts.new', {url: '/cohorts/new', templateUrl: '/views/cohorts/new.html', controller: 'NewCohortCtrl'})
-  .state('cohorts.show', {url: '/cohorts/{cohortId}', templateUrl: '/views/cohorts/show.html', controller: 'ShowOneCohortCtrl'})
-
   .state('intros', {url: '/intros', templateUrl: '/views/intros/intros.html', abstract: true})
   .state('intros.show', {url: '/intros/{introId}', templateUrl: '/views/intros/intros-showOne.html', controller: 'ShowOneIntroCtrl'})
-
 
   .state('projects', {url: '/projects', templateUrl: '/views/projects/projects.html', abstract: true})
   .state('projects.show', {url: '/projects/{projectId}', templateUrl: '/views/projects/projects-showOne.html', controller: 'ShowOneProjectCtrl'})

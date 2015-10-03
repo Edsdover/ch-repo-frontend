@@ -1,8 +1,8 @@
 .row
   .col-xs-12
     h4 Admin Accounts
-    button(ng-if="!adminShow" ng-click="toggleAdmins()") Show Admins
-    button(ng-if="adminShow" ng-click="toggleAdmins()") Hide Admins
+    button.btn.btn-xs.btn-default(ng-if="!adminShow" ng-click="toggleAdmins()") Show Admins
+    button.btn.btn-xs.btn-default(ng-if="adminShow" ng-click="toggleAdmins()") Hide Admins
     .row(ng-show="adminShow")
       .col-xs-12.logInButton
         label
@@ -24,8 +24,8 @@
 .row.newCohortForm
   .col-xs-12
     h4 Student Accounts
-    button(ng-if="!studentShow" ng-click="toggleStudents()") Show Students
-    button(ng-if="studentShow" ng-click="toggleStudents()") Hide Students
+    button.btn.btn-xs.btn-default(ng-if="!studentShow" ng-click="toggleStudents()") Show Students
+    button.btn.btn-xs.btn-default(ng-if="studentShow" ng-click="toggleStudents()") Hide Students
     .row(ng-show="studentShow")
       .col-xs-12.logInButton
         label
@@ -47,8 +47,8 @@
 .row.newCohortForm
   .col-xs-12
     h4 Saved Cohorts
-    button(ng-if="!cohortShow" ng-click="toggleCohorts()") Show Cohorts
-    button(ng-if="cohortShow" ng-click="toggleCohorts()") Hide Cohorts
+    button.btn.btn-xs.btn-default(ng-if="!cohortShow" ng-click="toggleCohorts()") Show Cohorts
+    button.btn.btn-xs.btn-default(ng-if="cohortShow" ng-click="toggleCohorts()") Hide Cohorts
 .row(ng-show="cohortShow")
   .col-xs-12.logInButton
     label
@@ -61,13 +61,11 @@
         th.userListBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Cohort Name
         th.userListBox.cursor.textCenter(ng-click="predicate='studentNumber'; reverse=!reverse") # of Students
         th.userListBox.cursor.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Created
-        th.userListBox.cursor Edit
         th.userListBox.cursor Delete
-      tr(ng-repeat='cohort in cohorts | orderBy:predicate:reverse | filter: cohortList')
-        td.userListBox.cursor(ng-click='showOneCohort()') {{cohort.cohortName}} &nbsp;
-        td.userListBox.cursor.textCenter(ng-click='showOneCohort()') {{cohort.studentNumber}} &nbsp;
-        td.userListBox.cursor.textCenter(ng-click='showOneCohort()') {{cohort.createdAt | date:'MMM d, y'}} &nbsp;
-        td: button.btn.btn-xs.btn-warning.i.fa.fa-edit.cohortBox.cohortBoxButtons.textCenter(ng-click='editCohortModal();' type='button' data-toggle='modal' data-target='#cohortModal')
+      tr(ng-repeat='cohort in cohorts | orderBy:predicate:reverse | filter: cohortList' ng-click='editCohortModal();' type='button' data-toggle='modal' data-target='#cohortModal')
+        td.userListBox.cursor {{cohort.cohortName}} &nbsp;
+        td.userListBox.cursor.textCenter {{cohort.studentNumber}} &nbsp;
+        td.userListBox.cursor.textCenter {{cohort.createdAt | date:'MMM d, y'}} &nbsp;
         td: button.btn.btn-xs.btn-danger.i.fa.fa-trash.cohortBox.cohortBoxButtons.textCenter(ng-click='deleteCohort(); $event.stopPropagation();')
 #cohortModal.modal.fade(role='dialog')
   .modal-dialog.modal-lg
@@ -78,16 +76,14 @@
         h4.modal-title(ng-if='!isEdit') New Cohort
       .modal-body
         .row
-          .col-xs-11
+          .col-xs-6.col-xs-offset-3
             .form-group
               label.bold Title:
                 input.form-control.inputButton#projectName(ng-model='modalCohort.cohortName')
               label.bold Cohort Email
                 input.form-control.inputButton#projectName(ng-model='modalCohort.cohortEmail')
-              button.btn.btn-success.btn-lg.cohortBoxButtons(ng-click='saveNewCohort(modalCohort)' ng-hide='isEdit' data-dismiss='modal') Submit
-              button.btn.btn-success.btn-lg(ng-click='updateCohort(cohort)' ng-show='isEdit') Update
         .row
-          .col-xs-11.col-md-6
+          .col-md-6
             h4 Enrolled Students:
             table.table-bordered.table-hover(ng-model='modalListStudent')
               tr
@@ -100,7 +96,7 @@
                 td.cohortBox {{modalListStudent.username}}
                 td.cohortBox {{modalListStudent.email}}
                 td.nbsp.glyphicon.glyphicon-plus.cursor.cohortBox.cohortBoxButtons.addStudentButton(ng-click='addStudentToList()')
-          .col-xs-11.col-md-5.col-md-offset-1
+          .col-md-5
             h4 New Cohort:
             table.table-bordered.table-hover
               tr
@@ -113,4 +109,8 @@
                 td.cohortBox {{modalCohortStudent.username}}
                 td.cohortBox {{modalCohortStudent.email}}
                 td: button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-click='removeStudentFromList(); $event.stopPropagation();')
+        .row
+          .col-xs-11.logInButton
+            button.btn.btn-success.btn-lg.cohortBoxButtons(ng-click='saveNewCohort(modalCohort)' ng-hide='isEdit' data-dismiss='modal') Submit
+            button.btn.btn-success.btn-lg(ng-click='updateCohort(modalCohort)' ng-show='isEdit' data-dismiss='modal') Update
             button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel

@@ -43,6 +43,6 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox.textCenter
         button(ng-click="submitAssignment()") Submit
       td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()") Edit
+        button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Edit
       td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()") Delete
+        button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Delete

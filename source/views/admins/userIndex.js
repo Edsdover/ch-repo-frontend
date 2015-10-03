@@ -5,8 +5,11 @@ angular.module('chRepo')
 
   $scope.cohortStudentIds = [];
   $scope.cohortStudents = [];
+  $scope.modalCohortStudents = [];
+  $scope.cohortStudentIds = [];
   $scope.adminShow = false;
   $scope.studentShow = false;
+  $scope.cohortShow = false;
   $scope.isEdit = false;
 
   findAllUsers();
@@ -81,11 +84,11 @@ angular.module('chRepo')
     $scope.isEdit = true;
     var modalListStudents = [];
     var modalCohortStudents = [];
-    var cohortStudentIds = this.cohort.cohortStudentIds;
+    $scope.cohortStudentIds = this.cohort.cohortStudentIds;
     var modalStudents = $scope.modalListStudents;
     $scope.modalCohort = this.cohort;
     modalStudents.forEach(function(student){
-      if(cohortStudentIds.indexOf(student.id) > 0){
+      if($scope.cohortStudentIds.indexOf(student.id) > -1){
           modalCohortStudents.push(student);
         } else if (modalCohortStudents.indexOf(student) < 0){
           modalListStudents.push(student);
@@ -99,6 +102,7 @@ angular.module('chRepo')
       $scope.isEdit = false;
       $scope.modalCohort = null;
       $scope.modalCohortStudents = [];
+      $scope.cohortStudentIds = [];
       findAllUsers();
       findAllCohorts();
     });
@@ -131,17 +135,19 @@ angular.module('chRepo')
   };
   //modal functions
   $scope.addStudentToList = function(){
-    var student = this.student;
-    var indx = $scope.students.indexOf(student);
-    $scope.cohortStudentIds.push(student.id);
-    $scope.cohortStudents.push(student);
-    $scope.students.splice(indx, 1);
+    var modalListStudent = this.modalListStudent;
+    var indx = $scope.modalListStudents.indexOf(modalListStudent);
+    $scope.cohortStudentIds.push(modalListStudent.id);
+    $scope.modalCohortStudents.push(modalListStudent);
+    $scope.modalListStudents.splice(indx, 1);
   };
   $scope.removeStudentFromList = function(){
-    var student = this.cohortStudent;
-    var indx = $scope.cohortStudents.indexOf(student);
-    $scope.cohortStudents.splice(indx, 1);
-    $scope.students.push(this.cohortStudent);
+    var modalCohortStudent = this.modalCohortStudent;
+    var indx = $scope.modalCohortStudents.indexOf(modalCohortStudent);
+    var idIndx = $scope.cohortStudentIds.indexOf(modalCohortStudent);
+    $scope.modalCohortStudents.splice(indx, 1);
+    $scope.cohortStudentIds.splice(idIndx, 1);
+    $scope.modalListStudents.push(modalCohortStudent);
   };
   $scope.saveNewCohort = function(obj){
     var cohort = new Object(obj);
@@ -149,28 +155,19 @@ angular.module('chRepo')
     Cohort.create(obj)
     .success(function(res){
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
-      $scope.cohort = {};
-      $scope.cohortStudents = [];
-      Cohort.findAll()
-      .success(function(res){
-        $scope.cohorts = res;
-      });
+      findAllCohorts();
     })
     .error(function(error){
       console.log(error);
     });
   };
   $scope.updateCohort = function(obj){
+    console.log('obj', obj);
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.update(obj)
     .success(function(res){
       sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
-      $scope.cohort = {};
-      $scope.cohortStudents = [];
-      Cohort.findAll()
-      .success(function(res){
-        $scope.cohorts = res;
-      });
+      findAllCohorts();
     })
     .error(function(error){
       console.log(error);

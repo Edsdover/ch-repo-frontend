@@ -7,6 +7,6 @@ angular.module('chRepo')
 
   User.findById(studentIds)
   .then(function(response){
-    $scope.user = response.data;
+    $scope.user = response.data[0];
   });
 });
