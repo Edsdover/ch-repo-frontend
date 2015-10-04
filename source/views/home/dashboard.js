@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('DashboardCtrl', function($rootScope, $scope, Cohort, Project, User, Intro, Assignment, sweet, $state, $http){
+.controller('DashboardCtrl', function($scope, Cohort, Assignment, sweet, $state){
 
   $scope.tempProject = {};
   $scope.tempIntro = {};
@@ -27,21 +27,30 @@ angular.module('chRepo')
     .success(function(assignments){
       activeCohorts = $scope.activeUser.cohortsArray;
       var currentTime = Number(new Date());
-      assignments.forEach(function(assignment){
-        var assignmentCohort = assignment.cohortName;
-        if(Date.parse(assignment.dueDate) > currentTime && activeCohorts.indexOf(assignmentCohort) > -1){
-          currentAssignments.push(assignment);
-        }else if(activeCohorts.indexOf(assignmentCohort) > -1){
-          pastAssignments.push(assignment);
-        }
-        $scope.currentAssignments = currentAssignments;
-        $scope.pastAssignments = pastAssignments;
-      });
+      if($scope.adminUser === false){
+        assignments.forEach(function(assignment){
+          var assignmentCohort = assignment.cohortName;
+          if(Date.parse(assignment.dueDate) > currentTime && activeCohorts.indexOf(assignmentCohort) > -1){
+            currentAssignments.push(assignment);
+          }else if(activeCohorts.indexOf(assignmentCohort) > -1){
+            pastAssignments.push(assignment);
+          }
+          $scope.currentAssignments = currentAssignments;
+          $scope.pastAssignments = pastAssignments;
+        });
+      }else if($scope.adminUser === true){
+        assignments.forEach(function(assignment){
+          var assignmentCohort = assignment.cohortName;
+          if(Date.parse(assignment.dueDate) > currentTime){
+            currentAssignments.push(assignment);
+          }else{
+            pastAssignments.push(assignment);
+          }
+          $scope.currentAssignments = currentAssignments;
+          $scope.pastAssignments = pastAssignments;
+        });
+      }
     });
-  });
-  Intro.index()
-  .success(function(intros){
-    $scope.intros = intros;
   });
   $scope.viewOneAssignment = function(assignmentId){
     $state.go('home.show', {assignmentId:assignmentId});

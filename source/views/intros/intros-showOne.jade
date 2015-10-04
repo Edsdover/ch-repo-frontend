@@ -1,12 +1,8 @@
 .row
   .col-xs-offset-1.col-xs-10
     h3.underline.bold {{intro.name}}
-      button.btn.btn-sm.btn-danger.rightFloat(title="Edit Intro" ui-sref='intros.edit({introId:intro._id})').glyphicon.glyphicon-edit
-      button.btn.btn-sm.btn-warning.rightFloat(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();'): i.fa.fa-trash
+      button.btn.btn-sm.btn-danger.rightFloat(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();'): i.fa.fa-trash
 .rows
   .col-xs-offset-1.col-xs-10
     h4.underline.projectScoring Body:
     h5 {{intro.body}}
-.rows
-  .col-xs-offset-1.col-xs-10
-    button.btn.btn-sm.btn-info.projectScoring(ng-if='adminUser' title="Assign Intro" ng-click='assignIntro(intro); $event.stopPropagation();'): i.fa.fa-arrow-right &nbsp Assign
