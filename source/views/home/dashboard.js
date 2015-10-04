@@ -10,6 +10,7 @@ angular.module('chRepo')
   var currentAssignments = [];
   var pastAssignments = [];
   var activeCohorts = [];
+  $scope.hasCohort = false;
 
   Cohort.findAll()
   .success(function(cohorts){
@@ -19,6 +20,7 @@ angular.module('chRepo')
       if(cohortStudents.indexOf(activeId) > -1){
         $scope.activeUser.cohortsArray.push(cohort.cohortName);
         $scope.activeUser.cohortsObj.push(cohort);
+        $scope.hasCohort = true;
       }
     });
   })

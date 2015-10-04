@@ -13,7 +13,7 @@
         th.userListBox.cursor(ng-click="predicate='username'; reverses=!reverse") Username
         th.userListBox.cursor(ng-click="predicate='displayName'; reverse=!reverse") Name
         th.userListBox.cursor.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
-        th.userListBox.cursor.textCenter Move to Students
+        th.userListBox.cursor.textCenter Move to Student List
       tr.cursor(ng-repeat='admin in admins | orderBy:predicate:reverse | filter: adminList')
         td.userListBox(ng-click='showAdmin()') {{admin.username}}
         .studentInfo
@@ -35,10 +35,10 @@
       tr
         th.userListBox.cursor(ng-click="predicate='username'; reverse=!reverse") Username
         th.userListBox.cursor(ng-click="predicate='displayName'; reverse=!reverse") Name
-        th.userListBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
-        th.userListBox.cursor Move to Students
+        th.userListBox.cursor.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
+        th.userListBox.cursor.textCenter Move to Admin List
       tr.cursor(ng-repeat='student in students | orderBy:predicate:reverse | filter: studentList')
-        td.userListBox.textCenter(ng-click='showUser()') {{student.username}}
+        td.userListBox(ng-click='showUser()') {{student.username}}
         .studentInfo
           td.userListBox(ng-click='showUser()') {{student.displayName}}
           td.userListBox.textCenter(ng-click='showUser()') {{student.createdAt | date:'MMM d, y'}} &nbsp;

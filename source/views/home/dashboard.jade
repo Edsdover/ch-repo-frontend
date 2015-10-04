@@ -3,9 +3,9 @@
 h1.text-center(ng-hide="activeUser") Content Repo
 //- Main Dashboard
 .col-md-6.col-sm-11(ng-show="activeUser")
-  h1 Welcome {{activeUser.github.displayName}}
-  h2 Current Assignments
-  table.table-bordered.table-hover.newCohortForm
+  h1(ng-if="activeUser") Welcome {{activeUser.github.displayName}}
+  h2(ng-if="activeUser") Current Assignments
+  table.table-bordered.table-hover.newCohortForm(ng-if="activeUser")
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
       th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
@@ -25,11 +25,11 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Edit
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Delete
 .col-md-6.col-sm-11(ng-show="activeUser")
-  h2 You are enrolled in:
-    ul
+  h2(ng-show="activeUser" ng-if='hasCohort') You are enrolled in:
+    ul(ng-show="activeUser")
       li.logInButton(ng-repeat='cohort in activeUser.cohortsObj') {{cohort.cohortName}}
-  h2 Past Assignments
-  table.table-bordered.table-hover
+  h2(ng-if="activeUser") Past Assignments
+  table.table-bordered.table-hover(ng-if="activeUser")
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
       th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
