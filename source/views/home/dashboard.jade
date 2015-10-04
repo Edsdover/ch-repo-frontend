@@ -3,46 +3,48 @@
 h1.text-center(ng-hide="activeUser") Content Repo
 //- Main Dashboard
 .col-md-6.col-sm-11(ng-show="activeUser")
+  h1 Welcome {{activeUser.github.displayName}}
   h2 Current Assignments
-  table.table-bordered.table-hover
+  table.table-bordered.table-hover.newCohortForm
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+      th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
       th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
       th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
       th.cohortBox.cursor(ng-click="predicate='status'; reverse=!reverse") Status
-      th.cohortBox.cursor Submit
-      th.cohortBox.cursor(ng-if="isAdmin") Edit
-      th.cohortBox.cursor(ng-if="isAdmin") Delete
+      th.cohortBox.cursor(ng-hide="adminUser") Submit
+      th.cohortBox.cursor(ng-if="adminUser") Edit
+      th.cohortBox.cursor(ng-if="adminUser") Delete
     tr.cursor(ng-repeat='currentAssignment in currentAssignments | orderBy:predicate:reverse')
       td.cohortBox(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.projectName}}
+      td.cohortBox(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.cohortName}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.dueDate | date:'MMM d, y'}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.createdAt | date:'MMM d, y'}} &nbsp;
       td.cohortBox.textCenter(ng-click='viewOneAssignment(currentAssignment._id)')
-      td.cohortBox.textCenter
-        button(ng-click="submitAssignment()") Submit
-      td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()") Edit
-      td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()") Delete
+      td.cohortBox.textCenter(ng-hide="adminUser"): button(ng-click="submitAssignment()" ng-hide="adminUser") Submit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Edit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Delete
 .col-md-6.col-sm-11(ng-show="activeUser")
+  h2 You are enrolled in:
+    ul
+      li.logInButton(ng-repeat='cohort in activeUser.cohortsObj') {{cohort.cohortName}}
   h2 Past Assignments
   table.table-bordered.table-hover
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+      th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
       th.cohortBox.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
       th.cohortBox.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
       th.cohortBox.cursor(ng-click="predicate='status'; reverse=!reverse") Status
-      th.cohortBox.cursor Submit
-      th.cohortBox.cursor(ng-if="isAdmin") Edit
-      th.cohortBox.cursor(ng-if="isAdmin") Delete
+      th.cohortBox.cursor(ng-hide="adminUser") Submit
+      th.cohortBox.cursor(ng-if="adminUser") Edit
+      th.cohortBox.cursor(ng-if="adminUser") Delete
     tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse')
       td.cohortBox(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.projectName}}
+      td.cohortBox(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.cohortName}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)')
-      td.cohortBox.textCenter
-        button(ng-click="submitAssignment()") Submit
-      td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Edit
-      td.cohortBox.textCenter(ng-if="isAdmin")
-        button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Delete
+      td.cohortBox.textCenter(ng-hide="adminUser"): button(ng-click="submitAssignment()" ng-hide="adminUser") Submit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Edit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Delete

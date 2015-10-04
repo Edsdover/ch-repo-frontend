@@ -162,7 +162,6 @@ angular.module('chRepo')
     });
   };
   $scope.updateCohort = function(obj){
-    console.log('obj', obj);
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.update(obj)
     .success(function(res){

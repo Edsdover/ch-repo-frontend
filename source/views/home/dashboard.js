@@ -5,47 +5,47 @@ angular.module('chRepo')
 
   $scope.tempProject = {};
   $scope.tempIntro = {};
+  $scope.activeUser.cohortsArray = [];
+  $scope.activeUser.cohortsObj = [];
   var currentAssignments = [];
   var pastAssignments = [];
+  var activeCohorts = [];
 
-  $scope.checkAdmin = function() {
-    if ($scope.adminUser) { $scope.isAdmin = false; }
-    else { $scope.isAdmin = true; }
-  };
-  $scope.checkAdmin();
-
-
-  Assignment.index()
-  .success(function(assignments){
-    var currentTime = Number(new Date());
-    assignments.forEach(function(assignment){
-      if(Date.parse(assignment.dueDate) > currentTime){
-        currentAssignments.push(assignment);
-      }else{
-        pastAssignments.push(assignment);
-      }
-      $scope.currentAssignments = currentAssignments;
-      $scope.pastAssignments = pastAssignments;
-    });
-  });
-
-  Project.index()
-  .success(function(projects){
-    $scope.projects = projects;
-  });
   Cohort.findAll()
   .success(function(cohorts){
-    $scope.cohorts = cohorts;
+    cohorts.forEach(function(cohort){
+      var cohortStudents = cohort.cohortStudentIds;
+      var activeId = $scope.activeUser.github.id;
+      if(cohortStudents.indexOf(activeId) > -1){
+        $scope.activeUser.cohortsArray.push(cohort.cohortName);
+        $scope.activeUser.cohortsObj.push(cohort);
+      }
+    });
+  })
+  .then(function(){
+    Assignment.index()
+    .success(function(assignments){
+      activeCohorts = $scope.activeUser.cohortsArray;
+      var currentTime = Number(new Date());
+      assignments.forEach(function(assignment){
+        var assignmentCohort = assignment.cohortName;
+        if(Date.parse(assignment.dueDate) > currentTime && activeCohorts.indexOf(assignmentCohort) > -1){
+          currentAssignments.push(assignment);
+        }else if(activeCohorts.indexOf(assignmentCohort) > -1){
+          pastAssignments.push(assignment);
+        }
+        $scope.currentAssignments = currentAssignments;
+        $scope.pastAssignments = pastAssignments;
+      });
+    });
   });
   Intro.index()
   .success(function(intros){
     $scope.intros = intros;
   });
-
   $scope.viewOneAssignment = function(assignmentId){
     $state.go('home.show', {assignmentId:assignmentId});
   };
-
   $scope.deleteAssignmentConfirm = function(assignment){
     $scope.tempAssignment = this.pastAssignment._id;
     sweet.show({
