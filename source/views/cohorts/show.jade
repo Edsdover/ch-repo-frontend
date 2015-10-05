@@ -1,0 +1,23 @@
+.row
+  .col-xs-10
+    h4.bold.underline {{cohort.cohortName}} Students:
+.row
+  .col-xs-3
+    .filter.col-xs-12
+      label Filter:
+        input(ng-model='searchText')
+  .col-xs-1
+    button.btn.btn-xs.btn-warning Edit
+  .col-xs-1
+    button.btn.btn-xs.btn-danger Delete
+.row
+  .col-xs-8
+    table.table-bordered.table-hover
+      tr
+        th.cohortBox Name
+        th.cohortBox Username
+        th.cohortBox E-mail
+      tr(ng-repeat='student in students | filter: searchText : student.username')
+        td.cohortBox {{student.displayName}}
+        td.cohortBox {{student.username}}
+        td.cohortBox {{student.email}}

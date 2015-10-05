@@ -1,0 +1,55 @@
+.col-md-3.col-sm-11
+  h4 Projects
+  .box.inputButton(ng-repeat='project in projects track by $index')
+    h5.cursor: a(ng-click='viewOneProject(project._id)') {{project.name}}
+    button.btn.btn-xs.btn-danger.rightFloat(title="Edit Project" ui-sref='projects.edit({projectId:project._id})').glyphicon.glyphicon-edit
+    button.btn.btn-xs.btn-warning.rightFloat(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();'): i.fa.fa-trash
+    ul
+      li: h6 {{project.tech}}
+    button.btn.btn-xs.btn-success.glyphicon.glyphicon-plus(ng-hide='selectedProject' ng-click='toggleProjectOn($index); $event.stopPropagation();') Assign
+.col-md-3.col-sm-11
+  h4 Intros
+  .box.inputButton(ng-repeat='intro in intros track by $index')
+    h5.cursor: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
+      button.btn.btn-xs.btn-danger.rightFloat(title="Edit Intro" ui-sref='intros.edit({introId:intro._id})').glyphicon.glyphicon-edit
+      button.btn.btn-xs.btn-warning.rightFloat(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();'): i.fa.fa-trash
+.col-md-6.col-sm-11
+  h4 Assign Projects
+  .form-group
+  h4.textCenter(ng-hide='selectedProject') Click on the green + to add a project to your assignment!
+  h4.textCenter(ng-show='selectedProject') {{selectedProject.name}} &nbsp; Will be assigned! &nbsp;
+    button.btn.btn-xs.btn-danger.i.fa.fa-trash(ng-show='selectedProject' ng-click='toggleProjectOff(); $event.stopPropagation();')
+  .form-group
+    h6 Pick a Cohort
+    select.form-control(ng-model='assignment.cohortName')
+      option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
+  .form-group
+    h6 Pick an Intro
+    select(ng-model="assignment.intro" ng-options="intro as intro.name for intro in intros track by index" ng-change="selectedIntro(index)")
+      option
+  .form-group
+    h6 Category:
+      h5.box Functionality
+  .form-group
+    h6 Points:
+      input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+  .form-group
+    h6 Category:
+      h5.box Readability
+  .form-group
+    h6 Points:
+      input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+  .form-group
+    h6 Category:
+      h5.box HTML/CSS
+  .form-group
+    h6 Points:
+      input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+  .form-group
+    h6 Category:
+      h5.box JavaScript
+  .form-group
+    h6 Points:
+      input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+    button.btn.btn-default.btn-lg(ng-click='update(project)') Submit
+  
