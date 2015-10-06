@@ -2,8 +2,11 @@
 
 angular.module('chRepo')
 .controller('IndexProjectCtrl', function($rootScope, $scope, Project, Intro, sweet, $state, User, Cohort, Assignment){
+    $scope.projectShow = false;
+    $scope.introShow = false;
 
   $(document).ready(function() { // jshint ignore:line
+
     $scope.tempProject = {};
     $scope.tempIntro = {};
     $scope.selectedProject = null;
@@ -30,6 +33,24 @@ angular.module('chRepo')
       $scope.selectedIntro = this.intro;
       findIntros();
     };
+
+    $scope.toggleProjects = function() {
+      if ($scope.projectShow === false) {
+        $scope.projectShow = true;
+      }
+      else {
+        $scope.projectShow = false;
+      }
+    };
+    $scope.toggleIntros = function() {
+      if ($scope.introShow === false) {
+        $scope.introShow = true;
+      }
+      else {
+        $scope.introShow = false;
+      }
+    };
+
     // $scope.submitProject = function(obj){
     //   obj.projectName = $scope.selectedProject.name;
     //   obj.projectId = $scope.selectedProject._id;

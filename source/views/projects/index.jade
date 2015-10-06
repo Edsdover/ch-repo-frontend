@@ -1,10 +1,13 @@
-.col-md-7.col-sm-11
+.col-sm-12
   h4 Projects
-  label
-    | Filter: 
-    input(ng-model='searchProjects')
+  table.table-bordered.table-hover
   .inputButton
-    table.table-bordered.table-hover
+    button(ng-click="toggleProjects()") Show/Hide Projects
+    .filter(ng-show="projectShow")
+      label
+        | Filter: 
+        input(ng-model='searchProjects')
+    table.table-bordered.table-hover(ng-show="projectShow")
       tr
         th.projectIntroList.cohortBox Project Name
         th.projectIntroList.cohortBox Core Concepts
@@ -23,13 +26,16 @@
           button.btn.btn-xs.btn-danger.rightFloat(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();'): i.fa.fa-trash
         td.projectIntroList.cohortBox.textCenter
           button.btn.btn-xs.btn-success(ng-click='toggleProjectOn();' type='button' data-toggle='modal' data-target='#assignProjectModal') Assign
-.col-md-5.col-sm-11
+.col-sm-12
   h4 Intros
-  label
-    | Filter:
-    input(ng-model='searchIntros')
+  table.table-bordered.table-hover
   .inputButton
-    table.table-bordered.table-hover
+    button(ng-click="toggleIntros()") Show/Hide Intros
+    .filter(ng-show="introShow")
+      label
+        | Filter:
+        input(ng-model='searchIntros')
+    table.table-bordered.table-hover(ng-show="introShow")
       tr
         th.projectIntroList.cohortBox Intro Name
         th.cohortBox Edit
