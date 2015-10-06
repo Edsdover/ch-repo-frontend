@@ -66,7 +66,7 @@ angular.module('chRepo')
       $scope.tempProject = project;
       sweet.show({
         title: 'Delete? Really?',
-        text: 'This will blow this project back to Nam',
+        text: 'Once this is deleted, it cannot be recovered',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#DD6B55',
@@ -76,7 +76,7 @@ angular.module('chRepo')
       function() {
         Project.delete($scope.tempProject)
         .success(function(res){
-          sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
+          sweet.show('Deleted!', 'The file has been removed', 'success');
           Project.index()
           .success(function(projects){
             $scope.projects = projects;
@@ -88,7 +88,7 @@ angular.module('chRepo')
       $scope.tempIntro = intro;
       sweet.show({
         title: 'Delete? Really?',
-        text: 'This will blow this intro back to Nam',
+        text: 'Once this is deleted, it cannot be recovered',
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#DD6B55',
@@ -98,7 +98,7 @@ angular.module('chRepo')
       function() {
         Intro.delete($scope.tempIntro)
         .success(function(res){
-          sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
+          sweet.show('Deleted!', 'The file has been removed', 'success');
           Intro.index()
           .success(function(intros){
             $scope.intros = intros;
@@ -165,7 +165,7 @@ angular.module('chRepo')
       sweet.show('Check', 'Your Assignment is saved!', 'success');
       console.log('data', data);
           var email = 'aug.2015@codinghouse.co';
-           var name = 'Some TA';
+           var name = 'Coding House TAs';
            var msg = 'New Assignment at ch-repo.herokuapp.com';
            $.ajax({
              type: "POST",
@@ -187,15 +187,8 @@ angular.module('chRepo')
                  }]
                }
              }
-           })
-           .done(function(response) {
-             alert('yaaaaay');
-           })
-           .fail(function(response) {
-             alert('noooooo');
            });
-          //  return false;
-         sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+         sweet.show('Assignment Save Success', 'Success, Your project is saved! And a notification has been sent to the cohort', 'success');
           $scope.assignment = {};
 
     })
@@ -213,7 +206,7 @@ angular.module('chRepo')
       sweet.show('Check', 'Your Intro is saved!', 'success');
       console.log('data', data);
           var email = 'aug.2015@codinghouse.co';
-           var name = 'Some TA';
+           var name = 'Coding House TAs';
            var msg = 'New Intro-Assignment at ch-repo.herokuapp.com';
            $.ajax({
              type: "POST",
@@ -235,15 +228,8 @@ angular.module('chRepo')
                  }]
                }
              }
-           })
-           .done(function(response) {
-             alert('yaaaaay');
-           })
-           .fail(function(response) {
-             alert('noooooo');
            });
-          //  return false;
-         sweet.show('Intro Save Success', 'Success, Your Intro is saved!', 'success');
+         sweet.show('Intro Save Success', 'Success, Your Intro is saved! And a notification has been sent to the cohort.', 'success');
           $scope.assignment = {};
 
     })

@@ -59,7 +59,7 @@ angular.module('chRepo')
     $scope.tempAssignment = this.pastAssignment._id;
     sweet.show({
       title: 'Delete? Really?',
-      text: 'This will blow this project back to Nam',
+      text: 'Once removed the file cannot be recovered',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
@@ -69,7 +69,7 @@ angular.module('chRepo')
     function() {
       Assignment.delete($scope.tempAssignment)
       .success(function(res){
-        sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
+        sweet.show('Deleted!', 'the file has been removed', 'success');
         Assignment.index()
         .success(function(assignments){
           $scope.assignments = assignments;
