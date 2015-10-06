@@ -20,6 +20,10 @@
     "tests"
   ],
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "lodash": "~3.9.3",
+>>>>>>> 8e6c4a36480a2f4302c472568e314d10496db36e
     "angular": "1.4.1",
     "angular-ui-router": "0.2.15",
     "angularfire": "1.1.2",

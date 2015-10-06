@@ -7,6 +7,7 @@ angular.module('chRepo')
   var Cohort = {};
 
   Cohort.create = function(cohort){
+<<<<<<< HEAD
     console.log(cohort);
     return $http.post(apiUrl + '/cohorts', cohort);
   };
@@ -17,6 +18,17 @@ angular.module('chRepo')
     return $http.delete(apiUrl + '/cohorts/' + cohort._id);
   };
   Cohort.index = function(){
+=======
+    return $http.post(apiUrl + '/cohorts', cohort);
+  };
+  Cohort.update = function(intro){
+    return $http.put(apiUrl + '/cohorts/update', intro);
+  };
+  Cohort.delete = function(cohort){
+    return $http.delete(apiUrl + '/cohorts/' + cohort._id);
+  };
+  Cohort.findAll = function(){
+>>>>>>> 8e6c4a36480a2f4302c472568e314d10496db36e
     return $http.get(apiUrl + '/cohorts');
   };
   Cohort.findById = function(cohortId){

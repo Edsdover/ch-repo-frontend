@@ -1,56 +1,59 @@
-'use strict';
 
 angular.module('chRepo')
-.controller('DashboardCtrl', function($rootScope, $scope, Cohort, Project, User, Intro, Assignment, sweet, $state, $http){
 
-
+.controller('DashboardCtrl', function($scope, Cohort, Assignment, sweet, $state){
 
   $scope.tempProject = {};
   $scope.tempIntro = {};
+  $scope.activeUser.cohortsArray = [];
+  $scope.activeUser.cohortsObj = [];
   var currentAssignments = [];
   var pastAssignments = [];
-  // $scope.isAdmin='';
+  var activeCohorts = [];
+  $scope.hasCohort = false;
 
-  // $scope.checkAdmin = function() {
-  //   if ($scope.adminUser) { $scope.isAdmin = false; }
-  //   else { $scope.isAdmin = true; }
-  // };
-  // $scope.checkAdmin();
-
-  $scope.checkAdmin = function() {
-    if ($scope.adminUser) { $scope.isAdmin = false; }
-    else { $scope.isAdmin = true; }
-  };
-  $scope.checkAdmin();
-
-
-  Assignment.index()
-  .success(function(assignments){
-    var currentTime = Number(new Date());
-    assignments.forEach(function(assignment){
-      if(Date.parse(assignment.dueDate) > currentTime){
-        currentAssignments.push(assignment);
-      }else{
-        pastAssignments.push(assignment);
+  Cohort.findAll()
+  .success(function(cohorts){
+    cohorts.forEach(function(cohort){
+      var cohortStudents = cohort.cohortStudentIds;
+      var activeId = $scope.activeUser.github.id;
+      if(cohortStudents.indexOf(activeId) > -1){
+        $scope.activeUser.cohortsArray.push(cohort.cohortName);
+        $scope.activeUser.cohortsObj.push(cohort);
+        $scope.hasCohort = true;
       }
-      $scope.currentAssignments = currentAssignments;
-      $scope.pastAssignments = pastAssignments;
+    });
+  })
+  .then(function(){
+    Assignment.index()
+    .success(function(assignments){
+      activeCohorts = $scope.activeUser.cohortsArray;
+      var currentTime = Number(new Date());
+      if($scope.adminUser === false){
+        assignments.forEach(function(assignment){
+          var assignmentCohort = assignment.cohortName;
+          if(Date.parse(assignment.dueDate) > currentTime && activeCohorts.indexOf(assignmentCohort) > -1){
+            currentAssignments.push(assignment);
+          }else if(activeCohorts.indexOf(assignmentCohort) > -1){
+            pastAssignments.push(assignment);
+          }
+          $scope.currentAssignments = currentAssignments;
+          $scope.pastAssignments = pastAssignments;
+        });
+      }else if($scope.adminUser === true){
+        assignments.forEach(function(assignment){
+          var assignmentCohort = assignment.cohortName;
+          if(Date.parse(assignment.dueDate) > currentTime){
+            currentAssignments.push(assignment);
+          }else{
+            pastAssignments.push(assignment);
+          }
+          $scope.currentAssignments = currentAssignments;
+          $scope.pastAssignments = pastAssignments;
+        });
+      }
     });
   });
-
-  Project.index()
-  .success(function(projects){
-    $scope.projects = projects;
-  });
-  Cohort.index()
-  .success(function(cohorts){
-    $scope.cohorts = cohorts;
-  });
-  Intro.index()
-  .success(function(intros){
-    $scope.intros = intros;
-  });
-
   $scope.viewOneAssignment = function(assignmentId){
     $state.go('home.show', {assignmentId:assignmentId});
   };
@@ -81,18 +84,11 @@ angular.module('chRepo')
     });
   };
   $scope.submitAssignment= function() {
-    console.log(this.pastAssignment._id);
-    // console.log($scope.activeUser);
     Assignment.findByIdAndUpdate(this.pastAssignment._id,
       {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},
       {safe: true, upsert: true},
-      function(err, assignment) {
-        console.log(assignment);
+    function(err, assignment) {
     }
-  );
+    );
   };
-  // $scope.submitAssignment= function() {
-  //   console.log(this.pastAssignment._id);
-  //   console.log($scope.activeUser.mongoId._id);
-  // };
 });
