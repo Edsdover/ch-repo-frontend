@@ -1,7 +1,7 @@
 .row
   .col-xs-offset-1.col-xs-10
     h3.underline.bold {{intro.name}}
-      button.btn.btn-sm.btn-danger.rightFloat(title="Edit Intro" ui-sref='intros.edit({introId:intro._id})').glyphicon.glyphicon-edit
+      button.btn.btn-xs.btn-danger.rightFloat(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal').glyphicon.glyphicon-edit
       button.btn.btn-sm.btn-warning.rightFloat(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();'): i.fa.fa-trash
 .rows
   .col-xs-offset-1.col-xs-10
@@ -10,3 +10,27 @@
 .rows
   .col-xs-offset-1.col-xs-10
     button.btn.btn-sm.btn-info.projectScoring(ng-if='adminUser' title="Assign Intro" ng-click='assignIntro(intro); $event.stopPropagation();'): i.fa.fa-arrow-right &nbsp Assign
+
+
+#editIntroModal.modal.fade(role='newIntro')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Edit Intro
+        //- h4.modal-title(ng-if='!isEdit') New Intro
+      .modal-body
+        form(name='newProjectForm', novalidate)
+          .row
+            .col-xs-offset-1.col-xs-10
+              .form-group
+                label.bold Title:
+                input.form-control#projectName(ng-model='intro.name')
+              .form-group
+                label.bold Body:
+                textarea.form-control#projectBody(ng-model='intro.body', rows='10', cols='50')
+          .row.col-xs-offset-1
+            .col-xs-10
+              .form-group
+                button.btn.btn-default.btn-lg(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel

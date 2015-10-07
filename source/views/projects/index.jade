@@ -23,7 +23,7 @@
         td.projectIntroList.cohortBox
           a(ng-click='viewOneProject(project._id)') {{project.tech}}
         td.cohortBox.textCenter
-          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#projectModal').glyphicon.glyphicon-edit
+          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal').glyphicon.glyphicon-edit
         td.cohortBox.textCenter
           button.btn.btn-xs.btn-danger.rightFloat(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();'): i.fa.fa-trash
         td.projectIntroList.cohortBox.textCenter
@@ -46,7 +46,7 @@
       tr(ng-repeat='intro in intros | filter: searchIntros track by $index')
         td.projectIntroList.cursor.cohortBox: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
         td.cohortBox.textCenter
-          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#introModal').glyphicon.glyphicon-edit
+          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal').glyphicon.glyphicon-edit
         td.cohortBox.textCenter
           button.btn.btn-xs.btn-danger.rightFloat(title="Delete Intro" ng-click='deleteIntroConfirm(intro); $event.stopPropagation();'): i.fa.fa-trash
         td.projectIntroList.cohortBox.textCenter
@@ -136,8 +136,91 @@
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-        h4.modal-title(ng-if='isEdit') Edit Project
-        h4.modal-title(ng-if='!isEdit') New Project
+        h4.modal-title New Project
+        //- h4.modal-title(ng-if='isEdit') Edit Project
+      .modal-body
+        form(name='newProjectForm', novalidate)
+          .row
+            form
+              .col-xs-offset-1.col-xs-10
+                .form-group
+                  label.bold Name:
+                  input.form-control#projectName(ng-model='project.name')
+                .form-group
+                  label.bold Core Concept:
+                  select.form-control#projectConcepts(ng-model='project.concepts')
+                    option(value='' disabled)
+                    option(value='Core Javascript') Core Javascript
+                    option(value='Node.js') Node.js
+                    option(value='AngularJS') AngularJS
+                    option(value='Angular2') Angular2
+                    option(value='ExpressJS') ExpressJS
+                    option(value='MongoDb/Mongoose') MongoDb / Mongoose
+                    option(value='MEAN') MEAN
+                    option(value='jQuery') jQuery
+                    option(value='AJAX') AJAX
+                    option(value='Firebase') Firebase
+                    option(value='React') React
+                    option(value='Authentication') Authentication
+                    option(value='Pair Programming') Pair Programming
+                    option(value='es6') es6
+                    option(value='TDD') TDD
+                    option(value='Webpack') Webpack
+                .form-group
+                  label.bold Technology Used (select all that apply):
+                  select.form-control#sel
+                    option(value='' disabled)
+                    option(value='Core Javascript') Core Javascript
+                    option(value='Node.js') Node.js
+                    option(value='AngularJS') AngularJS
+                    option(value='Angular2') Angular2
+                    option(value='ExpressJS') ExpressJS
+                    option(value='MongoDb/Mongoose') MongoDb / Mongoose
+                    option(value='MEAN') MEAN
+                    option(value='jQuery') jQuery
+                    option(value='AJAX') AJAX
+                    option(value='Firebase') Firebase
+                    option(value='React') React
+                    option(value='Authentication') Authentication
+                    option(value='Pair Programming') Pair Programming
+                    option(value='Pair Programming') Pair Programming
+                    option(value='es6') es6
+                    option(value='TDD') TDD
+                    option(value='Webpack') Webpack
+                  textarea.form-control#projectTech(ng-model='project.tech', rows='2', cols='50')
+                .form-group
+                  label.bold Requirements:
+                  textarea.form-control#projectRequirements(ng-model='project.requirements', rows='3', cols='50')
+                .form-group
+                  label.bold Notes:
+                  input.form-control#projectNotes(type='string' ng-model='project.notes' placeholder='Enter Google Sheets Sharable Link Here')
+                .form-group
+                  label.bold GitHub URL:
+                  input.form-control#projectNotes(type='url' ng-model='project.githubURL' placeholder='Enter GitHub Link Here')
+                .form-group
+                  label.bold Pros:
+                  textarea.form-control#projectPros(ng-model='project.pros', rows='6', cols='50')
+                .form-group
+                  label.bold References:
+                  textarea.form-control#projectReferences(ng-model='project.references', rows='3', cols='50')
+                .form-group
+                  label.bold Alternatives:
+                  textarea.form-control#projectAlternatives(ng-model='project.alternatives', rows='3', cols='50')
+                .form-group
+                  label.bold Deployment Instructions:
+                  textarea.form-control#projectDeployment(ng-model='project.deployment', rows='6', cols='50')
+              .row.col-xs-offset-1
+                .col-xs-10
+                  .form-group
+                    button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='createProject(project)') Save Project
+                    //- button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
+                    button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+#editProjectModal.modal.fade(role='newProject')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Edit Project
       .modal-body
         form(name='newProjectForm', novalidate)
           .row
@@ -214,13 +297,15 @@
                   .form-group
                     button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
                     button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
-#introModal.modal.fade(role='newIntro')
+                    
+                    
+#editIntroModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
       .modal-header
         button.close(type='button', data-dismiss='modal') ×
-        h4.modal-title(ng-if='isEdit') Edit Intro
-        h4.modal-title(ng-if='!isEdit') New Intro
+        h4.modal-title Edit Intro
+        //- h4.modal-title(ng-if='!isEdit') New Intro
       .modal-body
         form(name='newProjectForm', novalidate)
           .row
@@ -234,5 +319,26 @@
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.btn-lg(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+#introModal.modal.fade(role='newIntro')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-titleNew Intro
+      .modal-body
+        form(name='newProjectForm', novalidate)
+          .row
+            .col-xs-offset-1.col-xs-10
+              .form-group
+                label.bold Title:
+                input.form-control#projectName(ng-model='intro.name')
+              .form-group
+                label.bold Body:
+                textarea.form-control#projectBody(ng-model='intro.body', rows='10', cols='50')
+          .row.col-xs-offset-1
+            .col-xs-10
+              .form-group
+                button.btn.btn-default.btn-lg(type="submit" ng-click='createIntro(intro)' data-dismiss='modal') Save Intro
                 button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel

@@ -2,8 +2,6 @@
 
 angular.module('chRepo')
 .controller('IndexProjectCtrl', function($rootScope, $scope, Project, Intro, sweet, $state, User, Cohort, Assignment){
-  $scope.projectShow = false;
-  $scope.introShow = false;
 
   $(document).ready(function() { // jshint ignore:line
     $scope.tempProject = {};
@@ -12,189 +10,125 @@ angular.module('chRepo')
     $scope.selectedIntro = null;
     $scope.isEdit = false;
 
+    $scope.projectShow = false;
+    $scope.introShow = false;
+
     Project.index()
     .success(function(projects){
       $scope.projects = projects;
     });
-    Cohort.index()
+    Cohort.findAll()
     .success(function(cohorts){
       $scope.cohorts = cohorts;
-      console.log($scope.cohorts);
+    });
+    Intro.index()
+    .success(function(intros){
+      $scope.intros = intros;
+    });
 
-      Cohort.findAll()
-      .success(function(cohorts){
-        $scope.cohorts = cohorts;
-
+    $scope.toggleIntros = function() {
+      $scope.introShow = $scope.introShow === false ? true : false;
+    };
+    $scope.toggleProjects = function() {
+      $scope.projectShow = $scope.projectShow === false ? true : false;
+    };
+    $scope.editProjectModal = function(){
+      $scope.isEdit = true;
+      $scope.selectedProject = this.project;
+      Project.findById(this.project._id)
+      .then(function(response){
+        $scope.project = response.data;
       });
-      Intro.index()
-      .success(function(intros){
-        $scope.intros = intros;
+    };
+    $scope.editIntroModal = function(){
+      $scope.isEdit = true;
+      $scope.selectedProject = this.intro;
+      Intro.findById(this.intro._id)
+      .then(function(response){
+        $scope.intro = response.data;
       });
-
-      $scope.toggleProjectOn = function(){
-        $scope.selectedProject = this.project;
-        findProjects();
-      };
-      $scope.toggleIntroOn = function(){
-        $scope.selectedIntro = this.intro;
-        findIntros();
-      };
-
-      $scope.toggleProjects = function() {
-        if ($scope.projectShow === false) {
-          $scope.projectShow = true;
-        }
-        else {
-          $scope.projectShow = false;
-        }
-      };
-      $scope.toggleIntros = function() {
-        if ($scope.introShow === false) {
-          $scope.introShow = true;
-        }
-        else {
-          $scope.introShow = false;
-        }
-      };
-
-      $scope.editProjectModal = function(){
-        $scope.isEdit = true;
-        $scope.selectedProject = this.project;
-        Project.findById(this.project._id)
-        .then(function(response){
-          $scope.project = response.data;
-        });
-      };
-      $scope.editIntroModal = function(){
-        $scope.isEdit = true;
-        $scope.selectedProject = this.intro;
-        Intro.findById(this.intro._id)
-        .then(function(response){
-          $scope.intro = response.data;
-        });
-      };
-      $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
-        $scope.$apply(function () {
-          $scope.message = "Timeout called!";
-          $scope.intro = null;
-          $scope.project = null;
-          $scope.selectedProject = null;
-          $scope.isEdit = false;
-        });
+    };
+    $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
+      $scope.$apply(function () {
+        $scope.message = "Timeout called!";
+        $scope.intro = null;
+        $scope.project = null;
+        $scope.selectedProject = null;
+        $scope.isEdit = false;
       });
-      $scope.submitProject = function(obj){
-        obj.projectName = $scope.selectedProject.name;
-        obj.projectId = $scope.selectedProject._id;
-        Assignment.create(obj)
-        .success(function(data){
-          sweet.show('Check', 'Your Assignment is saved!', 'success');
-          $scope.assignment = {};
-        })
-        .error(function(error){
-          sweet.show({
-            title: 'Assignment Save Error',
-            text: 'Warning, there was a problem saving your assignment.',
-            type: 'error'
-          });
-        });
-      };
-      $scope.submitIntro = function(obj){
-        obj.projectName = "Intro: "+ $scope.selectedIntro.name;
-        obj.projectId = $scope.selectedIntro._id;
-        Assignment.create(obj)
-        .success(function(data){
-          sweet.show('Check', 'Your Assignment is saved!', 'success');
-          $scope.assignment = {};
-        })
-        .error(function(error){
-          sweet.show({
-            title: 'Assignment Save Error',
-            text: 'Warning, there was a problem saving your assignment.',
-            type: 'error'
-          });
-        });
-      };
+    });
 
-      $scope.deleteProjectConfirm = function(project){
-        $scope.tempProject = project;
-        sweet.show({
-          title: 'Delete? Really?',
-          text: 'Once this is deleted, it cannot be recovered',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#DD6B55',
-          confirmButtonText: 'DO IT!',
-          closeOnConfirm: false
-        },
-        function() {
-          Project.delete($scope.tempProject)
-          .success(function(res){
-            sweet.show('Deleted!', 'The file has been removed', 'success');
-            Project.index()
-            .success(function(projects){
-              $scope.projects = projects;
-            });
-          });
-        });
-      };
-      $scope.deleteIntroConfirm = function(intro){
-        $scope.tempIntro = intro;
-        sweet.show({
-          title: 'Delete? Really?',
-          text: 'Once this is deleted, it cannot be recovered',
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#DD6B55',
-          confirmButtonText: 'DO IT!',
-          closeOnConfirm: false
-        },
-        function() {
-          Intro.delete($scope.tempIntro)
-          .success(function(res){
-            sweet.show('Deleted!', 'The file has been removed', 'success');
-            Intro.index()
-            .success(function(intros){
-              $scope.intros = intros;
-            });
-          });
-        });
-      };
-      $scope.viewOneProject = function(projectId){
-        $state.go('projects.show', {projectId:projectId});
-      };
-      $scope.viewOneIntro = function(introId){
-        $state.go('intros.show', {introId:introId});
-      };
-      function findProjects(){
-        Project.findById($scope.selectedProject._id)
-        .then(function(response){
-          $scope.project = response.data;
-        });
-      }
-      function findIntros(){
-        Intro.findById($scope.selectedIntro._id)
-        .then(function(response){
-          $scope.intro = response.data;
-        });
-      }
-      $scope.updateProject = function(obj){
-        Project.update(obj)
-        .then(function(){
+    $scope.deleteProjectConfirm = function(project){
+      $scope.tempProject = project;
+      sweet.show({
+        title: 'Delete? Really?',
+        text: 'This will blow this project back to Nam',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'DO IT!',
+        closeOnConfirm: false
+      },
+      function() {
+        Project.delete($scope.tempProject)
+        .success(function(res){
+          sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
           Project.index()
           .success(function(projects){
             $scope.projects = projects;
           });
-          sweet.show('Check', 'Your Project is saved!', 'success');
-          $('#editProjectModal').modal('hide'); // jshint ignore:line
-        })
-        .catch(function(){
-          sweet.show('Bugger', 'Your Project did not save.', 'error');
         });
-      };
-    });
+      });
+    };
+    $scope.deleteIntroConfirm = function(intro){
+      $scope.tempIntro = intro;
+      sweet.show({
+        title: 'Delete? Really?',
+        text: 'This will blow this intro back to Nam',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'DO IT!',
+        closeOnConfirm: false
+      },
+      function() {
+        Intro.delete($scope.tempIntro)
+        .success(function(res){
+          sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
+          Intro.index()
+          .success(function(intros){
+            $scope.intros = intros;
+          });
+        });
+      });
+    };
+    $scope.viewOneProject = function(projectId){
+      $state.go('projects.show', {projectId:projectId});
+    };
+    $scope.viewOneIntro = function(introId){
+      $state.go('intros.show', {introId:introId});
+    };
+    $scope.updateProject = function(obj){
+      Project.update(obj)
+      .then(function(){
+        Project.index()
+        .success(function(projects){
+          $scope.projects = projects;
+        });
+        sweet.show('Check', 'Your Project is saved!', 'success');
+        $('#editProjectModal').modal('hide'); // jshint ignore:line
+      })
+      .catch(function(){
+        sweet.show('Bugger', 'Your Project did not save.', 'error');
+      });
+    };
     $scope.updateIntro = function(obj){
       Intro.update(obj)
       .then(function(){
+        Intro.index()
+        .success(function(intros){
+          $scope.intros = intros;
+        });
         sweet.show('Check', 'Your Intro is saved!', 'success');
         $('#editIntroModal').modal('hide'); // jshint ignore:line
       })
@@ -203,6 +137,40 @@ angular.module('chRepo')
         console.log(err);
       });
     };
+
+  $scope.createProject = function(obj){
+    Project.create(obj)
+    .success(function(data){
+      sweet.show('Check', 'Your Project is saved!', 'success');
+      console.log('data', data);
+
+      $scope.project = {};
+
+    }).then(function(){
+      location.reload(); // jshint ignore:line
+     })
+    .error(function(error){
+      console.log(error);
+    });
+  };
+  $scope.createIntro = function(obj){
+    Intro.create(obj)
+    .success(function(data){
+      sweet.show('Check', 'Your Intro is saved!', 'success');
+      console.log('data', data);
+
+      $scope.project = {};
+
+    }).then(function(){
+      location.reload(); // jshint ignore:line
+     })
+    .error(function(error){
+      console.log(error);
+    });
+  };
+
+
+
 
     $('#sel').change(function() { // jshint ignore:line
       var currentVal = $('#projectTech').val(); // jshint ignore:line
