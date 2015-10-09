@@ -38,6 +38,11 @@
     h6 {{viewAssignment.javascriptPoints}}
     h5.underline Readability Points:
     h6 {{viewAssignment.readabilityPoints}}
+  .col-md-6.col-xs-11
+    .form-group
+      label.bold Submit Assignment for Grading:
+      input.form-control#projectName(ng-model='submittedcontent.url')
+      button.btn.btn-default.btn-lg(type='submit' ng-click='markAsSubmitted(submittedcontent)' placeholder="deployment/github url") Submit
 #assignModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
