@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('ShowOneIntroCtrl', function($scope, Intro, $window, $state){
+.controller('ShowOneIntroCtrl', function($scope, Intro, $window, $state, sweet){
 
   var introId = $state.params.introId;
 
@@ -18,6 +18,21 @@ angular.module('chRepo')
       .success(function(intros){
         $state.go('projects.index');
       });
+    });
+  };
+  $scope.updateIntro = function(obj){
+    Intro.update(obj)
+    .then(function(){
+      Intro.index()
+      .success(function(intros){
+        $scope.intros = intros;
+      });
+      sweet.show('Check', 'Your Intro is saved!', 'success');
+      $('#editIntroModal').modal('hide'); // jshint ignore:line
+    })
+    .catch(function(err){
+      sweet.show('Bugger', 'Your Intro did not save.', 'error');
+      console.log(err);
     });
   };
 

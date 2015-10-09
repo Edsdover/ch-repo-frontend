@@ -1,7 +1,7 @@
 .col-xs-12.text-center(ng-hide="activeUser")
   img(src='media/logo-black.png')
 h1.text-center(ng-hide="activeUser") Content Repo
-//- Main Dashboard
+
 .col-md-6.col-sm-11(ng-show="activeUser")
   h1(ng-if="activeUser") Welcome {{activeUser.github.displayName}}
   h2(ng-if="activeUser") Current Assignments

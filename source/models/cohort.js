@@ -6,6 +6,9 @@ angular.module('chRepo')
   var apiUrl = urls.apiUrl;
   var Cohort = {};
 
+  // Cohort.index = function(cohort){
+  //   return $http.post(apiUrl + '/cohorts', cohort);
+  // };
   Cohort.create = function(cohort){
     return $http.post(apiUrl + '/cohorts', cohort);
   };

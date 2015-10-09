@@ -10,6 +10,9 @@ angular.module('chRepo')
     $scope.selectedIntro = null;
     $scope.isEdit = false;
 
+    $scope.projectShow = false;
+    $scope.introShow = false;
+
     Project.index()
     .success(function(projects){
       $scope.projects = projects;
@@ -22,6 +25,13 @@ angular.module('chRepo')
     .success(function(intros){
       $scope.intros = intros;
     });
+
+    $scope.toggleIntros = function() {
+      $scope.introShow = $scope.introShow === false ? true : false;
+    };
+    $scope.toggleProjects = function() {
+      $scope.projectShow = $scope.projectShow === false ? true : false;
+    };
     $scope.editProjectModal = function(){
       $scope.isEdit = true;
       $scope.selectedProject = this.project;
@@ -47,38 +57,7 @@ angular.module('chRepo')
         $scope.isEdit = false;
       });
     });
-    $scope.submitProject = function(obj){
-      obj.projectName = $scope.selectedProject.name;
-      obj.projectId = $scope.selectedProject._id;
-      Assignment.create(obj)
-      .success(function(data){
-        sweet.show('Check', 'Your Assignment is saved!', 'success');
-        $scope.assignment = {};
-      })
-      .error(function(error){
-        sweet.show({
-          title: 'Assignment Save Error',
-          text: 'Warning, there was a problem saving your assignment.',
-          type: 'error'
-        });
-      });
-    };
-    $scope.submitIntro = function(obj){
-      obj.projectName = "Intro: "+ $scope.selectedIntro.name;
-      obj.projectId = $scope.selectedIntro._id;
-      Assignment.create(obj)
-      .success(function(data){
-        sweet.show('Check', 'Your Assignment is saved!', 'success');
-        $scope.assignment = {};
-      })
-      .error(function(error){
-        sweet.show({
-          title: 'Assignment Save Error',
-          text: 'Warning, there was a problem saving your assignment.',
-          type: 'error'
-        });
-      });
-    };
+
     $scope.deleteProjectConfirm = function(project){
       $scope.tempProject = project;
       sweet.show({
@@ -143,81 +122,141 @@ angular.module('chRepo')
         sweet.show('Bugger', 'Your Project did not save.', 'error');
       });
     };
-  });
-  $scope.updateIntro = function(obj){
-    Intro.update(obj)
-    .then(function(){
-      sweet.show('Check', 'Your Intro is saved!', 'success');
-      $('#editIntroModal').modal('hide'); // jshint ignore:line
-    })
-    .catch(function(err){
-      sweet.show('Bugger', 'Your Intro did not save.', 'error');
-      console.log(err);
+    $scope.updateIntro = function(obj){
+      Intro.update(obj)
+      .then(function(){
+        Intro.index()
+        .success(function(intros){
+          $scope.intros = intros;
+        });
+        sweet.show('Check', 'Your Intro is saved!', 'success');
+        $('#editIntroModal').modal('hide'); // jshint ignore:line
+      })
+      .catch(function(err){
+        sweet.show('Bugger', 'Your Intro did not save.', 'error');
+        console.log(err);
+      });
+    };
+
+  $scope.createProject = function(obj){
+    Project.create(obj)
+    .success(function(data){
+      sweet.show('Check', 'Your Project is saved!', 'success');
+      console.log('data', data);
+
+      $scope.project = {};
+
+    }).then(function(){
+      location.reload(); // jshint ignore:line
+     })
+    .error(function(error){
+      console.log(error);
     });
   };
-  $('#sel').change(function() { // jshint ignore:line
-    var currentVal = $('#projectTech').val(); // jshint ignore:line
-    $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
+  $scope.createIntro = function(obj){
+    Intro.create(obj)
+    .success(function(data){
+      sweet.show('Check', 'Your Intro is saved!', 'success');
+      console.log('data', data);
+
+      $scope.project = {};
+
+    }).then(function(){
+      location.reload(); // jshint ignore:line
+     })
+    .error(function(error){
+      console.log(error);
+    });
+  };
+
+
+
+
+    $('#sel').change(function() { // jshint ignore:line
+      var currentVal = $('#projectTech').val(); // jshint ignore:line
+      $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
+    });
+
+
+    $scope.submitProject = function(obj){
+      obj.projectName = $scope.selectedProject.name;
+      obj.projectId = $scope.selectedProject._id;
+      Assignment.create(obj)
+      .success(function(data){
+        sweet.show('Check', 'Your Assignment is saved!', 'success');
+        console.log('data', data);
+        var email = 'aug.2015@codinghouse.co';
+        var name = 'Coding House TAs';
+        var msg = 'New Assignment at ch-repo.herokuapp.com';
+        $.ajax({
+          type: "POST",
+          url: "https://mandrillapp.com/api/1.0/messages/send.json",
+          data: {
+            'key': 'MDTpzgc6BNZ7carbIFxuYw',
+            'message': {
+              'from_email': email,
+              'from_name': name,
+              'headers': {
+                'Reply-To': email
+              },
+              'subject': 'New Assignment',
+              'text': msg,
+              'to': [{
+                'email': email,
+                'name': name,
+                'type': 'to'
+              }]
+            }
+          }
+        });
+        sweet.show('Assignment Save Success', 'Success, Your project is saved! And a notification has been sent to the cohort', 'success');
+        $scope.assignment = {};
+
+      })
+      .error(function(error){
+        console.log(error);
+      });
+    };
+
+
+    $scope.submitIntro = function(obj){
+      obj.projectName = "Intro: "+ $scope.selectedIntro.name;
+      obj.projectId = $scope.selectedIntro._id;
+      Assignment.create(obj)
+      .success(function(data){
+        sweet.show('Check', 'Your Intro is saved!', 'success');
+        console.log('data', data);
+        var email = 'aug.2015@codinghouse.co';
+        var name = 'Coding House TAs';
+        var msg = 'New Intro-Assignment at ch-repo.herokuapp.com';
+        $.ajax({
+          type: "POST",
+          url: "https://mandrillapp.com/api/1.0/messages/send.json",
+          data: {
+            'key': 'MDTpzgc6BNZ7carbIFxuYw',
+            'message': {
+              'from_email': email,
+              'from_name': name,
+              'headers': {
+                'Reply-To': email
+              },
+              'subject': 'New Intro Assignment',
+              'text': msg,
+              'to': [{
+                'email': email,
+                'name': name,
+                'type': 'to'
+              }]
+            }
+          }
+        });
+        sweet.show('Intro Save Success', 'Success, Your Intro is saved! And a notification has been sent to the cohort.', 'success');
+        $scope.assignment = {};
+
+      })
+      .error(function(error){
+        console.log(error);
+      });
+    };
   });
-  // $scope.submit = function(obj){
-  //   console.log('name', $scope.assignment.cohortName);
-  //   obj.projectName = $scope.selectedProject.name;
-  //   obj.projectId = $scope.selectedProject._id;
-  //   obj.introName = $scope.selectedIntro.name;
-  //   console.log($scope.selectedIntro.name);
-  //   obj.introId = $scope.selectedIntro._id;
-  //   Assignment.create(obj)
-  //   .success(function(data){
-  //     sweet.show('Check', 'Your Assignment is saved!', 'success');
-  //     console.log('data', data);
-  //     // var email = 'misankovich@gmail.com';
-  //       // Cohort.findOne({cohortName: data.cohortName}, function(err, doc) {
-  //       //   if (doc) {
-  //       //     console.log(doc, 'doc');
-  //       //     var email = doc.cohortEmail;
-  //       //   }
-  //       //   console.log(email, 'email');
-  //       // })
-  //       // .then(function(response){
-  //       //   console.log(response, "Here ya go");
-  //       //   $scope.assignment = response.data;
-  //       // });
-  //       // var name = 'Some TA';
-  //       // var msg = 'New Assignment at ch-repo.herokuapp.com';
-  //     //   $.ajax({
-  //     //     type: "POST",
-  //     //     url: "https://mandrillapp.com/api/1.0/messages/send.json",
-  //     //     data: {
-  //     //       'key': 'MDTpzgc6BNZ7carbIFxuYw',
-  //     //       'message': {
-  //     //         'from_email': email,
-  //     //         'from_name': name,
-  //     //         'headers': {
-  //     //           'Reply-To': email
-  //     //         },
-  //     //         'subject': 'New Assignment',
-  //     //         'text': msg,
-  //     //         'to': [{
-  //     //           'email': 'misankovich@gmail.com',
-  //     //           'name': 'Michael Sankovich',
-  //     //           'type': 'to'
-  //     //         }]
-  //     //       }
-  //     //     }
-  //     //   })
-  //     //   .done(function(response) {
-  //     //     alert('yaaaaay');
-  //     //   })
-  //     //   .fail(function(response) {
-  //     //     alert('noooooo');
-  //     //   });
-  //     //   return false;
-  //     //
-  //     // sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
-  //     $scope.assignment = {};
-  //   })
-  //   .error(function(error){
-  //     console.log(error);
-  //   });
-  // };
 });
