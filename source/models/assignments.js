@@ -10,7 +10,7 @@ angular.module('chRepo')
     return $http.post(apiUrl + '/assignments', assignment);
   };
   Assignment.update = function(assignment){
-    return $http.put(apiUrl + '/assignments', assignment);
+    return $http.put(apiUrl + '/assignments/update', assignment);
   };
   Assignment.findByIdAndUpdate = function(assignment){
     return $http.put(apiUrl + '/assignments', assignment._id);

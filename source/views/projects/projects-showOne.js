@@ -10,7 +10,20 @@ angular.module('chRepo')
   .then(function(response){
     $scope.project = response.data;
   });
-
+  $scope.updateProject = function(obj){
+    Project.update(obj)
+    .then(function(){
+      Project.index()
+      .success(function(projects){
+        $scope.projects = projects;
+      });
+      sweet.show('Check', 'Your Project is saved!', 'success');
+      $('#editProjectModal').modal('hide'); // jshint ignore:line
+    })
+    .catch(function(){
+      sweet.show('Bugger', 'Your Project did not save.', 'error');
+    });
+  };
   $scope.deleteProject = function(project){
     $scope.tempProject = project;
     sweet.show({

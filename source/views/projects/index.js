@@ -2,17 +2,13 @@
 
 angular.module('chRepo')
 .controller('IndexProjectCtrl', function($rootScope, $scope, Project, Intro, sweet, $state, User, Cohort, Assignment){
-
   $(document).ready(function() { // jshint ignore:line
     $scope.tempProject = {};
     $scope.tempIntro = {};
     $scope.selectedProject = null;
-    $scope.selectedIntro = null;
     $scope.isEdit = false;
-
     $scope.projectShow = false;
     $scope.introShow = false;
-
     Project.index()
     .success(function(projects){
       $scope.projects = projects;
@@ -25,28 +21,27 @@ angular.module('chRepo')
     .success(function(intros){
       $scope.intros = intros;
     });
-
     $scope.toggleIntros = function() {
       $scope.introShow = $scope.introShow === false ? true : false;
     };
     $scope.toggleProjects = function() {
       $scope.projectShow = $scope.projectShow === false ? true : false;
     };
-    $scope.editProjectModal = function(){
+    $scope.editModal = function(){
       $scope.isEdit = true;
-      $scope.selectedProject = this.project;
-      Project.findById(this.project._id)
-      .then(function(response){
-        $scope.project = response.data;
-      });
-    };
-    $scope.editIntroModal = function(){
-      $scope.isEdit = true;
-      $scope.selectedProject = this.intro;
-      Intro.findById(this.intro._id)
-      .then(function(response){
-        $scope.intro = response.data;
-      });
+      if (this.project){
+        $scope.selectedProject = this.project;
+        Project.findById(this.project._id)
+        .then(function(response){
+          $scope.project = response.data;
+        });
+      }else if(this.intro){
+        $scope.selectedProject = this.intro;
+        Intro.findById(this.intro._id)
+        .then(function(response){
+          $scope.intro = response.data;
+        });
+      }
     };
     $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
       $scope.$apply(function () {
@@ -57,7 +52,6 @@ angular.module('chRepo')
         $scope.isEdit = false;
       });
     });
-
     $scope.deleteProjectConfirm = function(project){
       $scope.tempProject = project;
       sweet.show({
@@ -137,58 +131,51 @@ angular.module('chRepo')
         console.log(err);
       });
     };
-
-  $scope.createProject = function(obj){
-    Project.create(obj)
-    .success(function(data){
-      sweet.show('Check', 'Your Project is saved!', 'success');
-      console.log('data', data);
-
-      $scope.project = {};
-
-    }).then(function(){
-      location.reload(); // jshint ignore:line
-     })
-    .error(function(error){
-      console.log(error);
-    });
-  };
-  $scope.createIntro = function(obj){
-    Intro.create(obj)
-    .success(function(data){
-      sweet.show('Check', 'Your Intro is saved!', 'success');
-      console.log('data', data);
-
-      $scope.project = {};
-
-    }).then(function(){
-      location.reload(); // jshint ignore:line
-     })
-    .error(function(error){
-      console.log(error);
-    });
-  };
-
-
-
-
+    $scope.create = function(obj){
+      if($scope.project){
+        Project.create(obj)
+        .success(function(data){
+          sweet.show('Check', 'Your Project is saved!', 'success');
+          $scope.project = {};
+          saveCB(data);
+        })
+        .error(function(error){
+          console.log(error);
+        });
+      }else{
+        Intro.create(obj)
+        .success(function(data){
+          sweet.show('Check', 'Your Intro is saved!', 'success');
+          $scope.project = {};
+          saveCB(data);
+        })
+        .error(function(error){
+          console.log(error);
+        });
+      }
+      function saveCB(data){
+        location.reload(); // jshint ignore:line
+      }
+    };
     $('#sel').change(function() { // jshint ignore:line
       var currentVal = $('#projectTech').val(); // jshint ignore:line
       $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
     });
-
-
-    $scope.submitProject = function(obj){
-      obj.projectName = $scope.selectedProject.name;
+    $scope.submitAssignment = function(obj){
+      if($scope.project){
+        obj.projectName = "Project: " + $scope.selectedProject.name;
+      }else if($scope.intro){
+        obj.projectName = "Intro: " + $scope.selectedProject.name;
+      }
       obj.projectId = $scope.selectedProject._id;
       Assignment.create(obj)
       .success(function(data){
         sweet.show('Check', 'Your Assignment is saved!', 'success');
-        console.log('data', data);
-        var email = 'aug.2015@codinghouse.co';
-        var name = 'Coding House TAs';
-        var msg = 'New Assignment at ch-repo.herokuapp.com';
-        $.ajax({
+        // var email = 'aug.2015@codinghouse.co';
+        var email = 'edsdover@gmail.com';
+        var name = 'Coding House Assignment App';
+        var msg = obj.projectName + ' assigned to you at ch-repo.herokuapp.com.';
+        $.ajax({ // jshint ignore:line
           type: "POST",
           url: "https://mandrillapp.com/api/1.0/messages/send.json",
           data: {
@@ -209,50 +196,8 @@ angular.module('chRepo')
             }
           }
         });
-        sweet.show('Assignment Save Success', 'Success, Your project is saved! And a notification has been sent to the cohort', 'success');
+        sweet.show(obj.projectName + ' Save Success', 'Success, Your Assignment is saved! And a notification has been sent to the cohort.', 'success');
         $scope.assignment = {};
-
-      })
-      .error(function(error){
-        console.log(error);
-      });
-    };
-
-
-    $scope.submitIntro = function(obj){
-      obj.projectName = "Intro: "+ $scope.selectedIntro.name;
-      obj.projectId = $scope.selectedIntro._id;
-      Assignment.create(obj)
-      .success(function(data){
-        sweet.show('Check', 'Your Intro is saved!', 'success');
-        console.log('data', data);
-        var email = 'aug.2015@codinghouse.co';
-        var name = 'Coding House TAs';
-        var msg = 'New Intro-Assignment at ch-repo.herokuapp.com';
-        $.ajax({
-          type: "POST",
-          url: "https://mandrillapp.com/api/1.0/messages/send.json",
-          data: {
-            'key': 'MDTpzgc6BNZ7carbIFxuYw',
-            'message': {
-              'from_email': email,
-              'from_name': name,
-              'headers': {
-                'Reply-To': email
-              },
-              'subject': 'New Intro Assignment',
-              'text': msg,
-              'to': [{
-                'email': email,
-                'name': name,
-                'type': 'to'
-              }]
-            }
-          }
-        });
-        sweet.show('Intro Save Success', 'Success, Your Intro is saved! And a notification has been sent to the cohort.', 'success');
-        $scope.assignment = {};
-
       })
       .error(function(error){
         console.log(error);

@@ -22,7 +22,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.createdAt | date:'MMM d, y'}} &nbsp;
       td.cohortBox.textCenter(ng-click='viewOneAssignment(currentAssignment._id)')
       td.cohortBox.textCenter(ng-hide="adminUser"): button(ng-click="submitAssignment()" ng-hide="adminUser") Submit
-      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Edit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal') Edit
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Delete
 .col-md-6.col-sm-11(ng-show="activeUser")
   h2(ng-show="activeUser" ng-if='hasCohort') You are enrolled in:
@@ -46,5 +46,45 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
       td.cohortBox.textCenter(ng-click='viewOneAssignment(pastAssignment._id)')
       td.cohortBox.textCenter(ng-hide="adminUser"): button(ng-click="submitAssignment()" ng-hide="adminUser") Submit
-      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Edit
+      td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal') Edit
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')) Delete
+#assignModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title New Assignment
+      .modal-body
+        .form-group
+          h6 Pick a Cohort
+          select.form-control(ng-model='assignment.cohortName' required)
+            option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
+        .form-group
+          lable Due Date:
+          input.form-control(type='date' ng-model='assignment.dueDate' required)
+        .form-group
+          h6 Category:
+            h5.box Functionality
+        .form-group
+          h6 Points:
+            input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+        .form-group
+          h6 Category:
+            h5.box Readability
+        .form-group
+          h6 Points:
+            input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+        .form-group
+          h6 Category:
+            h5.box HTML/CSS
+        .form-group
+          h6 Points:
+            input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+        .form-group
+          h6 Category:
+            h5.box JavaScript
+        .form-group
+          h6 Points:
+            input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+          button.btn.btn-success.btn-lg(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit
+          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
