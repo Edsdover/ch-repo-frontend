@@ -42,39 +42,6 @@ angular.module('chRepo')
       $scope.cohorts = res.data;
     });
   }
-  $scope.toggleAdmins = function() {
-    $scope.adminShow = $scope.adminShow === false ? true : false;
-  };
-  $scope.toggleStudents = function() {
-    $scope.studentShow = $scope.studentShow === false ? true : false;
-  };
-  $scope.toggleCohorts = function() {
-    $scope.cohortShow = $scope.cohortShow === false ? true : false;
-  };
-  $scope.toggleAdminOff = function(){
-    var admin = this.admin;
-    admin.adminUser = false;
-    userSavePrivileges(admin);
-  };
-  $scope.toggleAdminOn = function(){
-    var student = this.student;
-    student.adminUser = true;
-    userSavePrivileges(student);
-  };
-  function userSavePrivileges(user){
-    User.toggleAdmin(user)
-    .success(function(res){
-      findAllUsers();
-    });
-  }
-  $scope.showUser = function(){
-    var studentId = this.student._id;
-    $state.go('admins.show', {studentId : this.student._id});
-  };
-  $scope.showAdmin = function(){
-    var studentId = this.admin._id;
-    $state.go('admins.show', {studentId : this.admin._id});
-  };
   $scope.saveNewCohort = function(obj){
     var cohort = new Object(obj);
     obj.cohortStudentIds = $scope.cohortStudentIds;
@@ -160,6 +127,35 @@ angular.module('chRepo')
     if ($scope.modalListStudent === 0) {
       $scope.areStudents=false;
     }
+  };
+  $scope.toggleAdmins = function() {
+    $scope.adminShow = $scope.adminShow === false ? true : false;
+  };
+  $scope.toggleStudents = function() {
+    $scope.studentShow = $scope.studentShow === false ? true : false;
+  };
+  $scope.toggleCohorts = function() {
+    $scope.cohortShow = $scope.cohortShow === false ? true : false;
+  };
+  $scope.toggleAdminOff = function(){
+    userSavePrivileges(this.admin);
+  };
+  $scope.toggleAdminOn = function(){
+    userSavePrivileges(this.student);
+  };
+  function userSavePrivileges(user){
+    User.toggleAdmin(user)
+    .then(function(res){
+      findAllUsers();
+    });
+  }
+  $scope.showUser = function(){
+    var studentId = this.student._id;
+    $state.go('admins.show', {studentId : this.student._id});
+  };
+  $scope.showAdmin = function(){
+    var studentId = this.admin._id;
+    $state.go('admins.show', {studentId : this.admin._id});
   };
   $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
     $scope.$apply(function () {

@@ -1,11 +1,11 @@
-.col-xs-12.text-center(ng-hide="activeUser")
+.col-xs-12.text-center(ng-hide="hasCohort")
   img(src='media/logo-black.png')
-h1.text-center(ng-hide="activeUser") Content Repo
+h1.text-center(ng-hide="hasCohort") Content Repo
 
-.col-md-6.col-sm-11(ng-show="activeUser")
-  h1(ng-if="activeUser") Welcome {{activeUser.github.displayName}}
-  h2(ng-if="activeUser") Current Assignments
-  table.table-bordered.table-hover.newCohortForm(ng-if="activeUser")
+.col-md-6.col-sm-11(ng-show="hasCohort")
+  h1(ng-if="hasCohort") Welcome {{hasCohort.github.displayName}}
+  h2(ng-if="hasCohort") Current Assignments
+  table.table-bordered.table-hover.newCohortForm(ng-if="hasCohort")
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
       th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
@@ -24,12 +24,12 @@ h1.text-center(ng-hide="activeUser") Content Repo
       td.cohortBox.textCenter(ng-hide="adminUser"): button(ng-click="submitAssignment()" ng-hide="adminUser") Submit
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal') Edit
       td.cohortBox.textCenter(ng-if="adminUser"): button(ng-click="deleteAssignmentConfirm()") Delete
-.col-md-6.col-sm-11(ng-show="activeUser")
-  h2(ng-show="activeUser" ng-if='hasCohort') You are enrolled in:
-    ul(ng-show="activeUser")
-      li.logInButton(ng-repeat='cohort in activeUser.cohortsObj') {{cohort.cohortName}}
-  h2(ng-if="activeUser") Past Assignments
-  table.table-bordered.table-hover(ng-if="activeUser")
+.col-md-6.col-sm-11(ng-show="hasCohort")
+  h2(ng-show="hasCohort" ng-if='hasCohort') You are enrolled in:
+    ul(ng-show="hasCohort")
+      li.logInButton(ng-repeat='cohort in hasCohort.cohortsObj') {{cohort.cohortName}}
+  h2(ng-if="hasCohort") Past Assignments
+  table.table-bordered.table-hover(ng-if="hasCohort")
     tr
       th.cohortBox.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
       th.cohortBox.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
