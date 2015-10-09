@@ -61,7 +61,7 @@ h1.text-center(ng-hide="activeUser") Content Repo
             option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
         .form-group
           lable Due Date:
-          input.form-control(type='date' ng-model='assignment.dueDate' required)
+          input.form-control(type='text' ng-model='assignment.dueDate' id="datepicker" required)
         .form-group
           h6 Category:
             h5.box Functionality

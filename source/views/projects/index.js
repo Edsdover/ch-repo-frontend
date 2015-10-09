@@ -3,6 +3,9 @@
 angular.module('chRepo')
 .controller('IndexProjectCtrl', function($scope, Project, Intro, sweet, $state, Cohort, Assignment){
   $(document).ready(function() { // jshint ignore:line
+    $(function() {// jshint ignore:line
+      $( "#datepicker" ).datepicker();// jshint ignore:line
+    });
     $scope.tempProject = {};
     $scope.tempIntro = {};
     $scope.selectedProject = null;
