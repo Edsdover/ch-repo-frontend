@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, Intro, $sce, Cohort){
+.controller('AssignmentCtrl', function($scope, Assignment, Project, sweet, $state, Intro, $sce, Cohort){
 
   var assignmentId = $state.params.assignmentId;
   var currentTime = Number(new Date());
@@ -83,7 +83,7 @@ angular.module('chRepo')
       Assignment.delete($scope.tempAssignment)
       .success(function(res){
         sweet.show('Deleted!', 'The file has been removed', 'success');
-        $state.go('home.dashboard', {assignmentId:assignmentId});
+        $state.go('dashboard.home', {assignmentId:assignmentId});
       });
     });
   };

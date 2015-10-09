@@ -102,10 +102,10 @@ angular.module('chRepo')
       });
     };
     $scope.viewOneProject = function(projectId){
-      $state.go('projects.show', {projectId:projectId});
+      $state.go('assignments.showProject', {projectId:projectId});
     };
     $scope.viewOneIntro = function(introId){
-      $state.go('intros.show', {introId:introId});
+      $state.go('assignments.showIntro', {introId:introId});
     };
     $scope.updateProject = function(obj){
       Project.update(obj)

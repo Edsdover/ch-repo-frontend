@@ -1,4 +1,3 @@
-
 angular.module('chRepo')
 
 .controller('DashboardCtrl', function($scope, Cohort, Assignment, sweet, $state){
@@ -61,7 +60,7 @@ angular.module('chRepo')
       });
     }
     $scope.viewOneAssignment = function(assignmentId){
-      $state.go('home.show', {assignmentId:assignmentId});
+      $state.go('assignments.show', {assignmentId:assignmentId});
     };
     $scope.deleteAssignmentConfirm = function(assignment){
       if(this.$parent.pastAssignment){

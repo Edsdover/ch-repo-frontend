@@ -39,7 +39,7 @@ angular.module('chRepo')
       Project.delete($scope.tempProject)
       .success(function(res){
         sweet.show('Deleted!', 'The file has been removed', 'success');
-        $state.go('projects.index');
+        $state.go('assignments.index');
       });
     });
   };

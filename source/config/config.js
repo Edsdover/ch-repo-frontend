@@ -5,20 +5,16 @@ angular.module('chRepo')
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-  .state('home', {url: '', templateUrl: '/views/home/home.html', abstract: true})
-  .state('home.dashboard', {url: '/', templateUrl: '/views/home/dashboard.html', controller: 'DashboardCtrl'})
-  .state('user', {url: '', templateUrl: '/views/users/user.html', abstract: true})
-  .state('home.show', {url: '/dashboard/{assignmentId}', templateUrl: '/views/home/showOneAssignment.html', controller: 'HomeAssignmentCtrl'})
-  .state('home.edit', {url: '{assignmentId}/edit', templateUrl: '/views/home/edit.html', controller: 'EditAssignmentCtrl'})
+  .state('dashboard', {url: '/dashboard', templateUrl: '/views/dashboard/dashboard.html', abstract: true})
+  .state('dashboard.home', {url: '/home', templateUrl: '/views/dashboard/homepage.html', controller: 'DashboardCtrl'})
 
   .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})
-  .state('admins.userIndex', {url: '/admins/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
-  .state('admins.show', {url: '/admins/{studentIds}', templateUrl: '/views/admins/showUser.html', controller: 'userCtrl'})
+  .state('admins.userIndex', {url: '/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
+  .state('admins.show', {url: '/{studentId}', templateUrl: '/views/admins/showUser.html', controller: 'userCtrl'})
 
-  .state('intros', {url: '/intros', templateUrl: '/views/intros/intros.html', abstract: true})
-  .state('intros.show', {url: '/intros/{introId}', templateUrl: '/views/intros/intros-showOne.html', controller: 'ShowOneIntroCtrl'})
-
-  .state('projects', {url: '/projects', templateUrl: '/views/projects/projects.html', abstract: true})
-  .state('projects.show', {url: '/projects/{projectId}', templateUrl: '/views/projects/projects-showOne.html', controller: 'ShowOneProjectCtrl'})
-  .state('projects.index', {url: '/index', templateUrl: '/views/projects/index.html', controller: 'IndexProjectCtrl'});
+  .state('assignments', {url: '/assignments', templateUrl: '/views/assignments/assignments.html', abstract: true})
+  .state('assignments.index', {url: '/index', templateUrl: '/views/assignments/index.html', controller: 'IndexProjectCtrl'})
+  .state('assignments.show', {url: '/{assignmentId}', templateUrl: '/views/assignments/showOneAssignment.html', controller: 'AssignmentCtrl'})
+  .state('assignments.showIntro', {url: '/showIntro/{introId}', templateUrl: '/views/assignments/intros-showOne.html', controller: 'ShowOneIntroCtrl'})
+  .state('assignments.showProject', {url: '/showProject/{projectId}', templateUrl: '/views/assignments/projects-showOne.html', controller: 'ShowOneProjectCtrl'});
 });

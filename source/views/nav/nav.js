@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('NavCtrl', function($rootScope, $scope, $state, $firebaseObject, $http, User){
+.controller('NavCtrl', function($rootScope, $scope, $firebaseObject, $http, User){
 
   $scope.oauth = function(provider){
     User.oauth(provider)
@@ -11,7 +11,7 @@ angular.module('chRepo')
     });
   };
   $scope.afAuth.$onAuth(function(data){
-    if(data.github.email === "misankovich@gmail.com") {
+    if(data.github.email === "edsdover@gmail.com") {
       data.github.cachedUserProfile.site_admin = true;
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;

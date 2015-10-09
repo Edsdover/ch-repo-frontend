@@ -69,16 +69,16 @@ angular.module('chRepo')
     });
   }
   $scope.showUser = function(){
-    var studentIds = this.student._id;
-    $state.go('admins.show', {studentIds:this.student._id});
+    var studentId = this.student._id;
+    $state.go('admins.show', {studentId : this.student._id});
   };
   $scope.showAdmin = function(){
-    var studentIds = this.admin._id;
-    $state.go('admins.show', {studentIds:this.admin._id});
+    var studentId = this.admin._id;
+    $state.go('admins.show', {studentId : this.admin._id});
   };
   $scope.showOneCohort = function(){
     var cohortId = this.cohort._id;
-    $state.go('cohorts.show', {cohortId:cohortId});
+    $state.go('cohorts.show', {cohortId : cohortId});
   };
   $scope.editCohortModal = function(){
     $scope.isEdit = true;

@@ -26,7 +26,7 @@ angular.module('chRepo')
       Intro.delete($scope.tempIntro)
       .success(function(res){
         sweet.show('Deleted!', 'The file has been removed', 'success');
-        $state.go('projects.index');
+        $state.go('assignments.index');
       });
     });
   };
