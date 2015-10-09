@@ -87,4 +87,8 @@ angular.module('chRepo')
       });
     });
   };
+
+  $scope.markAsSubmitted = function(assignment) {
+    console.log(this.submittedcontent.url);
+  };
 });
