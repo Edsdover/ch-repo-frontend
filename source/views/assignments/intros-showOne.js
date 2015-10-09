@@ -10,7 +10,21 @@ angular.module('chRepo')
   .then(function(response){
     $scope.intro = response.data;
   });
-
+  $scope.updateIntro = function(obj){
+    Intro.update(obj)
+    .then(function(){
+      Intro.index()
+      .success(function(intros){
+        $scope.intros = intros;
+      });
+      sweet.show('Check', 'Your Intro is saved!', 'success');
+      $('#editIntroModal').modal('hide'); // jshint ignore:line
+    })
+    .catch(function(err){
+      sweet.show('Bugger', 'Your Intro did not save.', 'error');
+      console.log(err);
+    });
+  };
   $scope.deleteIntro = function(obj){
     $scope.tempIntro = obj;
     sweet.show({
@@ -30,20 +44,4 @@ angular.module('chRepo')
       });
     });
   };
-  $scope.updateIntro = function(obj){
-    Intro.update(obj)
-    .then(function(){
-      Intro.index()
-      .success(function(intros){
-        $scope.intros = intros;
-      });
-      sweet.show('Check', 'Your Intro is saved!', 'success');
-      $('#editIntroModal').modal('hide'); // jshint ignore:line
-    })
-    .catch(function(err){
-      sweet.show('Bugger', 'Your Intro did not save.', 'error');
-      console.log(err);
-    });
-  };
-
 });

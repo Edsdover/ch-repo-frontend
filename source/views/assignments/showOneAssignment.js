@@ -3,10 +3,9 @@
 angular.module('chRepo')
 .controller('AssignmentCtrl', function($scope, Assignment, Project, sweet, $state, Intro, $sce, Cohort){
 
-  var assignmentId = $state.params.assignmentId;
-  var currentTime = Number(new Date());
   populateAssignment();
-
+  var assignmentId = $state.params.assignmentId,
+      currentTime = Number(new Date());
   function populateAssignment(){
     Assignment.findById(assignmentId)
     .then(function(response){
@@ -37,9 +36,9 @@ angular.module('chRepo')
     Assignment.update(obj)
     .success(function(data){
       sweet.show('Check', 'Your Assignment is updated!', 'success');
-      var email = obj.cohortEmail;
-      var name = 'Coding House Assignment App';
-      var msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
+      var email = obj.cohortEmail,
+          name = 'Coding House Assignment App',
+          msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
       $.ajax({ // jshint ignore:line
         type: "POST",
         url: "https://mandrillapp.com/api/1.0/messages/send.json",
@@ -48,9 +47,7 @@ angular.module('chRepo')
           'message': {
             'from_email': email,
             'from_name': name,
-            'headers': {
-              'Reply-To': email
-            },
+            'headers': {'Reply-To': email},
             'subject': 'New Assignment',
             'text': msg,
             'to': [{

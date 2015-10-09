@@ -75,8 +75,15 @@
         h4.modal-title New Cohort
       .modal-body
         .row
+          .col-xs-6.col-xs-offset-3
+            .form-group
+              label.bold Title:
+                input.form-control.inputButton(ng-model='modalCohort.cohortName')
+              label.bold Cohort Email
+                input.form-control.inputButton(ng-model='modalCohort.cohortEmail')
+        .row
           .col-md-6
-            h4 Enrolled Students:
+            h4 Student List:
             table.table-bordered.table-hover(ng-model='modalListStudent')
               tr
                 th.cohortBox Name
@@ -90,14 +97,7 @@
                 td.nbsp.glyphicon.glyphicon-plus.cursor.cohortBox.cohortBoxButtons.addStudentButton(ng-click='addStudentToList()')
           .col-md-5
             .col-md-12.col-sm-12
-              h4 New Cohort:
-              .form-group(ng-show="areStudents")
-                .col-sm-6.col-md-6
-                  label.bold Title:
-                    input.form-control.inputButton#projectName(ng-model='modalCohort.cohortName')
-                .col-sm-6.col-md-6
-                  label.bold Cohort Email
-                    input.form-control.inputButton#projectName(ng-model='modalCohort.cohortEmail')
+              h4 New Cohort Enrolled Students:
             table.table-bordered.table-hover
               tr
                 th.cohortBox Name
@@ -124,12 +124,12 @@
           .col-xs-6.col-xs-offset-3
             .form-group
               label.bold Title:
-                input.form-control.inputButton#projectName(ng-model='modalCohort.cohortName')
+                input.form-control.inputButton(ng-model='modalCohort.cohortName')
               label.bold Cohort Email
-                input.form-control.inputButton#projectName(ng-model='modalCohort.cohortEmail')
+                input.form-control.inputButton(ng-model='modalCohort.cohortEmail')
         .row
           .col-md-6
-            h4 Enrolled Students:
+            h4 Student List:
             table.table-bordered.table-hover(ng-model='modalListStudent')
               tr
                 th.cohortBox Name
@@ -142,7 +142,7 @@
                 td.cohortBox {{modalListStudent.email}}
                 td.nbsp.glyphicon.glyphicon-plus.cursor.cohortBox.cohortBoxButtons.addStudentButton(ng-click='addStudentToList()')
           .col-md-5
-            h4 New Cohort:
+            h4 {{modalCohort.cohortName}} : Enrolled Students
             table.table-bordered.table-hover
               tr
                 th.cohortBox Name

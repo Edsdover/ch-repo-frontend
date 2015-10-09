@@ -2,11 +2,10 @@
 
 angular.module('chRepo')
 .config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/dashboard');
 
   $stateProvider
-  .state('dashboard', {url: '/dashboard', templateUrl: '/views/dashboard/dashboard.html', abstract: true})
-  .state('dashboard.home', {url: '/home', templateUrl: '/views/dashboard/homepage.html', controller: 'DashboardCtrl'})
+  .state('dashboard', {url: '/dashboard', templateUrl: '/views/dashboard/dashboard.html', controller: 'DashboardCtrl'})
 
   .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})
   .state('admins.userIndex', {url: '/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})

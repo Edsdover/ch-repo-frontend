@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('NavCtrl', function($rootScope, $scope, $firebaseObject, $http, User){
+.controller('NavCtrl', function($rootScope, $scope, $firebaseObject, $http, User, $state){
 
   $scope.oauth = function(provider){
     User.oauth(provider)
@@ -11,13 +11,13 @@ angular.module('chRepo')
     });
   };
   $scope.afAuth.$onAuth(function(data){
-    if(data.github.email === "edsdover@gmail.com") {
+    if(data && data.github.email === "edsdover@gmail.com") {
       data.github.cachedUserProfile.site_admin = true;
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
       updateUser(data);
-    } else if(data){
+    }else if(data){
       $rootScope.activeUser = data;
       $rootScope.displayName = data.github.displayName;
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
@@ -36,9 +36,7 @@ angular.module('chRepo')
     });
   }
   $scope.logout = function(){
-    User.logout()
-    .then(function(){
-      location.reload(); // jshint ignore:line
-    });
+    User.logout();
+    location.reload(); // jshint ignore:line
   };
 });

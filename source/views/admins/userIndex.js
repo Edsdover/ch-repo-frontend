@@ -17,8 +17,8 @@ angular.module('chRepo')
   findAllCohorts();
 
   function findAllUsers(){
-    var admins = [];
-    var students = [];
+    var admins = [],
+        students = [];
     User.findAll()
     .then(function(res){
       res.data.forEach(function(user){
@@ -34,13 +34,12 @@ angular.module('chRepo')
     });
   }
   function findAllCohorts(){
-    var cohorts = [];
     Cohort.findAll()
     .then(function(res){
       res.data.forEach(function(cohort){
         cohort.studentNumber = cohort.cohortStudentIds.length;
-        $scope.cohorts = cohorts;
       });
+      $scope.cohorts = res.data;
     });
   }
   $scope.toggleAdmins = function() {
@@ -76,17 +75,26 @@ angular.module('chRepo')
     var studentId = this.admin._id;
     $state.go('admins.show', {studentId : this.admin._id});
   };
-  $scope.showOneCohort = function(){
-    var cohortId = this.cohort._id;
-    $state.go('cohorts.show', {cohortId : cohortId});
+  $scope.saveNewCohort = function(obj){
+    var cohort = new Object(obj);
+    obj.cohortStudentIds = $scope.cohortStudentIds;
+    Cohort.create(obj)
+    .success(function(res){
+      sweet.show('Cohort Save Success', 'Success, Your cohort is saved!', 'success');
+      findAllCohorts();
+    })
+    .error(function(error){
+      console.log(error);
+    });
   };
   $scope.editCohortModal = function(){
     $scope.isEdit = true;
-    var modalListStudents = [];
-    var modalCohortStudents = [];
+    var modalListStudents = [],
+        modalCohortStudents = [];
     $scope.cohortStudentIds = this.cohort.cohortStudentIds;
     var modalStudents = $scope.modalListStudents;
     $scope.modalCohort = this.cohort;
+    $scope.modalCohort.cohortName = this.cohort.cohortName;
     modalStudents.forEach(function(student){
       if($scope.cohortStudentIds.indexOf(student.id) > -1){
           modalCohortStudents.push(student);
@@ -97,16 +105,17 @@ angular.module('chRepo')
       $scope.modalCohortStudents = modalCohortStudents;
     });
   };
-  $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
-    $scope.$apply(function () {
-      $scope.isEdit = false;
-      $scope.modalCohort = null;
-      $scope.modalCohortStudents = [];
-      $scope.cohortStudentIds = [];
-      findAllUsers();
+  $scope.updateCohort = function(obj){
+    obj.cohortStudentIds = $scope.cohortStudentIds;
+    Cohort.update(obj)
+    .success(function() {
       findAllCohorts();
+      sweet.show('Cohort Edit Success', 'Success, Your cohort is updated!', 'success');
+    })
+    .error(function(error){
+      console.log(error);
     });
-  });
+  };
   $scope.deleteCohort = function(){
     var cohort = this.cohort;
     $scope.tempCohort = cohort;
@@ -134,17 +143,17 @@ angular.module('chRepo')
     });
   };
   $scope.addStudentToList = function(){
-    var modalListStudent = this.modalListStudent;
-    var indx = $scope.modalListStudents.indexOf(modalListStudent);
+    var modalListStudent = this.modalListStudent,
+        indx = $scope.modalListStudents.indexOf(modalListStudent);
     $scope.cohortStudentIds.push(modalListStudent.id);
     $scope.modalCohortStudents.push(modalListStudent);
     $scope.modalListStudents.splice(indx, 1);
     $scope.areStudents=true;
   };
   $scope.removeStudentFromList = function(){
-    var modalCohortStudent = this.modalCohortStudent;
-    var indx = $scope.modalCohortStudents.indexOf(modalCohortStudent);
-    var idIndx = $scope.cohortStudentIds.indexOf(modalCohortStudent);
+    var modalCohortStudent = this.modalCohortStudent,
+        indx = $scope.modalCohortStudents.indexOf(modalCohortStudent),
+        idIndx = $scope.cohortStudentIds.indexOf(modalCohortStudent);
     $scope.modalCohortStudents.splice(indx, 1);
     $scope.cohortStudentIds.splice(idIndx, 1);
     $scope.modalListStudents.push(modalCohortStudent);
@@ -152,30 +161,14 @@ angular.module('chRepo')
       $scope.areStudents=false;
     }
   };
-  $scope.saveNewCohort = function(obj){
-    var cohort = new Object(obj);
-    obj.cohortStudentIds = $scope.cohortStudentIds;
-    Cohort.create(obj)
-    .success(function(res){
-      sweet.show('Cohort Save Success', 'Success, Your cohort is saved!', 'success');
+  $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
+    $scope.$apply(function () {
+      $scope.isEdit = false;
+      $scope.modalCohort = null;
+      $scope.modalCohortStudents = [];
+      $scope.cohortStudentIds = [];
+      findAllUsers();
       findAllCohorts();
-    })
-    .error(function(error){
-      console.log(error);
     });
-  };
-  $scope.updateCohort = function(obj){
-    obj.cohortStudentIds = $scope.cohortStudentIds;
-    Cohort.update(obj).then(function() {
-      Cohort.index()
-      .success(function(cohorts){
-        $scope.cohorts = cohorts;
-        sweet.show('Cohort Edit Success', 'Success, Your cohort is updated!', 'success');
-        findAllCohorts();
-      });
-    })
-    .error(function(error){
-      console.log(error);
-    });
-  };
+  });
 });

@@ -6,21 +6,30 @@ angular.module('chRepo')
     $(function() {// jshint ignore:line
       $( "#datepicker" ).datepicker();// jshint ignore:line
     });
+    var turechange = false;
     $scope.hasCohort = false;
-    populateDashboard();
-
+    function checkAuth(){
+      if($scope.activeUser){
+        turechange = true;
+        populateDashboard();
+      }
+      if(!turechange) {
+        setTimeout( checkAuth, 500);
+      }
+    }
+    checkAuth();
     function populateDashboard(){
       $scope.activeUser.cohortsArray = [];
       $scope.activeUser.cohortsObj = [];
-      var currentAssignments = [];
-      var pastAssignments = [];
-      var activeCohorts = [];
+      var currentAssignments = [],
+          pastAssignments = [],
+          activeCohorts = [];
       Cohort.findAll()
       .success(function(cohorts){
         $scope.cohorts = cohorts;
         cohorts.forEach(function(cohort){
-          var cohortStudents = cohort.cohortStudentIds;
-          var activeId = $scope.activeUser.github.id;
+          var cohortStudents = cohort.cohortStudentIds,
+              activeId = $scope.activeUser.github.id;
           if(cohortStudents.indexOf(activeId) > -1){
             $scope.activeUser.cohortsArray.push(cohort.cohortName);
             $scope.activeUser.cohortsObj.push(cohort);
@@ -41,9 +50,9 @@ angular.module('chRepo')
               }else if(activeCohorts.indexOf(assignmentCohort) > -1){
                 pastAssignments.push(assignment);
               }
-              $scope.currentAssignments = currentAssignments;
-              $scope.pastAssignments = pastAssignments;
             });
+            $scope.currentAssignments = currentAssignments;
+            $scope.pastAssignments = pastAssignments;
           }else if($scope.adminUser === true){
             assignments.forEach(function(assignment){
               var assignmentCohort = assignment.cohortName;
@@ -52,15 +61,62 @@ angular.module('chRepo')
               }else{
                 pastAssignments.push(assignment);
               }
-              $scope.currentAssignments = currentAssignments;
-              $scope.pastAssignments = pastAssignments;
             });
+            $scope.currentAssignments = currentAssignments;
+            $scope.pastAssignments = pastAssignments;
           }
         });
       });
     }
-    $scope.viewOneAssignment = function(assignmentId){
-      $state.go('assignments.show', {assignmentId:assignmentId});
+    $scope.editModal = function(){
+      if (this.$parent.currentAssignment){
+        $scope.selectedProject = this.$parent.currentAssignment;
+        Assignment.findById($scope.selectedProject._id)
+        .then(function(response){
+          response.data.dueDate = Date.parse(response.data.dueDate);
+          $scope.assignment = response.data;
+        });
+      }else if(this.$parent.pastAssignment){
+        $scope.selectedProject = this.$parent.pastAssignment;
+        Assignment.findById($scope.selectedProject._id)
+        .then(function(response){
+          response.data.dueDate = Date.parse(response.data.dueDate);
+          $scope.assignment = response.data;
+        });
+      }
+    };
+    $scope.updateAssignment = function(obj){
+      Assignment.update(obj)
+      .success(function(data){
+        sweet.show('Check', 'Your Assignment is updated!', 'success');
+        var email = obj.cohortEmail,
+            name = 'Coding House Assignment App',
+            msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
+        $.ajax({ // jshint ignore:line
+          type: "POST",
+          url: "https://mandrillapp.com/api/1.0/messages/send.json",
+          data: {
+            'key': 'MDTpzgc6BNZ7carbIFxuYw',
+            'message': {
+              'from_email': email,
+              'from_name': name,
+              'headers': {'Reply-To': email},
+              'subject': 'New Assignment',
+              'text': msg,
+              'to': [{
+                'email': email,
+                'name': name,
+                'type': 'to'
+              }]
+            }
+          }
+        });
+        sweet.show(obj.projectName + ' Save Success', 'Success, Your Assignment is updated! And a notification has been sent to the cohort.', 'success');
+        populateDashboard();
+      })
+      .error(function(error){
+        console.log(error);
+      });
     };
     $scope.deleteAssignmentConfirm = function(assignment){
       if(this.$parent.pastAssignment){
@@ -91,59 +147,8 @@ angular.module('chRepo')
         });
       });
     };
-    $scope.editModal = function(){
-      if (this.$parent.currentAssignment){
-        $scope.selectedProject = this.$parent.currentAssignment;
-        Assignment.findById($scope.selectedProject._id)
-        .then(function(response){
-          console.log('norm', response.data.dueDate);
-          console.log('parse', Date.parse(response.data.dueDate));
-          response.data.dueDate = Date.parse(response.data.dueDate);
-          $scope.assignment = response.data;
-        });
-      }else if(this.$parent.pastAssignment){
-        $scope.selectedProject = this.$parent.pastAssignment;
-        Assignment.findById($scope.selectedProject._id)
-        .then(function(response){
-          response.data.dueDate = Date.parse(response.data.dueDate);
-          $scope.assignment = response.data;
-        });
-      }
-    };
-    $scope.updateAssignment = function(obj){
-      Assignment.update(obj)
-      .success(function(data){
-        sweet.show('Check', 'Your Assignment is updated!', 'success');
-        var email = obj.cohortEmail;
-        var name = 'Coding House Assignment App';
-        var msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
-        $.ajax({ // jshint ignore:line
-          type: "POST",
-          url: "https://mandrillapp.com/api/1.0/messages/send.json",
-          data: {
-            'key': 'MDTpzgc6BNZ7carbIFxuYw',
-            'message': {
-              'from_email': email,
-              'from_name': name,
-              'headers': {
-                'Reply-To': email
-              },
-              'subject': 'New Assignment',
-              'text': msg,
-              'to': [{
-                'email': email,
-                'name': name,
-                'type': 'to'
-              }]
-            }
-          }
-        });
-        sweet.show(obj.projectName + ' Save Success', 'Success, Your Assignment is updated! And a notification has been sent to the cohort.', 'success');
-        populateDashboard();
-      })
-      .error(function(error){
-        console.log(error);
-      });
+    $scope.viewOneAssignment = function(assignmentId){
+      $state.go('assignments.show', {assignmentId:assignmentId});
     };
     $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
       $scope.$apply(function () {
@@ -154,7 +159,6 @@ angular.module('chRepo')
         $scope.isEdit = false;
       });
     });
-  });
   // $scope.submitAssignment= function() {
   //   Assignment.findByIdAndUpdate(this.pastAssignment._id,
   //     {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},
@@ -163,4 +167,5 @@ angular.module('chRepo')
   //   }
   //   );
   // };
+  });
 });
