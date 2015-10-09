@@ -1,58 +1,60 @@
 .col-xs-12.text-center(ng-hide="hasCohort")
   img(src='media/logo-black.png')
 h1.text-center(ng-hide="hasCohort") Content Repo
-
-.col-md-6.col-sm-11(ng-show="hasCohort")
-  h1(ng-if="hasCohort") Welcome {{hasCohort.github.displayName}}
-  h2(ng-if="hasCohort") Current Assignments
-  table.table-bordered.table-hover.top25pxMargin(ng-if="hasCohort")
-    tr
-      th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
-      th.paddingFivePx.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
-      th.paddingFivePx.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
-      th.paddingFivePx.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
-      th.paddingFivePx.cursor(ng-click="predicate='status'; reverse=!reverse") Status
-      th.paddingFivePx.cursor(ng-hide="adminUser") Submit
-      th.paddingFivePx.cursor(ng-if="adminUser") Edit
-      th.paddingFivePx.cursor(ng-if="adminUser") Delete
-    tr.cursor(ng-repeat='currentAssignment in currentAssignments | orderBy:predicate:reverse')
-      td.paddingFivePx(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.projectName}}
-      td.paddingFivePx(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.cohortName}}
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.dueDate | date:'MMM d, y'}}
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.createdAt | date:'MMM d, y'}} &nbsp;
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)')
-      td.paddingFivePx.textCenter(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
-      td.paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
-      td.paddingFivePx.textCenter(ng-if="adminUser"): i.fa.fa-trash.left3PercPadding.colorRed(ng-click="deleteAssignmentConfirm()")
-.col-md-6.col-sm-11(ng-show="hasCohort")
-  h2(ng-show="hasCohort" ng-if='hasCohort') You are enrolled in:
-    ul(ng-show="hasCohort")
-      li.top18pxPadding(ng-repeat='cohort in hasCohort.cohortsObj') {{cohort.cohortName}}
-  h2(ng-if="hasCohort") Past Assignments
-  table.table-bordered.table-hover(ng-if="hasCohort")
-    tr
-      th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
-      th.paddingFivePx.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
-      th.paddingFivePx.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
-      th.paddingFivePx.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
-      th.paddingFivePx.cursor(ng-click="predicate='status'; reverse=!reverse") Status
-      th.paddingFivePx(ng-hide="adminUser") Submit
-      th.paddingFivePx(ng-if="adminUser") Edit
-      th.paddingFivePx(ng-if="adminUser") Delete
-    tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse')
-      td.paddingFivePx(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.projectName}}
-      td.paddingFivePx(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.cohortName}}
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
-      td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)')
-      td.paddingFivePx.textCenter(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
-      td.paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
-      td.paddingFivePx.textCenter(ng-if="adminUser"): i.fa.fa-trash.left3PercPadding.colorRed(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}'))
+.row
+  .col-md-6.col-sm-11(ng-show="hasCohort")
+    h1.underline.bold.textCenter(ng-if="hasCohort") Welcome {{activeUser.github.displayName}}!
+  .col-md-6.col-sm-11(ng-show="hasCohort")
+    h2.bold(ng-if='hasCohort') You are enrolled in:
+      ul.left4PercMargin
+        li: h3(ng-repeat='cohort in activeUser.cohortsObj') {{cohort.cohortName}} Cohort
+.row
+  .col-md-6.col-sm-11
+    h2.bold(ng-if="hasCohort") Current Assignments:
+    table.table-bordered.table-hover(ng-if="hasCohort")
+      tr
+        th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+        th.paddingFivePx.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
+        th.paddingFivePx.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
+        th.paddingFivePx.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
+        th.paddingFivePx.cursor(ng-click="predicate='status'; reverse=!reverse") Status
+        th.paddingFivePx.cursor(ng-hide="adminUser") Submit
+        th.paddingFivePx.cursor(ng-if="adminUser") Edit
+        th.paddingFivePx.cursor(ng-if="adminUser") Delete
+      tr.cursor(ng-repeat='currentAssignment in currentAssignments | orderBy:predicate:reverse')
+        td.paddingFivePx(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.projectName}}
+        td.paddingFivePx(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.cohortName}}
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.dueDate | date:'MMM d, y'}}
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(currentAssignment._id)')
+        td.paddingFivePx.textCenter(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
+        td.paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
+        td.paddingFivePx.textCenter(ng-if="adminUser"): i.fa.fa-trash.left3PercPadding.colorRed(ng-click="deleteAssignmentConfirm()")
+  .col-md-6.col-sm-11
+    h2.bold(ng-if="hasCohort") Past Assignments:
+    table.table-bordered.table-hover(ng-if="hasCohort")
+      tr
+        th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
+        th.paddingFivePx.cursor(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
+        th.paddingFivePx.cursor(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
+        th.paddingFivePx.cursor(ng-click="predicate='createdAt'; reverse=!reverse") Created
+        th.paddingFivePx.cursor(ng-click="predicate='status'; reverse=!reverse") Status
+        th.paddingFivePx(ng-hide="adminUser") Submit
+        th.paddingFivePx(ng-if="adminUser") Edit
+        th.paddingFivePx(ng-if="adminUser") Delete
+      tr.cursor(ng-repeat='pastAssignment in pastAssignments | orderBy:predicate:reverse')
+        td.paddingFivePx(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.projectName}}
+        td.paddingFivePx(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.cohortName}}
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
+        td.paddingFivePx.textCenter(ng-click='viewOneAssignment(pastAssignment._id)')
+        td.paddingFivePx.textCenter(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
+        td.paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
+        td.paddingFivePx.textCenter(ng-if="adminUser"): i.fa.fa-trash.left3PercPadding.colorRed(ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}'))
 #assignModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
       .modal-header
-        button.close(type='button', data-dismiss='modal') ×
         h4.modal-title New Assignment
       .modal-body
         .form-group

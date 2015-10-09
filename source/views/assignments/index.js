@@ -9,8 +9,8 @@ angular.module('chRepo')
     $scope.tempProject = {};
     $scope.tempIntro = {};
     $scope.selectedProject = null;
-    $scope.projectShow = false;
-    $scope.introShow = false;
+    $scope.projectShow = true;
+    $scope.introShow = true;
 
     introsFindAll();
     projectsFindAll();

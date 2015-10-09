@@ -1,8 +1,11 @@
 .left4PercMargin{
   margin-left: 4%;
 }
+.left20PercMargin{
+  margin-left: 20%;
+}
 .left45PercMargin{
-  margin-left: 35%;
+  margin-left: 40%;
 }
 .right10pxMargin{
   margin-right: 10px;
@@ -43,6 +46,20 @@
 .textCenter{
   text-align: center;
 }
+.fiftyWidth{
+  min-width: 50%;
+}
+.tenWidth{
+  min-width: 10%;
+}
+.borderRight{
+  border-right: 1px dashed black;
+  height: 100vh;
+  position: fixed;
+}
+.boxShadow{
+  box-shadow: -3px 3px 5px black;
+}
 .responsiveElements{
   width: 100%;
   border-collapse: collapse;
@@ -60,11 +77,22 @@
   border: 1px solid rgba(0, 0, 0, 0.19);
   padding: 10px;
 }
+.fontSmall{
+  font-size: 12px;
+}
 table{
   @extend .paddingFivePx;
   @extend .responsiveElements;
+  background-color: rgba(196, 206, 232, 0.19);
 }
 iframe{
   @extend .responsiveElements;
   height: 600px;
+}
+button{
+  @extend .boxShadow;
+  color: black !important;
+}
+body{
+  background-color: rgba(232, 232, 232, 0.38);
 }

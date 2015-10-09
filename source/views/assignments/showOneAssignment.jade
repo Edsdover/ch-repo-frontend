@@ -1,11 +1,9 @@
 .row
-  .col-xs-1.col-xs-offset-11
-    .container(ng-if='currentAssignment')
-      i.glyphicon.glyphicon-edit.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
-      i.fa.fa-trash.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
-.row
   .col-md-5.col-xs-11
     h3.underline.bold Assignment: &nbsp {{viewAssignment.projectName}}
+      div.rightFloat.tenWidth
+        i.glyphicon.glyphicon-edit.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
+        i.fa.fa-trash.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
     h4.top6pxPadding Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}
     h4.top6pxPadding Due Date: {{viewAssignment.dueDate | date: 'MMM-dd-yyyy'}}
     h4.presetCategory Tech: {{project.tech}}
@@ -46,7 +44,6 @@
   .modal-dialog
     .modal-content
       .modal-header
-        button.close(type='button', data-dismiss='modal') ×
         h4.modal-title New Assignment
       .modal-body
         .form-group

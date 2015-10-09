@@ -1,20 +1,18 @@
 .row
-  .col-xs-offset-1.col-xs-10
+  .col-xs-offset-2.col-xs-4
     h3.underline.bold {{intro.name}}
-.row
-  .col-xs-1.col-xs-offset-11
-    .container
-      i.glyphicon.glyphicon-edit.colorOrange(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
-      i.fa.fa-trash.left3PercPadding.colorRed(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();')
+  .col-xs-2.col-xs-offset-3
+    .container.top25pxMargin
+      i.glyphicon.glyphicon-edit.colorOrange.cursor(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
+      i.fa.fa-trash.left3PercPadding.colorRed.cursor(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();')
 .rows
-  .col-xs-offset-1.col-xs-10
+  .col-xs-offset-2.col-xs-8
     h4.underline.top6pxPadding Body:
     h5 {{intro.body}}
 #editIntroModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
       .modal-header
-        button.close(type='button', data-dismiss='modal') ×
         h4.modal-title Edit Intro
       .modal-body
         form(name='newProjectForm', novalidate)

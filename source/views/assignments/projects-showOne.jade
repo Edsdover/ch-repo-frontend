@@ -1,12 +1,11 @@
 .row
-  .col-xs-11
+  .col-xs-10.textCenter
     h3.underline.bold {{project.name}}
-      h4.presetCategory {{project.tech}}
-.row
-  .col-xs-1.col-xs-offset-11
-    .container
-      i.glyphicon.glyphicon-edit.colorOrange(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
-      i.fa.fa-trash.left3PercPadding.colorRed(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();')
+    h4.presetCategory {{project.tech}}
+  .col-xs-1
+    .container.top25pxMargin
+      i.glyphicon.glyphicon-edit.colorOrange.cursor(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
+      i.fa.fa-trash.left3PercPadding.colorRed.cursor(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();')
 .row
   .col-md-6.col-xs-11
     h4.underline.top6pxPadding Alternatives:
@@ -30,7 +29,6 @@
   .modal-dialog
     .modal-content
       .modal-header
-        button.close(type='button', data-dismiss='modal') ×
         h4.modal-title Edit Project
       .modal-body
         form(name='newProjectForm', novalidate)
