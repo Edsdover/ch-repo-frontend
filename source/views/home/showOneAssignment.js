@@ -1,29 +1,73 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, User, Intro, $sce){
+.controller('HomeAssignmentCtrl', function($scope, Assignment, Project, sweet, $state, Intro, $sce, Cohort){
 
   var assignmentId = $state.params.assignmentId;
-  $scope.tempProject = {};
-
   var currentTime = Number(new Date());
-  Assignment.findById(assignmentId)
-  .then(function(response){
-    if(Date.parse(response.data.dueDate) > currentTime){
-      $scope.currentAssignment = true;
-    }
-    $scope.assignment = response.data;
-    Project.findById(response.data.projectId)
-    .then(function(response){
-      $scope.iframeURL = $sce.trustAsHtml(response.data.notes);
-      $scope.project = response.data;
-    });
-    Intro.findById(response.data.introId)
-    .then(function(response){
-      $scope.intro = response.data;
-    });
-  });
+  populateAssignment();
 
+  function populateAssignment(){
+    Assignment.findById(assignmentId)
+    .then(function(response){
+      if(Date.parse(response.data.dueDate) > currentTime){
+        $scope.currentAssignment = true;
+      }
+      $scope.viewAssignment = response.data;
+      Project.findById(response.data.projectId)
+      .then(function(response){
+        $scope.iframeURL = $sce.trustAsHtml(response.data.notes);
+        $scope.project = response.data;
+      });
+      Intro.findById(response.data.introId)
+      .then(function(response){
+        $scope.intro = response.data;
+      });
+      Cohort.findAll()
+      .then(function(response){
+        $scope.cohorts = response.data;
+      });
+    });
+  }
+  $scope.editModal = function(){
+    $scope.selectedProject = this.$parent.currentAssignment;
+    $scope.assignment = $scope.viewAssignment;
+  };
+  $scope.updateAssignment = function(obj){
+    Assignment.update(obj)
+    .success(function(data){
+      sweet.show('Check', 'Your Assignment is updated!', 'success');
+      var email = obj.cohortEmail;
+      var name = 'Coding House Assignment App';
+      var msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
+      $.ajax({ // jshint ignore:line
+        type: "POST",
+        url: "https://mandrillapp.com/api/1.0/messages/send.json",
+        data: {
+          'key': 'MDTpzgc6BNZ7carbIFxuYw',
+          'message': {
+            'from_email': email,
+            'from_name': name,
+            'headers': {
+              'Reply-To': email
+            },
+            'subject': 'New Assignment',
+            'text': msg,
+            'to': [{
+              'email': email,
+              'name': name,
+              'type': 'to'
+            }]
+          }
+        }
+      });
+      populateAssignment();
+      sweet.show(obj.projectName + ' Save Success', 'Success, Your Assignment is updated! And a notification has been sent to the cohort.', 'success');
+    })
+    .error(function(error){
+      console.log(error);
+    });
+  };
   $scope.deleteAssignmentConfirm = function(assignment){
     $scope.tempAssignment = assignment;
     sweet.show({
@@ -39,11 +83,7 @@ angular.module('chRepo')
       Assignment.delete($scope.tempAssignment)
       .success(function(res){
         sweet.show('Deleted!', 'The file has been removed', 'success');
-        Assignment.index()
-        .success(function(assignments){
-          $scope.assignments = assignments;
-          $state.go('home.dashboard', {assignmentId:assignmentId});
-         });
+        $state.go('home.dashboard', {assignmentId:assignmentId});
       });
     });
   };

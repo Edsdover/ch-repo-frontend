@@ -10,7 +10,6 @@ angular.module('chRepo')
       location.reload(); // jshint ignore:line
     });
   };
-
   $scope.afAuth.$onAuth(function(data){
     if(data.github.email === "misankovich@gmail.com") {
       data.github.cachedUserProfile.site_admin = true;
@@ -37,8 +36,8 @@ angular.module('chRepo')
     });
   }
   $scope.logout = function(){
-    User.logout();
-    $state.go('home.dashboard').then(function(){
+    User.logout()
+    .then(function(){
       location.reload(); // jshint ignore:line
     });
   };

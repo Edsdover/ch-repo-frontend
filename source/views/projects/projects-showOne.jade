@@ -1,9 +1,12 @@
 .row
-  .col-md-12.col-xs-11
+  .col-xs-11
     h3.underline.bold.leftFloat {{project.name}}
       h4.presetCategory {{project.tech}}
-        button.btn.btn-sm.btn-danger.rightFloat(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();'): i.fa.fa-trash
-        button.btn.btn-sm.btn-warning.rightFloat(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal').glyphicon.glyphicon-edit
+.row
+  .col-xs-1.col-xs-offset-11
+    .container
+      button.btn.btn-sm.btn-warning(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal').glyphicon.glyphicon-edit
+      button.btn.btn-sm.btn-danger(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();'): i.fa.fa-trash
 .row
   .col-md-6.col-xs-11
     h4.underline.projectScoring Alternatives:

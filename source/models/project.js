@@ -21,6 +21,5 @@ angular.module('chRepo')
   Project.findById = function(projectId){
   return $http.get(apiUrl + '/projects/' + projectId);
   };
-
   return Project;
 });

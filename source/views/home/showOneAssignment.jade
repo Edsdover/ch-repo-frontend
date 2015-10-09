@@ -1,37 +1,80 @@
-.col-md-5.col-xs-11
-  .container(ng-if='currentAssignment')
-    button.btn.btn-xs.btn-danger.rightFloat(ng-if='adminUser' title="Edit Assignment" ui-sref='assignments.edit({assignmentId:assignment._id})').glyphicon.glyphicon-edit
-    button.btn.btn-xs.btn-warning.rightFloat(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(assignment); $event.stopPropagation();'): i.fa.fa-trash
-  h3.underline.bold Assignment: &nbsp {{assignment.projectName}}
-  h4.projectScoring Assigned: {{assignment.createdAt | date: 'MMM-dd-yyyy'}}
-  h4.projectScoring Due Date: {{assignment.dueDate | date: 'MMM-dd-yyyy'}}
-  h4.presetCategory Tech: {{project.tech}}
-  h4.underline.projectScoring.bold Intro: &nbsp {{assignment.introName}}
-  h4.underline Alternatives:
-  h5 {{project.alternatives}}
-  h4.underline Concepts:
-  h5 {{project.concepts}}
-  h4.underline Pros:
-  h5 {{project.pros}}
-  h4.underline References:
-  h5 {{project.references}}
-  h4.underline GitHub URL:
-  h5 {{project.githubURL}}
-  h4.underline.projectScoring Requirements:
-  h5 {{project.requirements}}
-  h4.underline Deployment Instructions:
-  h5 {{project.deployment}}
-.col-md-7.col-xs-11
-  h4.underline Notes:
-  div(ng-bind-html='iframeURL' ng-width="800" ng-height="500")
+.row
+  .col-xs-1.col-xs-offset-11
+    .container(ng-if='currentAssignment')
+      button.btn.btn-sm.btn-warning(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal').glyphicon.glyphicon-edit
+      button.btn.btn-sm.btn-danger(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)'): i.fa.fa-trash
+.row
+  .col-md-5.col-xs-11
+    h3.underline.bold Assignment: &nbsp {{viewAssignment.projectName}}
+    h4.projectScoring Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}
+    h4.projectScoring Due Date: {{viewAssignment.dueDate | date: 'MMM-dd-yyyy'}}
+    h4.presetCategory Tech: {{project.tech}}
+    h4.underline.projectScoring.bold Intro: &nbsp {{viewAssignment.introName}}
+    h4.underline Alternatives:
+    h5 {{project.alternatives}}
+    h4.underline Concepts:
+    h5 {{project.concepts}}
+    h4.underline Pros:
+    h5 {{project.pros}}
+    h4.underline References:
+    h5 {{project.references}}
+    h4.underline GitHub URL:
+    h5 {{project.githubURL}}
+    h4.underline.projectScoring Requirements:
+    h5 {{project.requirements}}
+    h4.underline Deployment Instructions:
+    h5 {{project.deployment}}
+  .col-md-7.col-xs-11
+    h4.underline Notes:
+    div(ng-bind-html='iframeURL' ng-width="800" ng-height="500")
 .row
   .col-md-6.col-xs-11
     h4.underline.projectScoring.bold Grading:
     h5.underline Functionality Points:
-    h6 {{assignment.functionalityPoints}}
+    h6 {{viewAssignment.functionalityPoints}}
     h5.underline HTML/CSS Points:
-    h6 {{assignment.htmlPoints}}
+    h6 {{viewAssignment.htmlPoints}}
     h5.underline Javascript Points:
-    h6 {{assignment.javascriptPoints}}
+    h6 {{viewAssignment.javascriptPoints}}
     h5.underline Readability Points:
-    h6 {{assignment.readabilityPoints}}
+    h6 {{viewAssignment.readabilityPoints}}
+#assignModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title New Assignment
+      .modal-body
+        .form-group
+          h6 Pick a Cohort
+          select.form-control(ng-model='assignment.cohortName' required)
+            option(ng-repeat='cohort in cohorts') {{cohort.cohortName}}
+        .form-group
+          lable Due Date:
+          input.form-control(type='date' ng-model='assignment.dueDate' required)
+        .form-group
+          h6 Category:
+            h5.box Functionality
+        .form-group
+          h6 Points:
+            input.form-control#projectFunctionality(type='number' ng-model='assignment.functionalityPoints')
+        .form-group
+          h6 Category:
+            h5.box Readability
+        .form-group
+          h6 Points:
+            input.form-control#projectReadability(type='number' ng-model='assignment.readabilityPoints')
+        .form-group
+          h6 Category:
+            h5.box HTML/CSS
+        .form-group
+          h6 Points:
+            input.form-control#projectHTML(type='number' ng-model='assignment.htmlPoints')
+        .form-group
+          h6 Category:
+            h5.box JavaScript
+        .form-group
+          h6 Points:
+            input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
+          button.btn.btn-success.btn-lg(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit
+          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel

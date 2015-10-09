@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('AdminCtrl', function(User, $scope, $rootScope, $state, Cohort, sweet){
+.controller('AdminCtrl', function(User, $scope, $state, Cohort, sweet){
 
   $scope.cohortStudentIds = [];
   $scope.cohortStudents = [];
@@ -15,11 +15,6 @@ angular.module('chRepo')
 
   findAllUsers();
   findAllCohorts();
-
-  Cohort.findAll()
-  .success(function(cohorts){
-    $scope.cohorts = cohorts;
-  });
 
   function findAllUsers(){
     var admins = [];
@@ -38,14 +33,12 @@ angular.module('chRepo')
       });
     });
   }
-
   function findAllCohorts(){
     var cohorts = [];
     Cohort.findAll()
     .then(function(res){
       res.data.forEach(function(cohort){
         cohort.studentNumber = cohort.cohortStudentIds.length;
-        cohorts.push(cohort);
         $scope.cohorts = cohorts;
       });
     });
@@ -140,7 +133,6 @@ angular.module('chRepo')
       });
     });
   };
-  //modal functions
   $scope.addStudentToList = function(){
     var modalListStudent = this.modalListStudent;
     var indx = $scope.modalListStudents.indexOf(modalListStudent);
@@ -165,7 +157,7 @@ angular.module('chRepo')
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.create(obj)
     .success(function(res){
-      sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+      sweet.show('Cohort Save Success', 'Success, Your cohort is saved!', 'success');
       findAllCohorts();
     })
     .error(function(error){
@@ -178,7 +170,7 @@ angular.module('chRepo')
       Cohort.index()
       .success(function(cohorts){
         $scope.cohorts = cohorts;
-        sweet.show('Assignment Save Success', 'Success, Your project is saved!', 'success');
+        sweet.show('Cohort Edit Success', 'Success, Your cohort is updated!', 'success');
         findAllCohorts();
       });
     })

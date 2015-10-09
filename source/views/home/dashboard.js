@@ -93,14 +93,16 @@ angular.module('chRepo')
       $scope.selectedProject = this.$parent.currentAssignment;
       Assignment.findById($scope.selectedProject._id)
       .then(function(response){
-        response.data.dueDate = null;
+        console.log('norm', response.data.dueDate);
+        console.log('parse', Date.parse(response.data.dueDate));
+        response.data.dueDate = Date.parse(response.data.dueDate);
         $scope.assignment = response.data;
       });
     }else if(this.$parent.pastAssignment){
       $scope.selectedProject = this.$parent.pastAssignment;
       Assignment.findById($scope.selectedProject._id)
       .then(function(response){
-        response.data.dueDate = null;
+        response.data.dueDate = Date.parse(response.data.dueDate);
         $scope.assignment = response.data;
       });
     }
@@ -109,8 +111,7 @@ angular.module('chRepo')
     Assignment.update(obj)
     .success(function(data){
       sweet.show('Check', 'Your Assignment is updated!', 'success');
-      // var email = 'aug.2015@codinghouse.co';
-      var email = 'edsdover@gmail.com';
+      var email = obj.cohortEmail;
       var name = 'Coding House Assignment App';
       var msg = obj.projectName + ' edited! Read more at ch-repo.herokuapp.com.';
       $.ajax({ // jshint ignore:line
@@ -150,12 +151,12 @@ angular.module('chRepo')
       $scope.isEdit = false;
     });
   });
-  $scope.submitAssignment= function() {
-    Assignment.findByIdAndUpdate(this.pastAssignment._id,
-      {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},
-      {safe: true, upsert: true},
-    function(err, assignment) {
-    }
-    );
-  };
+  // $scope.submitAssignment= function() {
+  //   Assignment.findByIdAndUpdate(this.pastAssignment._id,
+  //     {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},
+  //     {safe: true, upsert: true},
+  //   function(err, assignment) {
+  //   }
+  //   );
+  // };
 });

@@ -1,26 +1,36 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('IndexProjectCtrl', function($rootScope, $scope, Project, Intro, sweet, $state, User, Cohort, Assignment){
+.controller('IndexProjectCtrl', function($scope, Project, Intro, sweet, $state, Cohort, Assignment){
   $(document).ready(function() { // jshint ignore:line
     $scope.tempProject = {};
     $scope.tempIntro = {};
     $scope.selectedProject = null;
-    $scope.isEdit = false;
     $scope.projectShow = false;
     $scope.introShow = false;
-    Project.index()
-    .success(function(projects){
-      $scope.projects = projects;
-    });
-    Cohort.findAll()
-    .success(function(cohorts){
-      $scope.cohorts = cohorts;
-    });
-    Intro.index()
-    .success(function(intros){
-      $scope.intros = intros;
-    });
+
+    introsFindAll();
+    projectsFindAll();
+    cohortsFindAll();
+
+    function projectsFindAll(){
+      Project.index()
+      .success(function(projects){
+        $scope.projects = projects;
+      });
+    }
+    function cohortsFindAll(){
+      Cohort.findAll()
+      .success(function(cohorts){
+        $scope.cohorts = cohorts;
+      });
+    }
+    function introsFindAll(){
+      Intro.index()
+      .success(function(intros){
+        $scope.intros = intros;
+      });
+    }
     $scope.toggleIntros = function() {
       $scope.introShow = $scope.introShow === false ? true : false;
     };
@@ -28,7 +38,6 @@ angular.module('chRepo')
       $scope.projectShow = $scope.projectShow === false ? true : false;
     };
     $scope.editModal = function(){
-      $scope.isEdit = true;
       if (this.project){
         $scope.selectedProject = this.project;
         Project.findById(this.project._id)
@@ -49,7 +58,6 @@ angular.module('chRepo')
         $scope.intro = null;
         $scope.project = null;
         $scope.selectedProject = null;
-        $scope.isEdit = false;
       });
     });
     $scope.deleteProjectConfirm = function(project){
@@ -67,10 +75,7 @@ angular.module('chRepo')
         Project.delete($scope.tempProject)
         .success(function(res){
           sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
-          Project.index()
-          .success(function(projects){
-            $scope.projects = projects;
-          });
+          projectsFindAll();
         });
       });
     };
@@ -89,10 +94,7 @@ angular.module('chRepo')
         Intro.delete($scope.tempIntro)
         .success(function(res){
           sweet.show('Deleted!', 'The file has been owned by a swift roundhouse!', 'success');
-          Intro.index()
-          .success(function(intros){
-            $scope.intros = intros;
-          });
+          introsFindAll();
         });
       });
     };
@@ -105,10 +107,7 @@ angular.module('chRepo')
     $scope.updateProject = function(obj){
       Project.update(obj)
       .then(function(){
-        Project.index()
-        .success(function(projects){
-          $scope.projects = projects;
-        });
+        projectsFindAll();
         sweet.show('Check', 'Your Project is saved!', 'success');
         $('#editProjectModal').modal('hide'); // jshint ignore:line
       })
@@ -119,10 +118,7 @@ angular.module('chRepo')
     $scope.updateIntro = function(obj){
       Intro.update(obj)
       .then(function(){
-        Intro.index()
-        .success(function(intros){
-          $scope.intros = intros;
-        });
+        introsFindAll();
         sweet.show('Check', 'Your Intro is saved!', 'success');
         $('#editIntroModal').modal('hide'); // jshint ignore:line
       })
@@ -137,7 +133,7 @@ angular.module('chRepo')
         .success(function(data){
           sweet.show('Check', 'Your Project is saved!', 'success');
           $scope.project = {};
-          saveCB(data);
+          saveCB();
         })
         .error(function(error){
           console.log(error);
@@ -147,14 +143,15 @@ angular.module('chRepo')
         .success(function(data){
           sweet.show('Check', 'Your Intro is saved!', 'success');
           $scope.project = {};
-          saveCB(data);
+          saveCB();
         })
         .error(function(error){
           console.log(error);
         });
       }
       function saveCB(data){
-        location.reload(); // jshint ignore:line
+        projectsFindAll();
+        introsFindAll();
       }
     };
     $('#sel').change(function() { // jshint ignore:line
@@ -162,17 +159,22 @@ angular.module('chRepo')
       $('#projectTech').val(currentVal + $(this).val() + ",   "); // jshint ignore:line
     });
     $scope.submitAssignment = function(obj){
+      $scope.cohorts.forEach(function(cohort){
+        if(cohort.cohortName === obj.cohortName){
+          obj.cohortEmail = cohort.cohortEmail;
+        }
+      });
       if($scope.project){
         obj.projectName = "Project: " + $scope.selectedProject.name;
       }else if($scope.intro){
         obj.projectName = "Intro: " + $scope.selectedProject.name;
       }
+      obj.dueDate = Date.parse(obj.dueDate);
       obj.projectId = $scope.selectedProject._id;
       Assignment.create(obj)
       .success(function(data){
         sweet.show('Check', 'Your Assignment is saved!', 'success');
-        // var email = 'aug.2015@codinghouse.co';
-        var email = 'edsdover@gmail.com';
+        var email = obj.cohortEmail;
         var name = 'Coding House Assignment App';
         var msg = obj.projectName + ' assigned to you at ch-repo.herokuapp.com.';
         $.ajax({ // jshint ignore:line

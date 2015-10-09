@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('ShowOneIntroCtrl', function($scope, Intro, $window, $state, sweet){
+.controller('ShowOneIntroCtrl', function($scope, Intro, $state, sweet){
 
   var introId = $state.params.introId;
+  $scope.tempIntro = {};
 
   Intro.findById(introId)
   .then(function(response){
@@ -11,11 +12,20 @@ angular.module('chRepo')
   });
 
   $scope.deleteIntro = function(obj){
-    Intro.delete(obj)
-    .success(function(res){
-      $window.swal({title: 'Intro Deleted', text: 'Intro is Deleted!', type: 'warning'});
-      Intro.index()
-      .success(function(intros){
+    $scope.tempIntro = obj;
+    sweet.show({
+      title: 'Delete? Really?',
+      text: 'Once deleted the file cannot be recovered',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'DO IT!',
+      closeOnConfirm: false
+    },
+    function() {
+      Intro.delete($scope.tempIntro)
+      .success(function(res){
+        sweet.show('Deleted!', 'The file has been removed', 'success');
         $state.go('projects.index');
       });
     });
