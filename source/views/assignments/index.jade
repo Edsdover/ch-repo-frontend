@@ -1,58 +1,47 @@
 .col-md-8.col-sm-11
-  h4 Projects
-  button.btn.btn-xs.btn-info.rightFloat(type='button' data-toggle='modal' data-target='#projectModal') Create a new Project
-  .inputButton
-    button.btn.btn-xs.btn-default(ng-if="!cohortShow" ng-click="toggleProjects()") Show Projects
-    button.btn.btn-xs.btn-default(ng-if="cohortShow" ng-click="toggleProjects()") Hide Projects
-    .filter.logInButton(ng-show="projectShow")
+  h3.underline Projects:
+  button.btn.btn-xs.btn-default(ng-if="!cohortShow" ng-click="toggleProjects()") Show Projects
+  button.btn.btn-xs.btn-default(ng-if="cohortShow" ng-click="toggleProjects()") Hide Projects
+    button.btn.btn-xs.btn-info.left45PercMargin(type='button' data-toggle='modal' data-target='#projectModal') Create a new Project
+    .filter.top18pxPadding(ng-show="projectShow")
       label
         | Filter:
         input(ng-model='searchProjects')
     table.table-bordered.table-hover(ng-show="projectShow")
       tr
-        th.projectIntroList.cohortBox Project Name
-        th.projectIntroList.cohortBox Core Concepts
-        th.projectIntroList.cohortBox Tech Used
-        th.cohortBox Edit
-        th.cohortBox Delete
-        th.cohortBox Assign
+        th.paddingFivePx.textCenter Project Name
+        th.paddingFivePx.textCenter Core Concepts
+        th.paddingFivePx.textCenter Tech Used
+        th.paddingFivePx.textCenter Edit
+        th.paddingFivePx.textCenter Delete
+        th.paddingFivePx.textCenter Assign
       tr(ng-repeat='project in projects | filter : searchProjects track by $index')
-        td.projectIntroList.cursor.cohortBox.textCenter
-          a(ng-click='viewOneProject(project._id)') {{project.name}}
-        td.projectIntroList.cohortBox
-          a(ng-click='viewOneProject(project._id)') {{project.concepts}}
-        td.projectIntroList.cohortBox
-          a(ng-click='viewOneProject(project._id)') {{project.tech}}
-        td.cohortBox.textCenter
-          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editProjectModal').glyphicon.glyphicon-edit
-        td.cohortBox.textCenter
-          button.btn.btn-xs.btn-danger.rightFloat(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();'): i.fa.fa-trash
-        td.projectIntroList.cohortBox.textCenter
-          button.btn.btn-xs.btn-success(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal') Assign
+        td.paddingFivePx: a.cursor.textCenter(ng-click='viewOneProject(project._id)') {{project.name}}
+        td.paddingFivePx: a(ng-click='viewOneProject(project._id)') {{project.concepts}}
+        td.paddingFivePx: a(ng-click='viewOneProject(project._id)') {{project.tech}}
+        td: i.glyphicon.glyphicon-edit.rightFloat.right10pxMargin.cursor.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
+        td: i.fa.fa-trash.rightFloat.right10pxMargin.cursor.colorRed(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();')
+        td.paddingFivePx.textCenter: button.btn.btn-xs.btn-success(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal') Assign
 .col-md-4.col-sm-11
-  h4 Intros
-  button.btn.btn-xs.btn-info.rightFloat(type='button' data-toggle='modal' data-target='#introModal') Create a new Intro
-  .inputButton
-    button.btn.btn-xs.btn-default(ng-if="!cohortShow" ng-click="toggleIntros()") Show Intros
-    button.btn.btn-xs.btn-default(ng-if="cohortShow" ng-click="toggleIntros()") Hide Intros
-    .filter.logInButton(ng-show="introShow")
+  h3.underline Intros:
+  button.btn.btn-xs.btn-default(ng-if="!cohortShow" ng-click="toggleIntros()") Show Intros
+  button.btn.btn-xs.btn-default(ng-if="cohortShow" ng-click="toggleIntros()") Hide Intros
+    button.btn.btn-xs.btn-info.left45PercMargin(type='button' data-toggle='modal' data-target='#introModal') Create a new Intro
+    .filter.top18pxPadding(ng-show="introShow")
       label
         | Filter:
         input(ng-model='searchIntros')
     table.table-bordered.table-hover(ng-show="introShow")
       tr
-        th.projectIntroList.cohortBox Intro Name
-        th.cohortBox Edit
-        th.cohortBox Delete
-        th.cohortBox Assign
+        th.paddingFivePx.textCenter Intro Name
+        th.paddingFivePx.textCenter Edit
+        th.paddingFivePx.textCenter Delete
+        th.paddingFivePx.textCenter Assign
       tr(ng-repeat='intro in intros | filter: searchIntros track by $index')
-        td.projectIntroList.cursor.cohortBox: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
-        td.cohortBox.textCenter
-          button.btn.btn-xs.btn-warning.rightFloat(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editIntroModal').glyphicon.glyphicon-edit
-        td.cohortBox.textCenter
-          button.btn.btn-xs.btn-danger.rightFloat(title="Delete Intro" ng-click='deleteIntroConfirm(intro); $event.stopPropagation();'): i.fa.fa-trash
-        td.projectIntroList.cohortBox.textCenter
-          button.btn.btn-xs.btn-success(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal') Assign
+        td.paddingFivePx.textCenter: a.cursor(ng-click='viewOneIntro(intro._id)') {{intro.name}}
+        td.paddingFivePx.textCenter: i.glyphicon.glyphicon-edit.rightFloat.right10pxMargin.cursor.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
+        td.paddingFivePx.textCenter: i.fa.fa-trash.rightFloat.right10pxMargin.textCenter.cursor.colorRed(title="Delete Intro" ng-click='deleteIntroConfirm(intro); $event.stopPropagation();')
+        td.paddingFivePx: button.btn.btn-xs.btn-success(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal') Assign
 #assignModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
@@ -92,7 +81,7 @@
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
           button.btn.btn-success.btn-lg(ng-click='submitAssignment(assignment)', data-dismiss='modal') Submit
-          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
 #projectModal.modal.fade(role='newProject')
   .modal-dialog
     .modal-content
@@ -106,7 +95,7 @@
               .col-xs-offset-1.col-xs-10
                 .form-group
                   label.bold Name:
-                  input.form-control#projectName(ng-model='project.name')
+                  input.form-control(ng-model='project.name')
                 .form-group
                   label.bold Core Concept:
                   select.form-control#projectConcepts(ng-model='project.concepts')
@@ -173,8 +162,8 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='create(project)') Save Project
-                    button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success.btn-lg(type='submit' data-dismiss='modal' ng-click='create(project)') Save Project
+                    button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
 #editProjectModal.modal.fade(role='newProject')
   .modal-dialog
     .modal-content
@@ -188,7 +177,7 @@
               .col-xs-offset-1.col-xs-10
                 .form-group
                   label.bold Name:
-                  input.form-control#projectName(ng-model='project.name')
+                  input.form-control(ng-model='project.name')
                 .form-group
                   label.bold Core Concept:
                   select.form-control#projectConcepts(ng-model='project.concepts')
@@ -255,8 +244,8 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
-                    button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
+                    button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
 #editIntroModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -269,15 +258,15 @@
             .col-xs-offset-1.col-xs-10
               .form-group
                 label.bold Title:
-                input.form-control#projectName(ng-model='intro.name')
+                input.form-control(ng-model='intro.name')
               .form-group
                 label.bold Body:
                 textarea.form-control#projectBody(ng-model='intro.body', rows='10', cols='50')
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
-                button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-success.btn-lg(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
 #introModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -290,7 +279,7 @@
             .col-xs-offset-1.col-xs-10
               .form-group
                 label.bold Title:
-                input.form-control#projectName(ng-model='intro.name')
+                input.form-control(ng-model='intro.name')
               .form-group
                 label.bold Body:
                 textarea.form-control#projectBody(ng-model='intro.body', rows='10', cols='50')
@@ -298,4 +287,4 @@
             .col-xs-10
               .form-group
                 button.btn.btn-default.btn-lg(type="submit" ng-click='create(intro)' data-dismiss='modal') Save Intro
-                button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel

@@ -11,7 +11,7 @@ nav.navbar.navbar-default(ng-controller='NavCtrl')
       ul.nav.navbar-nav.navbar-left(ng-if='adminUser')
         li: a(ui-sref='admins.userIndex'): i.fa.fa-plus &nbsp; Admin
       ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
-        button.btn.btn-lg.btn-defult.logInButton(ng-click='oauth("github")'): i.fa.fa-github &nbsp; LogIn With GitHub
+        button.btn.btn-lg.btn-defult.top18pxPadding(ng-click='oauth("github")'): i.fa.fa-github &nbsp; LogIn With GitHub
       ul.nav.navbar-nav.navbar-right(ng-show='activeUser')
         li: a(ui-sref='assignments.index' ng-if='adminUser'): i.fa.fa-list &nbsp; New Assignment
         li: a(href='#', ng-click='logout()'): i.fa.fa-sign-out &nbsp; {{displayName}}

@@ -1,94 +1,70 @@
-$size: 100px;
-iframe{
-  width: 700px;
-  height: 600px;
+.left4PercMargin{
+  margin-left: 4%;
 }
-.logos > img{
-  max-width: $size;
-  max-height: 100px;
+.left45PercMargin{
+  margin-left: 35%;
+}
+.right10pxMargin{
+  margin-right: 10px;
+}
+.top25pxMargin{
+  margin-top: 25px;
+}
+.bottom20pxMargin{
+  margin-bottom: 20px;
+}
+.paddingFivePx{
+  padding: 5px;
+}
+.top18pxPadding{
+  padding-top: 18px;
+}
+.top6pxPadding{
+  padding-top: 6px;
+}
+.left3PercPadding{
+  padding-left: 3%;
+}
+.rightFloat{
+  float: right;
+}
+.leftFloat{
+  float: left;
+}
+.cursor{
+  cursor: pointer;
+}
+.bold{
+  font-weight: bold;
+}
+.underline{
+  text-decoration: underline;
+}
+.textCenter{
+  text-align: center;
+}
+.responsiveElements{
+  width: 100%;
+  border-collapse: collapse;
+}
+.colorGreen{
+  color: green;
+}
+.colorRed{
+  color: red;
+}
+.colorOrange{
+  color: orange;
 }
 .box{
   border: 1px solid rgba(0, 0, 0, 0.19);
   padding: 10px;
 }
-.bubblies {
-  color: teal;
+table{
+  @extend .paddingFivePx;
+  @extend .responsiveElements;
 }
-.projectScoring {
-  padding-top: 6px;
-}
-.bold{
-  font-weight: bold;
-}
-.inputButton{
-  margin-bottom: 20px;
-}
-.rightFloat{
-  float: right;
-  margin-right: 10px;
-}
-
-.leftMargin{
-  margin-left: 10%;
-}
-.cursor{
-  cursor: pointer;
-}
-.underline{
-  text-decoration: underline;
-}
-.leftFloat{
-  float: left;
-  margin-right: 55px;
-  margin-top: 5px;
-}
-.userListPic{
-  max-width: 100px;
-}
-.userCard{
-  margin-left: 5%;
-}
-
-.studentCard{
-  max-width: 65px;
-}
-.logInButton{
-  padding-top: 18px;
-}
-.textCenter{
-  text-align: center;
-}
-.cohortBox{
-  padding: 5px;
-}
-.userListBox{
-  padding: 5px;
-  min-width: 200px;
-}
-.projectIntroList{
-  min-width: 115px;
-}
-.newCohortForm{
-  margin-top: 25px;
-}
-.addStudentButton{
-  color: green;
-}
-.cohortBoxButtons{
-  margin-left: 10px;
-  margin-right: 8px;
-}
-.studentbox{
-  border: 1px solid rgba(0, 0, 0, 0.19);
-  padding: 10px;
-  height: 175px;
-}
-.studentboxtwo{
-  border: 1px solid rgba(0, 0, 0, 0.19);
-  padding: 10px;
-  height: 120px;
-}
-
-.bubblies {
-  color: teal;
+iframe{
+  @extend .responsiveElements;
+  height: 600px;
 }

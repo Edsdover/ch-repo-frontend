@@ -1,15 +1,15 @@
 .row
   .col-xs-1.col-xs-offset-11
     .container(ng-if='currentAssignment')
-      button.btn.btn-sm.btn-warning(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal').glyphicon.glyphicon-edit
-      button.btn.btn-sm.btn-danger(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)'): i.fa.fa-trash
+      i.glyphicon.glyphicon-edit.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
+      i.fa.fa-trash.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
 .row
   .col-md-5.col-xs-11
     h3.underline.bold Assignment: &nbsp {{viewAssignment.projectName}}
-    h4.projectScoring Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}
-    h4.projectScoring Due Date: {{viewAssignment.dueDate | date: 'MMM-dd-yyyy'}}
+    h4.top6pxPadding Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}
+    h4.top6pxPadding Due Date: {{viewAssignment.dueDate | date: 'MMM-dd-yyyy'}}
     h4.presetCategory Tech: {{project.tech}}
-    h4.underline.projectScoring.bold Intro: &nbsp {{viewAssignment.introName}}
+    h4.underline.top6pxPadding.bold Intro: &nbsp {{viewAssignment.introName}}
     h4.underline Alternatives:
     h5 {{project.alternatives}}
     h4.underline Concepts:
@@ -20,16 +20,20 @@
     h5 {{project.references}}
     h4.underline GitHub URL:
     h5 {{project.githubURL}}
-    h4.underline.projectScoring Requirements:
+    h4.underline.top6pxPadding Requirements:
     h5 {{project.requirements}}
     h4.underline Deployment Instructions:
     h5 {{project.deployment}}
   .col-md-7.col-xs-11
     h4.underline Notes:
     div(ng-bind-html='iframeURL' ng-width="800" ng-height="500")
+    .form-group.left4PercMargin
+      label.bold.left3PercPadding.top18pxPadding Submit Assignment for Grading:
+      textarea.left4PercMargin.right10pxMargin.responsiveElements(ng-model='submittedcontent.url' placeholder="deployment/github url" rows='6' required)
+      button.btn.btn-success.btn-lg.left4PercMargin.top18pxPadding(type='submit' ng-click='markAsSubmitted(obj)') Submit
 .row
   .col-md-6.col-xs-11
-    h4.underline.projectScoring.bold Grading:
+    h4.underline.top6pxPadding.bold Grading:
     h5.underline Functionality Points:
     h6 {{viewAssignment.functionalityPoints}}
     h5.underline HTML/CSS Points:
@@ -38,11 +42,6 @@
     h6 {{viewAssignment.javascriptPoints}}
     h5.underline Readability Points:
     h6 {{viewAssignment.readabilityPoints}}
-  .col-md-6.col-xs-11
-    .form-group
-      label.bold Submit Assignment for Grading:
-      input.form-control#projectName(ng-model='submittedcontent.url' placeholder="deployment/github url" required)
-      button.btn.btn-default.btn-lg(type='submit' ng-click='markAsSubmitted(obj)') Submit
 #assignModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
@@ -82,4 +81,4 @@
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
           button.btn.btn-success.btn-lg(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit
-          button.btn.btn-default.rightFloat(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
