@@ -1,7 +1,7 @@
 .row
   .col-md-5.col-xs-11
     h3.underline.bold Assignment: &nbsp {{viewAssignment.projectName}}
-      div.rightFloat.tenWidth
+      div.rightFloat.tenPercWidth
         i.glyphicon.glyphicon-edit.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
         i.fa.fa-trash.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
     h4.top6pxPadding Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}

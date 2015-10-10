@@ -1,14 +1,20 @@
-.col-xs-2.borderRight
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="!adminShow" ng-click="toggleAdmins()") Show Admins
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="adminShow" ng-click="toggleAdmins()") Hide Admins
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="!studentShow" ng-click="toggleStudents()") Show Students
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="studentShow" ng-click="toggleStudents()") Hide Students
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="!cohortShow" ng-click="toggleCohorts()") Show Cohorts
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="cohortShow" ng-click="toggleCohorts()") Hide Cohorts
-.col-xs-8.col-xs-offset-3.top18pxPadding(ng-show="adminShow")
+.col-xs-3.borderRight
+  .row
+    img.img-rounded.img-responsive.logoTumbnail(src='../../media/logo-black-notag.png')
+    h3.borderBottom.bold.textCenter.right30PercPadding.bottom20pxMargin Menu:
+  .row.top10pxMargin.left4PercMargin
+    h5.bold Cohorts
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!cohortShow" ng-click="toggleCohorts()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="cohortShow" ng-click="toggleCohorts()") Hide
+  .row.top10pxMargin.left4PercMargin
+    h5.bold Admins
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!adminShow" ng-click="toggleAdmins()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="adminShow" ng-click="toggleAdmins()") Hide
+  .row.top10pxMargin.left4PercMargin
+    h5.bold Students
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!studentShow" ng-click="toggleStudents()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="studentShow" ng-click="toggleStudents()") Hide
+.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="adminShow")
   h4.bold Admin Accounts
   label
     | Filter:
@@ -23,9 +29,9 @@
       td.textCenter(ng-click='showAdmin()') {{admin.username}}
       td.textCenter(ng-click='showAdmin()') {{admin.displayName}}
       td.textCenter(ng-click='showAdmin()') {{admin.createdAt | date:'MMM d, y'}} &nbsp;
-      td: h5.cursor.textCenter(ng-click='toggleAdminOff()') Admin: {{admin.adminUser}}
+      td: h5.cursor.textCenter(ng-click='toggleAdmin()') Admin: {{admin.adminUser}}
         .glyphicon.glyphicon-arrow-down
-.col-xs-8.col-xs-offset-3.top18pxPadding(ng-show="studentShow")
+.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="studentShow")
   h4.bold Student Accounts
   label
     | Filter:
@@ -40,9 +46,9 @@
       td.textCenter(ng-click='showUser()') {{student.username}}
       td.textCenter(ng-click='showUser()') {{student.displayName}}
       td.textCenter(ng-click='showUser()') {{student.createdAt | date:'MMM d, y'}} &nbsp;
-      td: h5.cursor.textCenter(ng-click='toggleAdminOn()') Admin: {{admin.adminUser}}
+      td: h5.cursor.textCenter(ng-click='toggleAdmin()') Admin: {{admin.adminUser}}
         .glyphicon.glyphicon-arrow-up
-.col-xs-8.col-xs-offset-3.top18pxPadding(ng-show="cohortShow")
+.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="cohortShow")
   h4.bold Saved Cohorts
   label
     | Filter:

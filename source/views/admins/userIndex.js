@@ -9,7 +9,7 @@ angular.module('chRepo')
   $scope.cohortStudentIds = [];
   $scope.adminShow = false;
   $scope.studentShow = false;
-  $scope.cohortShow = false;
+  $scope.cohortShow = true;
   $scope.isEdit = false;
   $scope.areStudents = false;
 
@@ -137,11 +137,12 @@ angular.module('chRepo')
   $scope.toggleCohorts = function() {
     $scope.cohortShow = $scope.cohortShow === false ? true : false;
   };
-  $scope.toggleAdminOff = function(){
-    userSavePrivileges(this.admin);
-  };
-  $scope.toggleAdminOn = function(){
-    userSavePrivileges(this.student);
+  $scope.toggleAdmin = function(){
+    if(this.admin){
+      userSavePrivileges(this.admin);
+    }else if(this.student){
+      userSavePrivileges(this.student);
+    }
   };
   function userSavePrivileges(user){
     User.toggleAdmin(user)

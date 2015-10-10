@@ -8,16 +8,18 @@ angular.module('chRepo')
     });
     var hasActiveUser = false;
     $scope.hasCohort = false;
+    $scope.currentAssignmentsShow = true;
+    $scope.pastAssignmentsShow = false;
     checkAuth();
     function checkAuth(){
       if($scope.activeUser){
         populateDashboard();
         hasActiveUser = true;
-      }
-      if(!hasActiveUser) {
+        }
+      if(!hasActiveUser){
         setTimeout(checkAuth, 1000);
+        }
       }
-    }
     function populateDashboard(){
       $scope.activeUser.cohortsArray = [];
       $scope.activeUser.cohortsObj = [];
@@ -150,6 +152,12 @@ angular.module('chRepo')
     };
     $scope.viewOneAssignment = function(assignmentId){
       $state.go('assignments.show', {assignmentId:assignmentId});
+    };
+    $scope.currentAssignmentsToggle = function() {
+      $scope.currentAssignmentsShow = $scope.currentAssignmentsShow === false ? true : false;
+    };
+    $scope.pastAssignmentsToggle = function() {
+      $scope.pastAssignmentsShow = $scope.pastAssignmentsShow === false ? true : false;
     };
     $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
       $scope.$apply(function () {

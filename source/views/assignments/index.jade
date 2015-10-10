@@ -1,15 +1,22 @@
-.col-xs-2.borderRight
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="!projectShow" ng-click="toggleProjects()") Show Projects
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="projectShow" ng-click="toggleProjects()") Hide Projects
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="!introShow" ng-click="toggleIntros()") Show Intros
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(ng-if="introShow" ng-click="toggleIntros()") Hide Intros
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(type='button' data-toggle='modal' data-target='#projectModal') New Project
-  .row.paddingFivePx.top25pxMargin
-    button.btn.btn-xs.btn-info.fiftyWidth.left20PercMargin(type='button' data-toggle='modal' data-target='#introModal') New Intro
-.col-xs-8.col-xs-offset-3
+.col-xs-3.borderRight
+  .row
+    img.img-rounded.img-responsive.logoTumbnail(src='../../media/logo-black-notag.png')
+    h3.borderBottom.bold.textCenter.right30PercPadding.bottom20pxMargin Menu:
+  .row.top10pxMargin.left4PercMargin
+    h5.bold Projects
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!projectShow" ng-click="toggleProjects()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="projectShow" ng-click="toggleProjects()") Hide
+  .row.top10pxMargin.left4PercMargin
+    h5.bold Intros
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!introShow" ng-click="toggleIntros()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="introShow" ng-click="toggleIntros()") Hide
+  .row.top10pxMargin.left4PercMargin
+    h5.bold New
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(type='button' data-toggle='modal' data-target='#projectModal') Project
+  .row.top10pxMargin.left4PercMargin
+    h5.bold New
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(type='button' data-toggle='modal' data-target='#introModal') Intro
+.col-xs-7.col-xs-offset-4
   .filter.top18pxPadding(ng-show="projectShow")
     h3.left4PercMargin.bold Projects:
     label.left4PercMargin
@@ -30,7 +37,7 @@
         td.paddingFivePx.textCenter: i.glyphicon.glyphicon-edit.cursor.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
         td.paddingFivePx.textCenter: i.fa.fa-trash.cursor.colorRed(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();')
         td.paddingFivePx.textCenter: i.fa.fa-plus.textCenter.cursor.colorGreen(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal')
-.col-xs-8.col-xs-offset-3
+.col-xs-7.col-xs-offset-4
     .filter.top18pxPadding(ng-show="introShow")
       h3.left4PercMargin.bold Intros:
       label.left4PercMargin
