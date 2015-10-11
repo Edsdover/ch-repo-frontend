@@ -1,4 +1,30 @@
-.col-md-5.col-xs-11
-  p {{user.displayName}}
-  p {{user.email}}
-  p {{user.displayName}}
+.container
+  .row
+    .col-md-7.col-xs-11
+      h1 Displayname: 
+        span {{user.displayName}}
+      h1 Email: 
+        span{{user.email}}
+      h1 Username: 
+        span {{user.username}}
+      .profileImage 
+        img(ng-src="{{user.profileImageURL}}")
+    .col-md-1.col-xs-1 
+      .paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(type='button' data-toggle='modal' data-target='#editModal')
+      #editModal.modal.fade(role='dialog')
+        .modal-dialog
+          .modal-content
+            .modal-header
+              h4.modal-title New Assignment
+            .modal-body
+              .form-group
+                lable  DisplayName:
+                input.form-control(type='text' ng-model='user.displayName' required)
+              .form-group
+                h6 Email:
+                  input.form-control#projectHTML(type='text' ng-model='user.email')
+              .form-group
+                h6 Username:
+                  input.form-control#projectHTML(type='text' ng-model='user.username')
+                button.btn.btn-success.btn-lg(ng-click='updateUser(user)', data-dismiss='modal') Submit
+                button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
