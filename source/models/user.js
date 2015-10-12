@@ -26,5 +26,8 @@ angular.module('chRepo')
   User.toggleAdmin = function(user){
     return $http.put(apiUrl + '/users', user);
   };
+  User.update = function(user){
+    return $http.put(apiUrl + '/users/edit', user);
+  };
   return User;
 });

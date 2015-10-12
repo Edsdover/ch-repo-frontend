@@ -41,11 +41,13 @@
       th.textCenter(ng-click="predicate='username'; reverse=!reverse") Username
       th.textCenter(ng-click="predicate='displayName'; reverse=!reverse") Name
       th.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
+      th.textCenter Edit User
       th.textCenter Move to Admin List
     tr.cursor(ng-repeat='student in students | orderBy:predicate:reverse | filter: studentList')
       td.textCenter(ng-click='showUser()') {{student.username}}
       td.textCenter(ng-click='showUser()') {{student.displayName}}
       td.textCenter(ng-click='showUser()') {{student.createdAt | date:'MMM d, y'}} &nbsp;
+      td.cursor.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(type='button' ng-click="editUserModal()" data-toggle='modal' data-target='#editModal')
       td: h5.cursor.textCenter(ng-click='toggleAdmin()') Admin: {{admin.adminUser}}
         .glyphicon.glyphicon-arrow-up
 .col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="cohortShow")
@@ -154,3 +156,20 @@
         .row
           .col-xs-11.top18pxPadding
             button.btn.btn-default.right10pxMargin(type='button', data-dismiss='modal') Cancel
+#editModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title New Assignment
+      .modal-body
+        .form-group
+          lable  DisplayName:
+          input.form-control(type='text' ng-model='user.displayName' required)
+        .form-group
+          h6 Email:
+            input.form-control#projectHTML(type='text' ng-model='user.email')
+        .form-group
+          h6 Username:
+            input.form-control#projectHTML(type='text' ng-model='user.username')
+          button.btn.btn-success.btn-lg(ng-click='updateUser(user)', data-dismiss='modal') Submit
+          button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel

@@ -8,4 +8,15 @@ angular.module('chRepo')
   .then(function(response){
     $scope.user = response.data[0];
   });
+
+  $scope.updateUser = function(user){
+    User.update(user)
+    .success(function(data){
+      sweet.show('Check', 'User is updated!', 'success');
+    })
+    .error(function(error){
+      console.log(error);
+    });
+  };
+
 });

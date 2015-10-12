@@ -10,7 +10,7 @@ angular.module('chRepo')
     });
   };
   $scope.afAuth.$onAuth(function(data){
-    if(data && data.github.email === 'Edsdover@gmail.com') {
+    if(data && data.github.email === 'Edsdover@gmail.com' || 'misankovich@gmail.com') {
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
       updateUser(data);
     }else if(data){

@@ -83,6 +83,21 @@ angular.module('chRepo')
       console.log(error);
     });
   };
+  $scope.editUserModal = function(){
+    console.log(this.$parent.student);
+    $scope.user = this.$parent.student;
+  };
+
+  $scope.updateUser = function(user){
+    console.log(this);
+    User.update(user)
+    .success(function(data){
+      sweet.show('Check', 'User is updated!', 'success');
+    })
+    .error(function(error){
+      console.log(error);
+    });
+  };
   $scope.deleteCohort = function(){
     var cohort = this.cohort;
     $scope.tempCohort = cohort;
