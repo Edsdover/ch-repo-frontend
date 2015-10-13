@@ -3,8 +3,8 @@
     h3.underline.bold {{intro.name}}
   .col-xs-2.col-xs-offset-3
     .container.top25pxMargin
-      i.glyphicon.glyphicon-edit.colorOrange.cursor(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
-      i.fa.fa-trash.left3PercPadding.colorRed.cursor(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();')
+      i.fa.fa-pencil-square-o.fa-fw.colorOrange.cursor(ng-click='editIntroModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
+      i.fa.fa-trash.fa-fw.left3PercPadding.colorRed.cursor(title="Delete Intro" ng-click='deleteIntro(intro); $event.stopPropagation();')
 .rows
   .col-xs-offset-2.col-xs-8
     h4.underline.top6pxPadding Body:
@@ -27,5 +27,5 @@
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
-                button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-success.btn-lg.rightFloat(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Submit

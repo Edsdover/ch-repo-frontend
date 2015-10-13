@@ -92,7 +92,6 @@ angular.module('chRepo')
   $scope.updateUser = function(user){
     User.update(user)
     .success(function(data){
-      sweet.show('Check', 'User is updated!', 'success');
     })
     .error(function(error){
       console.log(error);
@@ -179,6 +178,8 @@ angular.module('chRepo')
       $scope.modalCohort = null;
       $scope.modalCohortStudents = [];
       $scope.cohortStudentIds = [];
+      $scope.searchStudents = null;
+      $scope.searchAddedStudents = null;
       findAllUsers();
       findAllCohorts();
     });

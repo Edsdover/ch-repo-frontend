@@ -1,4 +1,4 @@
-nav.navbar.navbar-default(ng-controller='NavCtrl')
+nav.navbar.navbar-default.navbar-fixed-top(ng-controller='NavCtrl')
   .container-fluid
     .navbar-header
       button.navbar-toggle.collapsed(data-toggle="collapse", data-target="#navbar")
@@ -6,12 +6,16 @@ nav.navbar.navbar-default(ng-controller='NavCtrl')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      img.navbar-brand.cursor(src='media/logo-house-only.png' ui-sref='dashboard')
+      a(ui-sref='dashboard'): img.navbar-brand.cursor(src='media/logo-house-only.png')
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left(ng-if='adminUser')
-        li: a(ui-sref='users.userIndex'): i.fa.fa-plus &nbsp; Admin
-        li: a(ui-sref='assignments.index' ng-if='adminUser'): i.fa.fa-list &nbsp; New Assignment
+        li: a(ui-sref='users.userIndex') Admin &nbsp;
+          i.fa.fa-plus.fa-fw
+        li: a(ui-sref='assignments.index' ng-if='adminUser') New Assignment &nbsp;
+          i.fa.fa-list.fa-fw
       ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
-        li: a.cursor(ng-hide='activeUser' ng-click='oauth("github")'): i.fa.fa-github.colorBlue &nbsp; LogIn With GitHub
+        li: a.cursor(ng-hide='activeUser' ng-click='oauth("github")') LogIn With GitHub &nbsp;
+          i.fa.fa-github.fa-fw.colorBlue
       ul.nav.navbar-nav.navbar-right(ng-show='activeUser')
-        li: a.cursor(ng-show='activeUser' ng-click='logout()'): i.fa.fa-sign-out.colorBlue &nbsp; {{displayName}}
+        li: a.cursor(ng-show='activeUser' ng-click='logout()') {{displayName}} &nbsp;
+          i.fa.fa-sign-out.fa-fw.colorBlue

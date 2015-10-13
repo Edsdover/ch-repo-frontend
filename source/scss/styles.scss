@@ -25,8 +25,7 @@
   margin-left: 40%;
 }
 .marginThirtyFivePx{
-  margin-top: 35px;
-  margin-bottom: 35px;
+  margin-top: 90px;
 }
 .top25pxMargin{
   margin-top: 25px;
@@ -44,7 +43,7 @@
   margin-right: 10px;
 }
 .paddingFivePx{
-  padding: 5px;
+  padding: 1px;
 }
 .top18pxPadding{
   padding-top: 18px;
@@ -93,9 +92,6 @@
 .responsiveElements{
   width: 100%;
   border-collapse: collapse;
-  @media (max-width: 800px) {
-    width: 60%;
-  }
 }
 .fontSmall{
   font-size: 12px;
@@ -124,11 +120,6 @@ table{
   @extend .responsiveElements;
   background-color: rgba(196, 206, 232, 0.19);
 }
-@media (max-width: 767px) {
-  .smallTable {
-    padding-left: 0px !important;
-  }
-}
 iframe{
   @extend .responsiveElements;
   height: 600px;
@@ -140,6 +131,11 @@ button{
 body{
   background-color: rgba(232, 232, 232, 0.38);
 }
+th, td{
+  @extend .paddingFivePx;
+  @extend .textCenter;
+  @extend .cursor;
+}
 .borderMenu{
   border-bottom: 3px solid black;
   border-top: 3px solid black;
@@ -147,13 +143,26 @@ body{
   padding-right: 200%;
   margin-top: 0px;
 }
+@media (max-width: 767px) {
+  .borderMenu {
+    margin-top: 70px;
+  }
+}
+@media (max-width: 767px) {
+  h4.bold.marginThirtyFivePx {
+    margin-top: 25px;
+  }
+}
 .logoTumbnail{
   height: 125px;
   @extend .marginThirtyFivePx;
   margin-bottom: 30px;
 }
-.profileImage img {
-  height: 300px;
+.profileImage {
+  max-width: 100%;
+}
+.modal-title{
+  @extend .textCenter;
 }
 #dashboardWelcome{
   padding-right: 10%;

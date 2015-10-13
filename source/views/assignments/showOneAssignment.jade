@@ -2,8 +2,8 @@
   .col-md-5.col-xs-11
     h3.underline.bold Assignment: &nbsp {{viewAssignment.projectName}}
       div.rightFloat.tenPercWidth
-        i.glyphicon.glyphicon-edit.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
-        i.fa.fa-trash.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
+        i.fa.fa-pencil-square-o.fa-fw.colorOrange(ng-if='adminUser' ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
+        i.fa.fa-trash.fa-fw.left3PercPadding.colorRed(ng-if='adminUser' title="Delete Assignment" ng-click='deleteAssignmentConfirm(viewAssignment)')
     h4.top6pxPadding Assigned: {{viewAssignment.createdAt | date: 'MMM-dd-yyyy'}}
     h4.top6pxPadding Due Date: {{viewAssignment.dueDate | date: 'MMM-dd-yyyy'}}
     h4.presetCategory Tech: {{project.tech}}
@@ -77,5 +77,5 @@
         .form-group
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
-          button.btn.btn-success.btn-lg(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit
-          button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-success.btn-lg.rightFloat(ng-click='updateAssignment(assignment)', data-dismiss='modal') Submit

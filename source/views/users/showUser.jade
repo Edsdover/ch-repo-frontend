@@ -1,30 +1,28 @@
 .container
-  .row
-    .col-md-7.col-xs-11
-      h1 Displayname: 
-        span {{user.displayName}}
-      h1 Email: 
-        span{{user.email}}
-      h1 Username: 
-        span {{user.username}}
-      .profileImage 
-        img(ng-src="{{user.profileImageURL}}")
-    .col-md-1.col-xs-1 
-      .paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(type='button' data-toggle='modal' data-target='#editModal')
-      #editModal.modal.fade(role='dialog')
-        .modal-dialog
-          .modal-content
-            .modal-header
-              h4.modal-title New Assignment
-            .modal-body
-              .form-group
-                lable  DisplayName:
-                input.form-control(type='text' ng-model='user.displayName' required)
-              .form-group
-                h6 Email:
-                  input.form-control#projectHTML(type='text' ng-model='user.email')
-              .form-group
-                h6 Username:
-                  input.form-control#projectHTML(type='text' ng-model='user.username')
-                button.btn.btn-success.btn-lg(ng-click='updateUser(user)', data-dismiss='modal') Submit
-                button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
+  .row.marginThirtyFivePx
+    .col-sm-3
+      img.img-rounded.img-responsive.profileImage(ng-src="{{user.profileImageURL}}")
+    .col-sm-7
+      h3.bold.underline {{user.displayName}}
+      h4.bold {{user.email}}
+      h4.bold {{user.username}}
+    .col-sm-1
+      button.btn.btn-warning.btn-sm(ng-if="adminUser" type='button' data-toggle='modal' data-target='#editUserModal') Edit &nbsp
+        i.fa.fa-pencil-square-o.fa-fw
+#editUserModal.modal.fade(role='dialog')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title Edit User Infomation
+      .modal-body
+        .form-group
+          lable DisplayName:
+            input.form-control(type='text' ng-model='user.displayName' required)
+        .form-group
+          lable Email:
+            input.form-control#projectHTML(type='text' ng-model='user.email')
+        .form-group
+          lable Username:
+            input.form-control#projectHTML(type='text' ng-model='user.username')
+          button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-success.btn-lg.rightFloat(ng-click='updateUser(user)', data-dismiss='modal') Submit

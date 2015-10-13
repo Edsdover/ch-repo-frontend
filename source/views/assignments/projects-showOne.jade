@@ -4,8 +4,8 @@
     h4.presetCategory {{project.tech}}
   .col-xs-1
     .container.top25pxMargin
-      i.glyphicon.glyphicon-edit.colorOrange.cursor(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
-      i.fa.fa-trash.left3PercPadding.colorRed.cursor(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();')
+      i.fa.fa-pencil-square-o.fa-fw.colorOrange.cursor(ng-click='editProjectModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
+      i.fa.fa-trash.fa-fw.left3PercPadding.colorRed.cursor(title="Delete Project" ng-click='deleteProject(project); $event.stopPropagation();')
 .row
   .col-md-6.col-xs-11
     h4.underline.top6pxPadding Alternatives:
@@ -104,5 +104,5 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
-                    button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success.btn-lg.rightFloat(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Submit

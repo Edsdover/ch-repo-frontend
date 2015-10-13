@@ -1,59 +1,59 @@
-.col-xs-3.borderRight
+.col-sm-3.col-sm-offset-9.col-xs-2.col-xs-offset-9.borderLeft
   .row
-    img.img-rounded.img-responsive.logoTumbnail(src='../../media/logo-black-notag.png')
-    h3.borderMenu.bold.textCenter.right30PercPadding.bottom20pxMargin Menu:
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Projects
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left20PercMargin(ng-if="!projectShow" ng-click="toggleProjects()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left20PercMargin(ng-if="projectShow" ng-click="toggleProjects()") Hide
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Intros
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left20PercMargin(ng-if="!introShow" ng-click="toggleIntros()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left20PercMargin(ng-if="introShow" ng-click="toggleIntros()") Hide
-  .row.top10pxMargin.left4PercMargin
-    h5.bold New
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left20PercMargin(type='button' data-toggle='modal' data-target='#projectModal') Project
-  .row.top10pxMargin.left4PercMargin
-    h5.bold New
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left20PercMargin(type='button' data-toggle='modal' data-target='#introModal') Intro
-.col-xs-7.col-xs-offset-4
-  .filter.top18pxPadding(ng-show="projectShow")
-    h3.left4PercMargin.bold Projects:
-    label.left4PercMargin
-      | Filter:
-      input(ng-model='searchProjects')
-    table.table-bordered.table-hover.top25pxMargin(ng-show="projectShow")
-      tr
-        th.paddingFivePx.textCenter Project Name
-        th.paddingFivePx.textCenter Concepts
-        th.paddingFivePx.textCenter Tech Used
-        th.paddingFivePx.textCenter Edit
-        th.paddingFivePx.textCenter Delete
-        th.paddingFivePx.textCenter Assign
-      tr(ng-repeat='project in projects | filter : searchProjects track by $index')
-        td.paddingFivePx.textCenter: a.cursor(ng-click='viewOneProject(project._id)') {{project.name}}
-        td.paddingFivePx.textCenter: p.fontSmall(ng-click='viewOneProject(project._id)') {{project.concepts}}
-        td.paddingFivePx.textCenter: p.fontSmall(ng-click='viewOneProject(project._id)') {{project.tech}}
-        td.paddingFivePx.textCenter: i.glyphicon.glyphicon-edit.cursor.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
-        td.paddingFivePx.textCenter: i.fa.fa-trash.cursor.colorRed(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();')
-        td.paddingFivePx.textCenter: i.fa.fa-plus.textCenter.cursor.colorGreen(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal')
-.col-xs-7.col-xs-offset-4
-    .filter.top18pxPadding(ng-show="introShow")
-      h3.left4PercMargin.bold Intros:
-      label.left4PercMargin
-        | Filter:
-        input(ng-model='searchIntros')
-    table.table-bordered.table-hover.top25pxMargin(ng-show="introShow")
-      tr
-        th.paddingFivePx.textCenter Intro Name
-        th.paddingFivePx.textCenter Edit
-        th.paddingFivePx.textCenter Delete
-        th.paddingFivePx.textCenter Assign
-      tr(ng-repeat='intro in intros | filter: searchIntros track by $index')
-        td.paddingFivePx.textCenter: a.cursor(ng-click='viewOneIntro(intro._id)') {{intro.name}}
-        td.paddingFivePx.textCenter: i.glyphicon.glyphicon-edit.cursor.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
-        td.paddingFivePx.textCenter: i.fa.fa-trash.textCenter.cursor.colorRed(title="Delete Intro" ng-click='deleteIntroConfirm(intro); $event.stopPropagation();')
-        td.paddingFivePx.textCenter: i.fa.fa-plus.textCenter.cursor.colorGreen(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal')
+    a(ui-sref='dashboard'): img.img-rounded.img-responsive.logoTumbnail.hide-sm(src='../../media/logo-black-notag.png')
+    h3.borderMenu.bold.left3PercPadding Menu:
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Projects
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!projectShow" ng-click="toggleProjects()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="projectShow" ng-click="toggleProjects()") Hide
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Intros
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!introShow" ng-click="toggleIntros()") Show
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="introShow" ng-click="toggleIntros()") Hide
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin New
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(type='button' data-toggle='modal' data-target='#projectModal') Project
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin New
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(type='button' data-toggle='modal' data-target='#introModal') Intro
+.col-sm-7.col-sm-offset-1.col-xs-9.col-xs-offset-1(ng-show="projectShow")
+  h4.underline.marginThirtyFivePx.font800pxQuerie Projects:
+.col-sm-7.col-sm-offset-1.col-xs-9.col-xs-offset-1(ng-show="projectShow")
+  label.left4PercMargin
+    | Filter:
+    input(ng-model='searchProjects')
+  table.table-bordered.table-hover.top10pxMargin(ng-show="projectShow")
+    tr
+      th Project Name
+      th.hide-sm Concepts
+      th.hide-sm Tech Used
+      th Edit
+      th Delete
+      th Assign
+    tr(ng-repeat='project in projects | filter : searchProjects track by $index')
+      td: a(ng-click='viewOneProject(project._id)') {{project.name}}
+      td.hide-sm: p.fontSmall(ng-click='viewOneProject(project._id)') {{project.concepts}}
+      td.hide-sm: p.fontSmall(ng-click='viewOneProject(project._id)') {{project.tech}}
+      td: i.fa.fa-pencil-square-o.fa-fw.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editProjectModal')
+      td: i.fa.fa-trash.fa-fw.cursor.colorRed.fa-fw(title="Delete Project" ng-click='deleteProjectConfirm(project); $event.stopPropagation();')
+      td: i.fa.fa-plus.fa-fw.cursor.colorGreen.fa-fw(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal')
+.col-sm-7.col-sm-offset-1.col-xs-9.col-xs-offset-1(ng-show="introShow")
+  h4.underline.top25pxMargin.font800pxQuerie Intros:
+.col-sm-7.col-sm-offset-1.col-xs-9.col-xs-offset-1(ng-show="introShow")
+  label.left4PercMargin
+    | Filter:
+    input(ng-model='searchIntros')
+  table.table-bordered.table-hover.top10pxMargin(ng-show="introShow")
+    tr
+      th Intro Name
+      th Edit
+      th Delete
+      th Assign
+    tr(ng-repeat='intro in intros | filter: searchIntros track by $index')
+      td: a(ng-click='viewOneIntro(intro._id)') {{intro.name}}
+      td: i.fa.fa-pencil-square-o.fa-fw.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#editIntroModal')
+      td: i.fa.fa-trash.fa-fw.cursor.colorRed(title="Delete Intro" ng-click='deleteIntroConfirm(intro); $event.stopPropagation();')
+      td: i.fa.fa-plus.fa-fw.cursor.colorGreen(ng-click='editModal();' type='button' data-toggle='modal' data-target='#assignModal')
 #assignModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content
@@ -91,7 +91,7 @@
         .form-group
           h6 Points:
             input.form-control#projectJavaScript(type='number' ng-model='assignment.javascriptPoints')
-          button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
           button.btn.btn-success.btn-lg.rightFloat(ng-click='submitAssignment(assignment)', data-dismiss='modal') Submit
 #projectModal.modal.fade(role='newProject')
   .modal-dialog
@@ -172,8 +172,8 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
-                    button.btn.btn-success.btn-lg.rightFloat(type='submit' data-dismiss='modal' ng-click='create(project)') Save Project
+                    button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success.btn-lg.rightFloat(type='submit' data-dismiss='modal' ng-click='create(project)') Submit
 #editProjectModal.modal.fade(role='newProject')
   .modal-dialog
     .modal-content
@@ -253,8 +253,8 @@
               .row.col-xs-offset-1
                 .col-xs-10
                   .form-group
-                    button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
-                    button.btn.btn-success.btn-lg.rightFloat(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Save Edits
+                    button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                    button.btn.btn-success.btn-lg.rightFloat(type='submit' data-dismiss='modal' ng-click='updateProject(project)') Submit
 #editIntroModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -273,8 +273,8 @@
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
-                button.btn.btn-success.btn-lg.rightFloat(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Save Edits
+                button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-success.btn-lg.rightFloat(type="submit" ng-click='updateIntro(intro)' data-dismiss='modal') Submit
 #introModal.modal.fade(role='newIntro')
   .modal-dialog
     .modal-content
@@ -293,5 +293,5 @@
           .row.col-xs-offset-1
             .col-xs-10
               .form-group
-                button.btn.btn-default.btn-lg(type='button', data-dismiss='modal') Cancel
-                button.btn.btn-success.btn-lg.rightFloat(type="submit" ng-click='create(intro)' data-dismiss='modal') Save Intro
+                button.btn.btn-default.btn-lg.btn-lg(type='button', data-dismiss='modal') Cancel
+                button.btn.btn-success.btn-lg.rightFloat(type="submit" ng-click='create(intro)' data-dismiss='modal') submit
