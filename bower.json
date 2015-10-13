@@ -2,7 +2,7 @@
   "name": "sif",
   "version": "0.0.1",
   "authors": [
-    "Chris Oyler <christopher.oyler@gmail.com>"
+    "Edwin Dover <Edsdover@gmail.com>"
   ],
   "description": "Bower Dependencies for Sif",
   "keywords": [
@@ -11,7 +11,7 @@
     "SASS"
   ],
   "license": "MIT",
-  "homepage": "github.com/IAmEddieDean/Sif",
+  "homepage": "https://github.com/Edsdover",
   "ignore": [
     "**/.*",
     "node_modules",

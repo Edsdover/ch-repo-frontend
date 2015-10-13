@@ -20,12 +20,13 @@
     "SASS",
     "Gulp"
   ],
-  "author": "Christopher Oyler",
+  "author": "Edwin Dover",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IAmEddieDean/Sif/issues"
+    "url": "https://github.com/Edsdover/ch-repo-frontend",
+    "url": "https://github.com/Edsdover/ch-repo-backend"
   },
-  "homepage": "https://github.com/IAmEddieDean/Sif",
+  "homepage": "https://github.com/Edsdover",
   "dependencies": {
     "bower": "^1.5.2",
     "browser-sync": "2.7.13",
