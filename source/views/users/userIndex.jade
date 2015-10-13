@@ -1,72 +1,79 @@
-.col-xs-3.borderRight
+.col-sm-3.col-sm-offset-9.col-xs-2.col-xs-offset-9.borderLeft
   .row
-    img.img-rounded.img-responsive.logoTumbnail(src='../../media/logo-black-notag.png')
-    h3.borderBottom.bold.textCenter.right30PercPadding.bottom20pxMargin Menu:
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Cohorts
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!cohortShow" ng-click="toggleCohorts()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="cohortShow" ng-click="toggleCohorts()") Hide
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Admins
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!adminShow" ng-click="toggleAdmins()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="adminShow" ng-click="toggleAdmins()") Hide
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Students
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!studentShow" ng-click="toggleStudents()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="studentShow" ng-click="toggleStudents()") Hide
-.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="adminShow")
-  h4.bold Admin Accounts
+    img.img-rounded.img-responsive.logoTumbnail.hide-sm(src='../../media/logo-black-notag.png')
+    h3.borderMenu.bold.textCenter.left3PercPadding Menu:
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Cohorts
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="cohortShow" ng-click="toggleCohorts()") Hide
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!cohortShow" ng-click="toggleCohorts()") Show
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Admins
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="adminShow" ng-click="toggleAdmins()") Hide
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!adminShow" ng-click="toggleAdmins()") Show
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Students
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="studentShow" ng-click="toggleStudents()") Hide
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!studentShow" ng-click="toggleStudents()") Show
+.col-sm-7.col-sm-offset-1.col-xs-11.col-xs-offset-1.smallTable(ng-show="adminShow")
+  h4.bold.marginThirtyFivePx.font800pxQuerie Admin Accounts
+.col-sm-7.col-sm-offset-1.col-xs-11.col-xs-offset-1.smallTable(ng-show="adminShow")
   label
     | Filter:
     input(ng-model='adminList')
-  table.table-bordered.table-hover.top25pxMargin(ng-show="adminShow")
+  table.table-bordered.table-hover.top25pxMargin(ng-if="adminShow")
     tr
-      th.cursor.textCenter(ng-click="predicate='username'; reverses=!reverse") Username
       th.cursor.textCenter(ng-click="predicate='displayName'; reverse=!reverse") Name
+      th.cursor.textCenter(ng-click="predicate='username'; reverses=!reverse") Username
       th.cursor.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
-      th.cursor.textCenter Move to Student List
+      th.textCenter(ng-if="adminUser") Edit Admin
+      th.cursor.textCenter(ng-if="adminUser") Demote to Student
     tr.cursor(ng-repeat='admin in admins | orderBy:predicate:reverse | filter: adminList')
-      td.textCenter(ng-click='showAdmin()') {{admin.username}}
       td.textCenter(ng-click='showAdmin()') {{admin.displayName}}
+      td.textCenter(ng-click='showAdmin()') {{admin.username}}
       td.textCenter(ng-click='showAdmin()') {{admin.createdAt | date:'MMM d, y'}} &nbsp;
+      td.cursor.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(type='button' ng-click="editAdminModal()" data-toggle='modal' data-target='#editModal')
       td: h5.cursor.textCenter(ng-click='toggleAdmin()') Admin: {{admin.adminUser}}
         .glyphicon.glyphicon-arrow-down
-.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="studentShow")
-  h4.bold Student Accounts
+.col-sm-7.col-sm-offset-1.col-xs-11.col-xs-offset-1.smallTable(ng-show="studentShow")
+  h4.bold.marginThirtyFivePx.font800pxQuerie Student Accounts
+.col-sm-7.col-sm-offset-1.col-xs-11.col-xs-offset-1.smallTable(ng-show="studentShow")
   label
     | Filter:
     input(ng-model='studentList')
-  table.table-bordered.table-hover.top25pxMargin(ng-show="studentShow")
+  table.table-bordered.table-hover.top25pxMargin(ng-if="studentShow")
     tr.cursor
-      th.textCenter(ng-click="predicate='username'; reverse=!reverse") Username
       th.textCenter(ng-click="predicate='displayName'; reverse=!reverse") Name
+      th.textCenter(ng-click="predicate='username'; reverse=!reverse") Username
       th.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Join Date
-      th.textCenter Edit User
-      th.textCenter Move to Admin List
+      th.textCenter(ng-if="adminUser") Edit Student
+      th.textCenter(ng-if="adminUser") Promote to Admin
     tr.cursor(ng-repeat='student in students | orderBy:predicate:reverse | filter: studentList')
-      td.textCenter(ng-click='showUser()') {{student.username}}
       td.textCenter(ng-click='showUser()') {{student.displayName}}
+      td.textCenter(ng-click='showUser()') {{student.username}}
       td.textCenter(ng-click='showUser()') {{student.createdAt | date:'MMM d, y'}} &nbsp;
       td.cursor.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(type='button' ng-click="editUserModal()" data-toggle='modal' data-target='#editModal')
       td: h5.cursor.textCenter(ng-click='toggleAdmin()') Admin: {{admin.adminUser}}
         .glyphicon.glyphicon-arrow-up
-.col-xs-7.col-xs-offset-4.top18pxPadding(ng-show="cohortShow")
-  h4.bold Saved Cohorts
-  label
-    | Filter:
-    input(ng-model='cohortList')
-  button.btn.btn-xs.btn-info.rightFloat(ng-if="cohortShow" type='button' data-toggle='modal' data-target='#cohortModal') Create a new Cohort
-  table.table-bordered.table-hover.top25pxMargin
-    tr.cursor
-      th.textCenter(ng-click="predicate='cohortName'; reverse=!reverse") Cohort Name
-      th.textCenter(ng-click="predicate='studentNumber'; reverse=!reverse") # of Students
-      th.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Created
-      th.textCenter Delete
-    tr.cursor(ng-repeat='cohort in cohorts | orderBy:predicate:reverse | filter: cohortList' ng-click='editCohortModal();' type='button' data-toggle='modal' data-target='#editCohortModal')
-      td.paddingFivePx.textCenter {{cohort.cohortName}} &nbsp;
-      td.paddingFivePx.textCenter {{cohort.studentNumber}} &nbsp;
-      td.paddingFivePx.textCenter {{cohort.createdAt | date:'MMM d, y'}} &nbsp;
-      td.paddingFivePx.textCenter: i.fa.fa-trash.cursor.colorRed(ng-click='deleteCohort(); $event.stopPropagation();')
+.container-fluid
+  .row
+    .col-sm-7.col-sm-offset-1.col-xs-7.col-xs-offset-1.smallTable(ng-show="cohortShow")
+      h4.bold.marginThirtyFivePx.font800pxQuerie Saved Cohorts
+      label
+        | Filter:
+        input(ng-model='cohortList')
+      button.btn.btn-xs.btn-info.rightFloat(ng-if="cohortShow" type='button' data-toggle='modal' data-target='#cohortModal') Create a new Cohort
+    .col-sm-7.col-sm-offset-1.col-xs-9.col-xs-offset-1.smallTable(ng-show="cohortShow")
+      table.table-bordered.table-hover.top25pxMargin
+        tr.cursor
+          th.textCenter(ng-click="predicate='cohortName'; reverse=!reverse") Cohort Name
+          th.textCenter(ng-click="predicate='studentNumber'; reverse=!reverse") # of Students
+          th.textCenter(ng-click="predicate='createdAt'; reverse=!reverse") Created
+          th.textCenter(ng-if="adminUser") Delete
+        tr.cursor(ng-repeat='cohort in cohorts | orderBy:predicate:reverse | filter: cohortList' ng-click='editCohortModal();' ng-if="adminUser" type='button' data-toggle='modal' data-target='#editCohortModal')
+          td.paddingFivePx.textCenter {{cohort.cohortName}} &nbsp;
+          td.paddingFivePx.textCenter {{cohort.studentNumber}} &nbsp;
+          td.paddingFivePx.textCenter {{cohort.createdAt | date:'MMM d, y'}} &nbsp;
+          td.paddingFivePx.textCenter: i.fa.fa-trash.cursor.colorRed(ng-if="adminUser" ng-click='deleteCohort(); $event.stopPropagation();')
 #cohortModal.modal.fade(role='dialog')
   .modal-dialog.modal-lg
     .modal-content
@@ -93,7 +100,7 @@
                 td.paddingFivePx {{modalListStudent.displayName}}
                 td.paddingFivePx {{modalListStudent.username}}
                 td.paddingFivePx {{modalListStudent.email}}
-                td.glyphicon.glyphicon-plus.cursor.left45PercMargin.colorGreen(ng-click='addStudentToList()')
+                td.glyphicon.glyphicon-plus.cursor.left40PercMargin.colorGreen(ng-click='addStudentToList()')
           .col-md-5
             .col-md-12.col-sm-12
               h4 New Cohort Enrolled Students:
@@ -139,7 +146,7 @@
                 td.paddingFivePx {{modalListStudent.displayName}}
                 td.paddingFivePx {{modalListStudent.username}}
                 td.paddingFivePx {{modalListStudent.email}}
-                td: i.glyphicon.glyphicon-plus.cursor.left45PercMargin.colorGreen(ng-click='addStudentToList()')
+                td: i.glyphicon.glyphicon-plus.cursor.left40PercMargin.colorGreen(ng-click='addStudentToList()')
           .col-md-5.col-md-offset-1
             h4 {{modalCohort.cohortName}} : Enrolled Students
             table.table-bordered.table-hover
@@ -152,7 +159,7 @@
                 td.paddingFivePx {{modalCohortStudent.displayName}}
                 td.paddingFivePx {{modalCohortStudent.username}}
                 td.paddingFivePx {{modalCohortStudent.email}}
-                td: i.fa.fa-trash.cursor.left45PercMargin.colorRed(ng-click='removeStudentFromList()')
+                td: i.fa.fa-trash.cursor.left40PercMargin.colorRed(ng-click='removeStudentFromList()')
         .row
           .col-xs-11.top18pxPadding
             button.btn.btn-default.right10pxMargin(type='button', data-dismiss='modal') Cancel
@@ -171,5 +178,5 @@
         .form-group
           h6 Username:
             input.form-control#projectHTML(type='text' ng-model='user.username')
-          button.btn.btn-success.btn-lg(ng-click='updateUser(user)', data-dismiss='modal') Submit
-          button.btn.btn-default.rightFloat.right10pxMargin(type='button', data-dismiss='modal') Cancel
+          button.btn.btn-success.btn-lg.rightFloat(ng-click='updateUser(user)', data-dismiss='modal') Submit
+          button.btn.btn-default.right10pxMargin(type='button', data-dismiss='modal') Cancel

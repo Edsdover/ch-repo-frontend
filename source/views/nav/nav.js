@@ -15,6 +15,7 @@ angular.module('chRepo')
       updateUser(data);
     }else if(data){
       $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
+      location.reload(); // jshint ignore:line
       updateUser(data);
     }else{
       $rootScope.activeUser = null;

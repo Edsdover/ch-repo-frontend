@@ -1,6 +1,6 @@
 angular.module('chRepo')
 
-.controller('DashboardCtrl', function($scope, Cohort, Assignment, sweet, $state){
+.controller('DashboardCtrl', function($rootScope, $scope, Cohort, Assignment, sweet, $state){
 
   $(document).ready(function() { // jshint ignore:line
     $(function() {// jshint ignore:line
@@ -168,6 +168,10 @@ angular.module('chRepo')
         $scope.isEdit = false;
       });
     });
+    $scope.viewProfile = function(){
+      var studentId = $rootScope.activeUser.mongoId._id;
+      $state.go('users.show', {studentId : $rootScope.activeUser.mongoId._id});
+    };
   // $scope.submitAssignment= function() {
   //   Assignment.findByIdAndUpdate(this.pastAssignment._id,
   //     {$push: {"submittedUsers": {user: $scope.activeUser.mongoId._id}}},

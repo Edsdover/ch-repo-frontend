@@ -6,12 +6,12 @@ nav.navbar.navbar-default(ng-controller='NavCtrl')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(ui-sref='dashboard') Home
+      img.navbar-brand.cursor(src='media/logo-house-only.png' ui-sref='dashboard')
     #navbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-left(ng-if='adminUser')
-        li: a(ui-sref='admins.userIndex'): i.fa.fa-plus &nbsp; Admin
-      ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
-        button.btn.btn-lg.btn-defult.top18pxPadding(ng-click='oauth("github")'): i.fa.fa-github &nbsp; LogIn With GitHub
-      ul.nav.navbar-nav.navbar-right(ng-show='activeUser')
+        li: a(ui-sref='users.userIndex'): i.fa.fa-plus &nbsp; Admin
         li: a(ui-sref='assignments.index' ng-if='adminUser'): i.fa.fa-list &nbsp; New Assignment
-        li: a(href='#', ng-click='logout()'): i.fa.fa-sign-out &nbsp; {{displayName}}
+      ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
+        li: a.cursor(ng-hide='activeUser' ng-click='oauth("github")'): i.fa.fa-github.colorBlue &nbsp; LogIn With GitHub
+      ul.nav.navbar-nav.navbar-right(ng-show='activeUser')
+        li: a.cursor(ng-show='activeUser' ng-click='logout()'): i.fa.fa-sign-out.colorBlue &nbsp; {{displayName}}

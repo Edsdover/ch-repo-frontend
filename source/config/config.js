@@ -7,9 +7,9 @@ angular.module('chRepo')
   $stateProvider
   .state('dashboard', {url: '/dashboard', templateUrl: '/views/dashboard/dashboard.html', controller: 'DashboardCtrl'})
 
-  .state('admins', {url: '/admins', templateUrl: '/views/admins/admins.html', abstract: true})
-  .state('admins.userIndex', {url: '/userIndex', templateUrl: '/views/admins/userIndex.html', controller: 'AdminCtrl'})
-  .state('admins.show', {url: '/{studentId}', templateUrl: '/views/admins/showUser.html', controller: 'userCtrl'})
+  .state('users', {url: '/users', templateUrl: '/views/users/users.html', abstract: true})
+  .state('users.userIndex', {url: '/userIndex', templateUrl: '/views/users/userIndex.html', controller: 'UserCtrl'})
+  .state('users.show', {url: '/{studentId}', templateUrl: '/views/users/showUser.html', controller: 'ShowUserCtrl'})
 
   .state('assignments', {url: '/assignments', templateUrl: '/views/assignments/assignments.html', abstract: true})
   .state('assignments.index', {url: '/index', templateUrl: '/views/assignments/index.html', controller: 'IndexProjectCtrl'})

@@ -1,25 +1,31 @@
 .col-xs-12.text-center(ng-hide="hasCohort")
   img(src='media/logo-black.png')
 h1.textCenter(ng-hide="hasCohort") Content Repo
-.col-xs-3.borderRight(ng-if="hasCohort")
+.col-sm-3.col-sm-offset-9.col-xs-2.col-xs-offset-9.borderLeft(ng-if="hasCohort")
   .row
-    img.img-rounded.img-responsive.logoTumbnail(src='../../media/logo-black-notag.png')
-    h3.borderBottom.bold.textCenter.right30PercPadding.bottom20pxMargin Menu:
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Imminent Missions
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!currentAssignmentsShow" ng-click="currentAssignmentsToggle()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="currentAssignmentsShow" ng-click="currentAssignmentsToggle()") Hide
-  .row.top10pxMargin.left4PercMargin
-    h5.bold Past Due Assignments
-    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left10PercMargin(ng-if="!pastAssignmentsShow" ng-click="pastAssignmentsToggle()") Show
-    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left10PercMargin(ng-if="pastAssignmentsShow" ng-click="pastAssignmentsToggle()") Hide
-.col-xs-6.col-xs-offset-4(ng-if="hasCohort")
-  h1.underline.bold.textCenter() Welcome {{activeUser.github.displayName}}!
-  h3.bold You are enrolled in:
+    img.img-rounded.img-responsive.logoTumbnail.hide-sm(src='../../media/logo-black-notag.png')
+    h3.borderMenu.bold.textCenter.left3PercPadding Menu:
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Due Assignments:
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!currentAssignmentsShow" ng-click="currentAssignmentsToggle()") SHOW
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="currentAssignmentsShow" ng-click="currentAssignmentsToggle()") HIDE
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Past Due Assignments
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-if="!pastAssignmentsShow" ng-click="pastAssignmentsToggle()") SHOW
+    button.btn.btn-xs.btn-warning.oneHundredMaxWidth.left40PercMargin(ng-if="pastAssignmentsShow" ng-click="pastAssignmentsToggle()") HIDE
+  .row.top10pxMargin.left4PercMargin.margin800pxQuerie
+    h5.bold.left20PercMargin Account Overview
+    button.btn.btn-xs.btn-info.oneHundredMaxWidth.left40PercMargin(ng-click="viewProfile()") GO &nbsp
+      i.fa.fa-long-arrow-right.bold
+.col-sm-5.col-xs-11(ng-if="hasCohort")
+  h2#dashboardWelcome.underline.bold.textCenter.marginThirtyFivePx.font800pxQuerie() Welcome {{activeUser.github.displayName}}!
+.col-sm-3.col-xs-11.col-xs-offset-1(ng-if="hasCohort")
+  h4.bold.marginThirtyFivePx You are enrolled in:
     ul.left4PercMargin
       li: h4(ng-repeat='cohort in activeUser.cohortsObj') {{cohort.cohortName}} Cohort
-.col-xs-7.col-xs-offset-4(ng-if="currentAssignmentsShow")
-  h2.bold(ng-if="hasCohort") Current Assignments:
+.col-sm-7.col-sm-offset-1.col-xs-11.col-xs-offset-1.smallTable(ng-if="currentAssignmentsShow")
+  h2.bold.marginThirtyFivePx.font800pxQuerie(ng-if="hasCohort") Due Assignments:
+.col-sm-7.col-sm-offset-1.col-xs-11.smallTable(ng-if="currentAssignmentsShow")
   table.table-bordered.table-hover(ng-if="hasCohort")
     tr
       th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name
@@ -39,8 +45,8 @@ h1.textCenter(ng-hide="hasCohort") Content Repo
       td.paddingFivePx.textCenter(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
       td.paddingFivePx.textCenter(ng-if="adminUser"): i.glyphicon.glyphicon-edit.colorOrange(ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal')
       td.paddingFivePx.textCenter(ng-if="adminUser"): i.fa.fa-trash.left3PercPadding.colorRed(ng-click="deleteAssignmentConfirm()")
-.col-xs-7.col-xs-offset-4(ng-if="pastAssignmentsShow")
-  h2.bold Past Due Assignments:
+.col-sm-7.col-sm-offset-1.col-xs-6.smallTable(ng-if="pastAssignmentsShow")
+  h2.bold.font800pxQuerie Past Due Assignments:
   table.table-bordered.table-hover(ng-if="hasCohort")
     tr
       th.paddingFivePx.cursor(ng-click="predicate='projectName'; reverse=!reverse") Name

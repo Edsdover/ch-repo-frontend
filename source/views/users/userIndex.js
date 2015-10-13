@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chRepo')
-.controller('AdminCtrl', function(User, $scope, $state, Cohort, sweet){
+.controller('UserCtrl', function(User, $scope, $state, Cohort, sweet){
 
   $scope.cohortStudentIds = [];
   $scope.cohortStudents = [];
@@ -72,6 +72,12 @@ angular.module('chRepo')
       $scope.modalCohortStudents = modalCohortStudents;
     });
   };
+  $scope.editUserModal = function(){
+    $scope.user = this.$parent.student;
+  };
+  $scope.editAdminModal = function(){
+    $scope.user = this.$parent.admin;
+  };
   $scope.updateCohort = function(obj){
     obj.cohortStudentIds = $scope.cohortStudentIds;
     Cohort.update(obj)
@@ -83,13 +89,7 @@ angular.module('chRepo')
       console.log(error);
     });
   };
-  $scope.editUserModal = function(){
-    console.log(this.$parent.student);
-    $scope.user = this.$parent.student;
-  };
-
   $scope.updateUser = function(user){
-    console.log(this);
     User.update(user)
     .success(function(data){
       sweet.show('Check', 'User is updated!', 'success');
@@ -167,11 +167,11 @@ angular.module('chRepo')
   }
   $scope.showUser = function(){
     var studentId = this.student._id;
-    $state.go('admins.show', {studentId : this.student._id});
+    $state.go('users.show', {studentId : this.student._id});
   };
   $scope.showAdmin = function(){
     var studentId = this.admin._id;
-    $state.go('admins.show', {studentId : this.admin._id});
+    $state.go('users.show', {studentId : this.admin._id});
   };
   $('.modal').on('hide.bs.modal', function(){ // jshint ignore:line
     $scope.$apply(function () {

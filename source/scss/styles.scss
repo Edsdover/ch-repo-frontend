@@ -1,14 +1,32 @@
+@media (max-width: 767px) {
+  .hide-sm {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .font800pxQuerie {
+    font-size: 1.8em;
+  }
+}
 .left4PercMargin{
   margin-left: 4%;
 }
-.left10PercMargin{
+.left20PercMargin{
+  @media (max-width: 767px) {
+    margin: 0px !important;
+    padding: 0px !important;
+  }
   margin-left: 10%;
 }
-.left45PercMargin{
+.left40PercMargin{
+  @media (max-width: 767px) {
+    margin: 0px !important;
+  }
   margin-left: 40%;
 }
-.right10pxMargin{
-  margin-right: 10px;
+.marginThirtyFivePx{
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 .top25pxMargin{
   margin-top: 25px;
@@ -21,6 +39,9 @@
 }
 .bottom40pxMargin{
   margin-bottom: 40px;
+}
+.right10pxMargin{
+  margin-right: 10px;
 }
 .paddingFivePx{
   padding: 5px;
@@ -61,17 +82,10 @@
 .tenPercWidth{
   min-width: 10%;
 }
-.borderRight{
-  border-right: 1px dashed black;
+.borderLeft{
+  border-left: 1px dashed black;
   height: 100vh;
   position: fixed;
-}
-.borderBottom{
-  border-bottom: 3px solid black;
-  border-top: 3px solid black;
-  position: relative;
-  width: 105%;
-  margin-left: -15px;
 }
 .boxShadow{
   box-shadow: -3px 3px 5px black;
@@ -79,6 +93,9 @@
 .responsiveElements{
   width: 100%;
   border-collapse: collapse;
+  @media (max-width: 800px) {
+    width: 60%;
+  }
 }
 .fontSmall{
   font-size: 12px;
@@ -92,17 +109,25 @@
 .colorOrange{
   color: orange;
 }
+.colorBlue{
+  color: blue;
+}
 .box{
   border: 1px solid rgba(0, 0, 0, 0.19);
   padding: 10px;
 }
-.logoTumbnail{
-  height: 125px;
+.navbar{
+  margin-bottom: 0px !important;
 }
 table{
   @extend .paddingFivePx;
   @extend .responsiveElements;
   background-color: rgba(196, 206, 232, 0.19);
+}
+@media (max-width: 767px) {
+  .smallTable {
+    padding-left: 0px !important;
+  }
 }
 iframe{
   @extend .responsiveElements;
@@ -115,7 +140,21 @@ button{
 body{
   background-color: rgba(232, 232, 232, 0.38);
 }
-
+.borderMenu{
+  border-bottom: 3px solid black;
+  border-top: 3px solid black;
+  position: relative;
+  padding-right: 200%;
+  margin-top: 0px;
+}
+.logoTumbnail{
+  height: 125px;
+  @extend .marginThirtyFivePx;
+  margin-bottom: 30px;
+}
 .profileImage img {
   height: 300px;
+}
+#dashboardWelcome{
+  padding-right: 10%;
 }
