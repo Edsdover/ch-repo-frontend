@@ -50,6 +50,12 @@ angular.module('chRepo')
     // submission.htmlPoints = $scope.viewAssignment.htmlPoints;
     // submission.javascriptPoints = $scope.viewAssignment.javascriptPoints;
     // submission.readabilityPoints = $scope.viewAssignment.readabilityPoints;
+    if($scope.viewAssignment.projectName) {
+      submission.assignmentName = $scope.viewAssignment.projectName;
+    }
+    else {
+      submission.assignmentName = $scope.viewAssignment.introName;
+    }
     submission.isSubmitted = true;
     SubmittedContent.create(submission)
     .success(function(data){

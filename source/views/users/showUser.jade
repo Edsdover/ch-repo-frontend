@@ -20,7 +20,7 @@
           th(ng-if="adminUser") Delete
         tr(ng-repeat='submission in submissions | orderBy:predicate:reverse' ng-click='editCohortModal();' ng-if="adminUser" type='button' data-toggle='modal' data-target='#editCohortModal')
           td {{submission.userName}}
-          td {{submission.assignmentId}}
+          td {{submission.assignmentName}}
           td.hide-sm {{submission.createdAt | date:'MMM-dd-yyyy'}}
           td
           td(ng-click='deleteCohort(); $event.stopPropagation();' ng-if="adminUser"): i.fa.fa-trash.fa-fw.colorRed
