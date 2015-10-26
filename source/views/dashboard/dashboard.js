@@ -57,19 +57,14 @@ angular.module('chRepo')
             $scope.pastAssignments = pastAssignments;
             $scope.currentAssignments = currentAssignments;
             $scope.pastAssignments = pastAssignments;
-            // $scope.isSubmitted = function() {
               $scope.currentAssignments.forEach(function(e) {
-                // console.log(e);
                 if($scope.activeUser.mongoId.submittedAssignments.indexOf(e._id) > -1) {
-                  // console.log(e._id);
-                  e.pic = "yes";
+                  e.pic = "http://findicons.com/files/icons/2597/the_clean_desk/40/green_check.png";
                 }
                 else {
-                  // console.log(e._id);
-                  e.pic = "no";
+                  e.pic = "https://upload.wikimedia.org/wikipedia/commons/d/da/Crystal_button_cancel.png";
                 }
               });
-            // };
           }
           if($scope.adminUser === false){
             assignments.forEach(function(assignment){
@@ -82,16 +77,14 @@ angular.module('chRepo')
             });
             $scope.currentAssignments = currentAssignments;
             $scope.pastAssignments = pastAssignments;
-            // $scope.isSubmitted = function() {
               $scope.currentAssignments.forEach(function(e) {
                 if($scope.activeUser.mongoId.submittedAssignments.indexOf(e._id) > -1) {
-                  e.pic="yes";
+                  e.pic="http://findicons.com/files/icons/2597/the_clean_desk/40/green_check.png";
                 }
                 else {
-                  e.pic="no";
+                  e.pic="https://upload.wikimedia.org/wikipedia/commons/d/da/Crystal_button_cancel.png";
                 }
               });
-            // };
           }
         });
       });
