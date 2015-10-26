@@ -57,16 +57,19 @@ angular.module('chRepo')
             $scope.pastAssignments = pastAssignments;
             $scope.currentAssignments = currentAssignments;
             $scope.pastAssignments = pastAssignments;
-            $scope.isSubmitted = function() {
+            // $scope.isSubmitted = function() {
               $scope.currentAssignments.forEach(function(e) {
+                // console.log(e);
                 if($scope.activeUser.mongoId.submittedAssignments.indexOf(e._id) > -1) {
-                  return true;
+                  // console.log(e._id);
+                  e.pic = "yes";
                 }
                 else {
-                  return false;
+                  // console.log(e._id);
+                  e.pic = "no";
                 }
               });
-            };
+            // };
           }
           if($scope.adminUser === false){
             assignments.forEach(function(assignment){
@@ -79,16 +82,16 @@ angular.module('chRepo')
             });
             $scope.currentAssignments = currentAssignments;
             $scope.pastAssignments = pastAssignments;
-            $scope.isSubmitted = function() {
+            // $scope.isSubmitted = function() {
               $scope.currentAssignments.forEach(function(e) {
                 if($scope.activeUser.mongoId.submittedAssignments.indexOf(e._id) > -1) {
-                  return true;
+                  e.pic="yes";
                 }
                 else {
-                  return false;
+                  e.pic="no";
                 }
               });
-            };
+            // };
           }
         });
       });
