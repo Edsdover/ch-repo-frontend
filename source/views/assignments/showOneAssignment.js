@@ -30,6 +30,7 @@ angular.module('chRepo')
   }
   $scope.markAsSubmitted = function(obj) {
     var submission = {};
+    var submittingUser = $scope.activeUser;
     Cohort.findAll()
     .success(function(cohorts){
       $scope.cohorts = cohorts;
@@ -42,7 +43,9 @@ angular.module('chRepo')
         }
       });
     });
+
     submission.userName = $scope.activeUser.mongoId.username;
+    console.log($scope.activeUser.mongoId.id);
     submission.userId = $scope.activeUser.mongoId.id;
     submission.submittedInput = this.submittedcontent.url;
     submission.assignmentId = $state.params.assignmentId;
@@ -50,7 +53,14 @@ angular.module('chRepo')
     // submission.htmlPoints = $scope.viewAssignment.htmlPoints;
     // submission.javascriptPoints = $scope.viewAssignment.javascriptPoints;
     // submission.readabilityPoints = $scope.viewAssignment.readabilityPoints;
+    if($scope.viewAssignment.projectName) {
+      submission.assignmentName = $scope.viewAssignment.projectName;
+    }
+    else {
+      submission.assignmentName = $scope.viewAssignment.introName;
+    }
     submission.isSubmitted = true;
+
     SubmittedContent.create(submission)
     .success(function(data){
       console.log(submission);
@@ -59,6 +69,21 @@ angular.module('chRepo')
     })
     .error(function(error){
       console.log(error);
+    });
+
+
+    User.findById($scope.activeUser.mongoId._id)
+    .then(function(response){
+      var user = response.data[0];
+      console.log(user);
+      user.submittedAssignments.push($state.params.assignmentId);
+      User.update(user)
+      .success(function(data){
+        console.log(data);
+      })
+      .error(function(error){
+        console.log(error);
+      });
     });
   };
   $scope.editModal = function(){

@@ -33,7 +33,7 @@ h1.textCenter(ng-hide='activeUser') Content Repo
       th(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
       th(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
       th.hide-sm(ng-click="predicate='createdAt'; reverse=!reverse") Created
-      th(ng-click="predicate='status'; reverse=!reverse") Status
+      th(ng-click="predicate='status'; reverse=!reverse") Submitted?
       th(ng-hide="adminUser") Submit
       th(ng-if="adminUser") Edit
       th(ng-if="adminUser") Delete
@@ -42,7 +42,8 @@ h1.textCenter(ng-hide='activeUser') Content Repo
       td(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.cohortName}}
       td.hide-sm(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.dueDate | date:'MMM &nbsp; d'}}
       td(ng-click='viewOneAssignment(currentAssignment._id)') {{currentAssignment.createdAt | date:'MMM d, y'}} &nbsp;
-      td(ng-click='viewOneAssignment(currentAssignment._id)')
+      td(ng-click='viewOneAssignment(pastAssignment._id)') 
+        img(ng-src="{{currentAssignment.pic}}")
       td(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
       td(ng-if="adminUser" ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal'): i.fa.fa-pencil-square-o.fa-fw.colorOrange
       td(ng-if="adminUser" ng-click="deleteAssignmentConfirm()"): i.fa.fa-trash.fa-fw.left3PercPadding.colorRed
@@ -54,7 +55,7 @@ h1.textCenter(ng-hide='activeUser') Content Repo
       th(ng-click="predicate='cohortName'; reverse=!reverse") Assigned Cohort
       th(ng-click="predicate='dueDate'; reverse=!reverse") Due Date
       th.hide-sm(ng-click="predicate='createdAt'; reverse=!reverse") Created
-      th(ng-click="predicate='status'; reverse=!reverse") Status
+      th(ng-click="predicate='status'; reverse=!reverse") Submitted?
       th(ng-hide="adminUser") Submit
       th(ng-if="adminUser") Edit
       th(ng-if="adminUser") Delete
@@ -63,7 +64,8 @@ h1.textCenter(ng-hide='activeUser') Content Repo
       td(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.cohortName}}
       td(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.dueDate | date:'MMM d, y'}}
       td.hide-sm(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.createdAt | date:'MMM d, y'}} &nbsp;
-      td(ng-click='viewOneAssignment(pastAssignment._id)')
+      td(ng-click='viewOneAssignment(pastAssignment._id)') {{pastAssignment.pic}}
+        img(ng-src="{{currentAssignment.pic}}")
       td(ng-hide="adminUser"): button.btn.btn-xs.btn-info(ng-click="submitAssignment()" ng-hide="adminUser") Submit
       td(ng-if="adminUser" ng-click='editModal()' type='button' data-toggle='modal' data-target='#assignModal'): i.fa.fa-pencil-square-o.fa-fw.colorOrange
       td(ng-if="adminUser" ng-click="deleteAssignmentConfirm()" active=('{{adminUser}}')): i.fa.fa-trash.fa-fw.left3PercPadding.colorRed

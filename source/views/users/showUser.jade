@@ -9,6 +9,21 @@
     .col-sm-1
       button.btn.btn-warning.btn-sm(ng-if="adminUser" type='button' data-toggle='modal' data-target='#editUserModal') Edit &nbsp
         i.fa.fa-pencil-square-o.fa-fw
+  .row
+    .col-sm-12
+      table.table-bordered.table-hover.top25pxMargin(ng-show="user.adminUser")
+        tr
+          th(ng-click="predicate='cohortName'; reverse=!reverse") User
+          th(ng-click="predicate='studentNumber'; reverse=!reverse") Assignment
+          th.hide-sm(ng-click="predicate='createdAt'; reverse=!reverse") Created
+          th Grade
+          th(ng-if="adminUser") Delete
+        tr(ng-repeat='submission in submissions | orderBy:predicate:reverse' ng-click='editCohortModal();' ng-if="adminUser" type='button' data-toggle='modal' data-target='#editCohortModal')
+          td {{submission.userName}}
+          td {{submission.assignmentName}}
+          td.hide-sm {{submission.createdAt | date:'MMM-dd-yyyy'}}
+          td
+          td(ng-click='deleteCohort(); $event.stopPropagation();' ng-if="adminUser"): i.fa.fa-trash.fa-fw.colorRed
 #editUserModal.modal.fade(role='dialog')
   .modal-dialog
     .modal-content

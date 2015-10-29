@@ -18,6 +18,9 @@ angular.module('chRepo')
   SubmittedContent.delete = function(submittedcontent){
     return $http.delete(apiUrl + '/submittedcontent/' + submittedcontent);
   };
+  SubmittedContent.findAll = function(){
+    return $http.get(apiUrl + '/submittedcontent');
+  };
   SubmittedContent.index = function(){
     return $http.get(apiUrl + '/submittedcontent');
   };
